@@ -17,7 +17,7 @@ public class Monster extends Creature
 		location = l;
 		monsterDamage = md;
 		}
-	@Override
+	//@Override
 	public void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel)
 		{
 		//takes in the hero health and the monster damage returns damage done

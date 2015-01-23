@@ -27,15 +27,15 @@ public class EngineRunner
 		Monster.monsters.add(new Monster("Tharg", 10, false, "Arena", 3));
 		
 		JFrame frame = new JFrame();
-		Object[] testTwo = {"OK"};
-		JOptionPane.showOptionDialog(frame, "Start game.",
-				"Test",
-				JOptionPane.YES_NO_CANCEL_OPTION,
-				JOptionPane.QUESTION_MESSAGE,
-				null, testTwo, testTwo[0]);
+		JOptionPane.showMessageDialog(frame, "Start game?",
+			"CHARACTER CREATION",
+			JOptionPane.QUESTION_MESSAGE);
 		
-		Hero player = new Hero("Player", 20, 0, 0, 0, 0, 0, 0, "Alpha Tester");
-		
+		Hero.heroes.add(new Hero("Player", 20, 20, 1, 2, 2, 2, 2, "Alpha Tester"));
+
+		SetUp.createHero();
 		Hero.chooseAttack();
+		Hero.openLoot();
+		Hero.levelUp(Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
 		}
 	}

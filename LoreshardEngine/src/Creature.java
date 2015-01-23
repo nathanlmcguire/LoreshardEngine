@@ -24,7 +24,7 @@ public abstract class Creature
 		this.name = name;
 		}
 	
-	public abstract void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel);
+	//public abstract void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel);
 	
 	public abstract void defend();
 	

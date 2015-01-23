@@ -13,6 +13,7 @@ public class Hero extends Creature
 	private int strengthLevel;
 	private int speechLevel;
 	private String characterClass;
+	static ArrayList <Hero> heroes = new ArrayList<Hero>();
 	
 	static ArrayList <Hero> inventory = new ArrayList<Hero>();
 	
@@ -45,25 +46,21 @@ public class Hero extends Creature
 			{
 			case 0:
 				{
-				System.out.println("Melee");
-				//attack(10, 3, 3, 20, 2);
+				attack(10, 3, 3, Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getStrengthLevel());
 				break;
 				}
 			case 1:
 				{
-				System.out.println("Magic");
 				break;
 				}
 			case 2:
 				{
-				System.out.println("Scroll");
 				break;
 				}
 			}
 		}
 
-	@Override
-	public void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel)
+	public static int attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel)
 		{			
 		JFrame frame = new JFrame();
 		int meleeChoice;
@@ -77,7 +74,12 @@ public class Hero extends Creature
 			{
 			case 0:
 				{
-				
+				JOptionPane.showMessageDialog(frame, "You do " + damage + strengthLevel + " damage to the monster!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE);				
+				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE);		
 				break;
 				}
 			case 1:
@@ -91,20 +93,25 @@ public class Hero extends Creature
 				break;
 				}
 			}
+		return hitPoints;
 		}
 	
-	@Override
 	public void defend()
 		{
 		//nothing yet
 		}
 	
-	public void loot()
+	public static void openLoot()
 		{
-		//randomly adds a piece of loot to the inventory
+		JFrame frame = new JFrame();
+		int lootNumber = (int) (Math.random() * Item.items.size());
+		JOptionPane.showMessageDialog(frame, "You found: " + Item.items.get(lootNumber).getItemName() + "!",
+				"LOOTING",
+				JOptionPane.QUESTION_MESSAGE);
+		//add to inventory
 		}
 	
-	public void levelUp(int overAllLevel)
+	public static void levelUp(int heroHP, int adrenaline, int overAllLevel, int magicLevel, int agilityLevel, int strengthLevel, int speechLevel)
 		{
 		JFrame frame = new JFrame();
 		int levelUpChoice;
@@ -115,30 +122,156 @@ public class Hero extends Creature
 				JOptionPane.QUESTION_MESSAGE,
 				null, level, level[1]);
 		overAllLevel++;
+		heroHP = heroHP + (10 * strengthLevel);
 		switch(levelUpChoice)
 			{
 			case 0:
 				{
-				
+				magicLevel++;
+				JOptionPane.showMessageDialog(frame, "You have leveled up in Magic!",
+						"LEVEL UP",
+						JOptionPane.QUESTION_MESSAGE);
 				break;
 				}
 			case 1:
 				{
+				agilityLevel++;
+				JOptionPane.showMessageDialog(frame, "You have leveled up in Agility!",
+						"LEVEL UP",
+						JOptionPane.QUESTION_MESSAGE);
 				break;
 				}
 			case 2:
 				{
+				strengthLevel++;
+				JOptionPane.showMessageDialog(frame, "You have leveled up in Strength!",
+						"LEVEL UP",
+						JOptionPane.QUESTION_MESSAGE);
 				break;
 				}
 			case 3:
 				{
+				speechLevel++;
+				JOptionPane.showMessageDialog(frame, "You have leveled up in Charisma!",
+						"LEVEL UP",
+						JOptionPane.QUESTION_MESSAGE);
 				break;
 				}
 			}
 		}
+	
 	//also add:
 	//buy/sell method
 	//potion craft method
 	//enhance attack method
+
+
+	public int getHeroHP()
+		{
+		return heroHP;
+		}
+
+
+	public void setHeroHP(int heroHP)
+		{
+		this.heroHP = heroHP;
+		}
+
+
+	public int getAdrenaline()
+		{
+		return adrenaline;
+		}
+
+
+	public void setAdrenaline(int adrenaline)
+		{
+		this.adrenaline = adrenaline;
+		}
+
+
+	public int getOverAllLevel()
+		{
+		return overAllLevel;
+		}
+
+
+	public void setOverAllLevel(int overAllLevel)
+		{
+		this.overAllLevel = overAllLevel;
+		}
+
+
+	public int getMagicLevel()
+		{
+		return magicLevel;
+		}
+
+
+	public void setMagicLevel(int magicLevel)
+		{
+		this.magicLevel = magicLevel;
+		}
+
+
+	public int getAgilityLevel()
+		{
+		return agilityLevel;
+		}
+
+
+	public void setAgilityLevel(int agilityLevel)
+		{
+		this.agilityLevel = agilityLevel;
+		}
+
+
+	public int getStrengthLevel()
+		{
+		return strengthLevel;
+		}
+
+
+	public void setStrengthLevel(int strengthLevel)
+		{
+		this.strengthLevel = strengthLevel;
+		}
+
+
+	public int getSpeechLevel()
+		{
+		return speechLevel;
+		}
+
+
+	public void setSpeechLevel(int speechLevel)
+		{
+		this.speechLevel = speechLevel;
+		}
+
+
+	public String getCharacterClass()
+		{
+		return characterClass;
+		}
+
+
+	public void setCharacterClass(String characterClass)
+		{
+		this.characterClass = characterClass;
+		}
+
+
+	public static ArrayList<Hero> getInventory()
+		{
+		return inventory;
+		}
+
+
+	public static void setInventory(ArrayList<Hero> inventory)
+		{
+		Hero.inventory = inventory;
+		}
+	
 	
 	}

@@ -1,7 +1,7 @@
 
 public class Character extends Creature
 	{
-	@Override
+	//@Override
 	public void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel)
 		{
 		//characters do not attack
