@@ -3,17 +3,19 @@ import java.util.ArrayList;
 
 public class Monster extends Creature
 	{
-	protected boolean boss;
-	protected String location;
+	private boolean boss;
+	private String location;
+	private int damage;
 	
-	ArrayList <Monster> monster = new ArrayList<Monster>();
+	static ArrayList <Monster> monsters = new ArrayList<Monster>();
 	
-	public Monster(int h, String n, boolean b, String l)
+	public Monster(String n, int h, boolean b, String l, int d)
 		{
 		setHitPoints(h);
 		setName(n);
 		boss = b;
 		location = l;
+		damage = d;
 		}
 	@Override
 	public void attack()

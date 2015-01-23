@@ -1,7 +1,7 @@
 
 public class Weapon extends Item
 	{
-	protected int damage;
+	private int damage;
 	
 	public int getDamage()
 		{

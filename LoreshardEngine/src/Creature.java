@@ -1,8 +1,8 @@
 
 public abstract class Creature
 	{
-	protected int hitPoints;
-	protected String name;
+	private int hitPoints;
+	private String name;
 	
 	public int getHitPoints()
 		{

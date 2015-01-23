@@ -5,16 +5,18 @@ import javax.swing.JOptionPane;
 
 public class Hero extends Creature
 	{
-	protected int adrenaline;
-	protected int overAllLevel;
-	protected int magicLevel;
-	protected int agilityLevel;
-	protected int strengthLevel;
-	protected int speechLevel;
-	protected int luckLevel;
-	protected String characterClass;
-	protected JFrame frame = new JFrame();
-	ArrayList <Hero> inventory = new ArrayList<Hero>();
+	private int adrenaline;
+	private int overAllLevel;
+	private int magicLevel;
+	private int agilityLevel;
+	private int strengthLevel;
+	private int speechLevel;
+	private int luckLevel;
+	private String characterClass;
+	
+	private JFrame frame = new JFrame();
+	
+	static ArrayList <Hero> inventory = new ArrayList<Hero>();
 	
 	
 	public Hero(String n, int h, int ad, int o, int m, int ag, int st, int sp, int l, String c)
@@ -34,12 +36,33 @@ public class Hero extends Creature
 	
 	public void chooseAttack()
 		{
-		Object[] attackType = {"Square", "Circle", "Triangle"};
-		attackChoice = JOptionPane.showOptionDialog(frame, "How would you like to attack?",
-				"Shape Choice",
+		int CombatChoice;
+		Object[] attackType = {"Melee", "Magic", "Potion", "Scroll"};
+		CombatChoice = JOptionPane.showOptionDialog(frame, "What would you like to do?",
+				"COMBAT",
 				JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.QUESTION_MESSAGE,
 				null, attackType, attackType[1]);
+		switch(CombatChoice)
+			{
+			case 1:
+				{
+				attack();
+				break;
+				}
+			case 2:
+				{
+				break;
+				}
+			case 3:
+				{
+				break;
+				}
+			case 4:
+				{
+				break;
+				}
+			}
 		}
 	
 	@Override

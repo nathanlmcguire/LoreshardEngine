@@ -2,9 +2,9 @@ import java.util.*;
 
 public abstract class Item
 	{
-	protected int value;
-	protected String itemName;
-	ArrayList <Item> items = new ArrayList<Item>();
+	private int value;
+	private String itemName;
+	static ArrayList <Item> items = new ArrayList<Item>();
 	
 	public int getValue()
 		{

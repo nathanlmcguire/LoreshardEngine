@@ -1,8 +1,8 @@
 
 public class Armor extends Item
 	{
-	protected String armorType;
-	protected int armorLevel;
+	private String armorType;
+	private int armorLevel;
 	
 	public String getArmorType()
 		{
