@@ -1,3 +1,6 @@
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 public class EngineRunner
 	{
@@ -13,5 +16,15 @@ public class EngineRunner
 		//CREATURES
 		Hero player = new Hero("Player", 20, 0, 0, 0, 0, 0, 0, 0, "Alpha Tester");
 		Monster.monsters.add(new Monster("Tharg", 10, false, "Arena", 3));
+		
+		JFrame frame = new JFrame();
+		Object[] testTwo = {"OK"};
+		JOptionPane.showOptionDialog(frame, "Start game.",
+				"Test",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null, testTwo, testTwo[0]);
+		
+		Hero.chooseAttack();
 		}
 	}
