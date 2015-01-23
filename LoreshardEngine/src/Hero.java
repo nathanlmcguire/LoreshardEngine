@@ -12,15 +12,12 @@ public class Hero extends Creature
 	private int agilityLevel;
 	private int strengthLevel;
 	private int speechLevel;
-	private int luckLevel;
 	private String characterClass;
-	
-	
 	
 	static ArrayList <Hero> inventory = new ArrayList<Hero>();
 	
 	
-	public Hero(String n, int h, int ad, int o, int m, int ag, int st, int sp, int l, String c)
+	public Hero(String n, int h, int ad, int o, int m, int ag, int st, int sp, String c)
 		{
 		setName(n);
 		heroHP = h;
@@ -30,7 +27,6 @@ public class Hero extends Creature
 		agilityLevel = ag;
 		strengthLevel = st;
 		speechLevel = sp;
-		luckLevel = l;
 		characterClass = c;
 		}
 	
@@ -47,18 +43,20 @@ public class Hero extends Creature
 				null, combatType, combatType[1]);
 		switch(CombatChoice)
 			{
+			case 0:
+				{
+				System.out.println("Melee");
+				//attack(10, 3, 3, 20, 2);
+				break;
+				}
 			case 1:
 				{
-				
-				//attack(10, 3, 3, 20, 2);
+				System.out.println("Magic");
 				break;
 				}
 			case 2:
 				{
-				break;
-				}
-			case 3:
-				{
+				System.out.println("Scroll");
 				break;
 				}
 			}
@@ -77,17 +75,17 @@ public class Hero extends Creature
 				null, attackType, attackType[1]);
 		switch(meleeChoice)
 			{
-			case 1:
+			case 0:
 				{
 				
 				break;
 				}
-			case 2:
+			case 1:
 				{
 
 				break;
 				}
-			case 3:
+			case 2:
 				{
 
 				break;
@@ -106,9 +104,37 @@ public class Hero extends Creature
 		//randomly adds a piece of loot to the inventory
 		}
 	
-	public void levelUp()
+	public void levelUp(int overAllLevel)
 		{
-		//level up and choose your skills
+		JFrame frame = new JFrame();
+		int levelUpChoice;
+		Object[] level = {"Magic", "Agility", "Strength", "Speech"};
+		levelUpChoice = JOptionPane.showOptionDialog(frame, "What would you like to level up in?",
+				"LEVEL UP: " + overAllLevel + " > " + (overAllLevel + 1) + "",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null, level, level[1]);
+		overAllLevel++;
+		switch(levelUpChoice)
+			{
+			case 0:
+				{
+				
+				break;
+				}
+			case 1:
+				{
+				break;
+				}
+			case 2:
+				{
+				break;
+				}
+			case 3:
+				{
+				break;
+				}
+			}
 		}
 	//also add:
 	//buy/sell method

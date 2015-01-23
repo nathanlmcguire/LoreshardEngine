@@ -1,7 +1,7 @@
 
-public class IronArmor extends Armor
+public class HeavyArmor extends Armor
 	{
-	public IronArmor(String in, int v, String at, int al)
+	public HeavyArmor(String in, int v, String at, int al)
 		{
 		setItemName(in);
 		setValue(v);
