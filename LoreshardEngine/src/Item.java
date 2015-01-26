@@ -4,7 +4,21 @@ public abstract class Item
 	{
 	private int value;
 	private String itemName;
+	private boolean isEquipped = false;
+	
 	static ArrayList <Item> items = new ArrayList<Item>();
+	
+	
+	
+	public boolean getIsEquipped()
+		{
+		return isEquipped;
+		}
+	
+	public void setIsEquipped(boolean isEquipped)
+		{
+		this.isEquipped = isEquipped;
+		}
 	
 	public int getValue()
 		{

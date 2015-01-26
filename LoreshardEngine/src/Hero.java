@@ -15,7 +15,7 @@ public class Hero extends Creature
 	private String characterClass;
 	static ArrayList <Hero> heroes = new ArrayList<Hero>();
 	
-	static ArrayList <Hero> inventory = new ArrayList<Hero>();
+	static ArrayList <Item> heroInventory = new ArrayList<Item>();
 	
 	
 	public Hero(String n, int h, int ad, int o, int m, int ag, int st, int sp, String c)
@@ -34,6 +34,7 @@ public class Hero extends Creature
 	
 	public static void chooseAttack()
 		{
+		int weaponNumber;
 		JFrame frame = new JFrame();
 		int CombatChoice;
 		Object[] combatType = {"Melee", "Magic", "Scroll"};
@@ -46,7 +47,14 @@ public class Hero extends Creature
 			{
 			case 0:
 				{
-				attack(10, 3, 3, Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getStrengthLevel());
+				for(int i = 0; i < Hero.heroInventory.size(); i++)
+					{
+					if(Hero.heroInventory.get(i).getItemType() == "Weapon" && Hero.heroInventory.get(i).getIsEquipped() == true)
+						{
+						int damage = Hero.heroInventory.get(i).getDamage();
+						}
+					}
+				attack(10, damage, 3, Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getStrengthLevel());
 				break;
 				}
 			case 1:
@@ -101,14 +109,15 @@ public class Hero extends Creature
 		//nothing yet
 		}
 	
-	public static void openLoot()
+	public static Item openLoot()
 		{
 		JFrame frame = new JFrame();
 		int lootNumber = (int) (Math.random() * Item.items.size());
 		JOptionPane.showMessageDialog(frame, "You found: " + Item.items.get(lootNumber).getItemName() + "!",
 				"LOOTING",
 				JOptionPane.QUESTION_MESSAGE);
-		//add to inventory
+		Item.items.get(lootNumber).setIsEquipped(true);
+		return Item.items.get(lootNumber);
 		}
 	
 	public static void levelUp(int heroHP, int adrenaline, int overAllLevel, int magicLevel, int agilityLevel, int strengthLevel, int speechLevel)
@@ -264,13 +273,13 @@ public class Hero extends Creature
 
 	public static ArrayList<Hero> getInventory()
 		{
-		return inventory;
+		return heroInventory;
 		}
 
 
 	public static void setInventory(ArrayList<Hero> inventory)
 		{
-		Hero.inventory = inventory;
+		Hero.heroInventory = inventory;
 		}
 	
 	
