@@ -37,6 +37,7 @@ public class Hero extends Creature
 		int weaponNumber;
 		JFrame frame = new JFrame();
 		int CombatChoice;
+		int damage = 1;
 		Object[] combatType = {"Melee", "Magic", "Scroll"};
 		CombatChoice = JOptionPane.showOptionDialog(frame, "What would you like to do?",
 				"COMBAT",
@@ -51,7 +52,8 @@ public class Hero extends Creature
 					{
 					if(Hero.heroInventory.get(i).getItemType() == "Weapon" && Hero.heroInventory.get(i).getIsEquipped() == true)
 						{
-						int damage = Hero.heroInventory.get(i).getDamage();
+						damage = Hero.heroInventory.get(i).getDamage();
+						damage = (int) (Math.random() * damage);
 						}
 					}
 				attack(10, damage, 3, Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getStrengthLevel());
@@ -101,7 +103,7 @@ public class Hero extends Creature
 				break;
 				}
 			}
-		return hitPoints;
+		return hitPoints ;
 		}
 	
 	public void defend()
