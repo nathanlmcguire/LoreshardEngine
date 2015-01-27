@@ -50,7 +50,7 @@ public class Hero extends Creature
 				{
 				for(int i = 0; i < Hero.heroInventory.size(); i++)
 					{
-					if(Hero.heroInventory.get(i).getItemType() == "Weapon" && Hero.heroInventory.get(i).getIsEquipped() == true)
+					if(Hero.heroInventory.get(i).getItemType().equals("Weapon") && Hero.heroInventory.get(i).getIsEquipped() == true)
 						{
 						damage = Hero.heroInventory.get(i).getDamage();
 						damage = (int) (Math.random() * damage);
@@ -61,10 +61,12 @@ public class Hero extends Creature
 				}
 			case 1:
 				{
+				
 				break;
 				}
 			case 2:
 				{
+				
 				break;
 				}
 			}

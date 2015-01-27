@@ -5,6 +5,7 @@ public abstract class Item
 	private int value;
 	private String itemName;
 	private boolean isEquipped = false;
+
 	
 	static ArrayList <Item> items = new ArrayList<Item>();
 	
