@@ -34,8 +34,10 @@ public class Runner
 		
 
 		SetUp.createHero();
-		Hero.chooseAttack();
-		Hero.heroInventory.add(Hero.openLoot());
-		Hero.levelUp(Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
+		while(true)
+			{
+			Hero.chooseAttack();
+			}
+		
 		}
 	}

@@ -4,17 +4,9 @@ public class Armor extends Item
 	private String armorType;
 	private int armorLevel;
 	private String itemType = "Armor";
-	
-	public String getItemType()
-		{
-		return itemType;
-		}
-	
-	public void setItemType(String itemType)
-		{
-		this.itemType = itemType;
-		}
 
+
+	
 	public String getArmorType()
 		{
 		return armorType;

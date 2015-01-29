@@ -34,7 +34,7 @@ public class Hero extends Creature
 	
 	public static void chooseAttack()
 		{
-		int weaponNumber;
+		int weaponNumber, monsterNum = Monster.randomize();
 		JFrame frame = new JFrame();
 		int CombatChoice;
 		int damage = 1;
@@ -48,15 +48,24 @@ public class Hero extends Creature
 			{
 			case 0:
 				{
+				
 				for(int i = 0; i < Hero.heroInventory.size(); i++)
 					{
-					if(Hero.heroInventory.get(i).getItemType().equals("Weapon") && Hero.heroInventory.get(i).getIsEquipped() == true)
+					System.out.println(Hero.heroInventory.get(i).getItemType() + " hi");
+					if(Hero.heroInventory.size() > 0)
 						{
-						damage = Hero.heroInventory.get(i).getDamage();
-						damage = (int) (Math.random() * damage);
+						if(Hero.heroInventory.get(i).getItemType().equals("Weapon") && Hero.heroInventory.get(i).getIsEquipped() == true)
+							{
+							damage = Hero.heroInventory.get(i).getDamage();
+							
+							}
+						}
+					else
+						{
+						damage = 2;
 						}
 					}
-				attack(10, damage, 3, Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getStrengthLevel());
+				attack(Monster.monsters.get(monsterNum).getHitPoints(), Monster.monsters.get(monsterNum).getMonsterDamage(), 3, Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getStrengthLevel());
 				break;
 				}
 			case 1:
@@ -76,6 +85,7 @@ public class Hero extends Creature
 		{			
 		JFrame frame = new JFrame();
 		int meleeChoice;
+		damage = (int) (Math.random() * damage) + strengthLevel;
 		Object[] attackType = {"High", "Medium", "Low"};
 		meleeChoice = JOptionPane.showOptionDialog(frame, "Where would you like to strike?",
 				"MELEE",
@@ -86,9 +96,11 @@ public class Hero extends Creature
 			{
 			case 0:
 				{
-				JOptionPane.showMessageDialog(frame, "You do " + damage + strengthLevel + " damage to the monster!",
+				damage = damage + (strengthLevel * 2);
+				JOptionPane.showMessageDialog(frame, "You attack high and do " + damage + " damage to the monster!",
 						"COMBAT",
-						JOptionPane.QUESTION_MESSAGE);				
+						JOptionPane.QUESTION_MESSAGE);	
+				hitPoints = hitPoints - damage;
 				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
 						"COMBAT",
 						JOptionPane.QUESTION_MESSAGE);		
@@ -96,16 +108,38 @@ public class Hero extends Creature
 				}
 			case 1:
 				{
-
+				damage = damage + strengthLevel;
+				JOptionPane.showMessageDialog(frame, "You attack mid and do " + damage + " damage to the monster!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE);	
+				hitPoints = hitPoints - damage;
+				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE);	
 				break;
 				}
 			case 2:
 				{
-
+				JOptionPane.showMessageDialog(frame, "You attack low and do " + damage + " damage to the monster!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE);			
+				hitPoints = hitPoints - damage;
+				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE);	
 				break;
 				}
 			}
-		return hitPoints ;
+		Monster.monsters.get(0).setHitPoints(hitPoints);
+		if(hitPoints <= 0)
+			{
+			JOptionPane.showMessageDialog(frame, "You have defeated the monster!",
+					"COMBAT",
+					JOptionPane.QUESTION_MESSAGE);	
+			Hero.heroInventory.add(Hero.openLoot());
+			Hero.levelUp(Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
+			}
+		return hitPoints;
 		}
 	
 	public void defend()
@@ -275,13 +309,13 @@ public class Hero extends Creature
 		}
 
 
-	public static ArrayList<Hero> getInventory()
+	public static ArrayList<Item> getInventory()
 		{
 		return heroInventory;
 		}
 
 
-	public static void setInventory(ArrayList<Hero> inventory)
+	public static void setInventory(ArrayList<Item> inventory)
 		{
 		Hero.heroInventory = inventory;
 		}

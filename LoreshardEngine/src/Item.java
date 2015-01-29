@@ -5,11 +5,24 @@ public abstract class Item
 	private int value;
 	private String itemName;
 	private boolean isEquipped = false;
-
+	private String itemType;
 	
 	static ArrayList <Item> items = new ArrayList<Item>();
 	
+	public int getDamage()
+		{
+		return 0;
+		}
 	
+	public String getItemType()
+		{
+		return itemType;
+		}
+	
+	public void setItemType(String itemType)
+		{
+		this.itemType = itemType;
+		}
 	
 	public boolean getIsEquipped()
 		{
