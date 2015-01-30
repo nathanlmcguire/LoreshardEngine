@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 public class Monster extends Creature
 	{
@@ -8,6 +11,40 @@ public class Monster extends Creature
 	private int monsterDamage;
 	
 	static ArrayList <Monster> monsters = new ArrayList<Monster>();
+	
+	public Monster(String n, int h, boolean b, String l, int md)
+		{
+		setHitPoints(h);
+		setName(n);
+		boss = b;
+		location = l;
+		monsterDamage = md;
+		}
+	
+	public static int randomize()
+		{
+		JFrame frame = new JFrame();
+		int monsterNumber = (int) (Math.random() * monsters.size());
+		JOptionPane.showMessageDialog(frame, "A monster enters the arena.",
+				"COMBAT",
+				JOptionPane.QUESTION_MESSAGE);
+		JOptionPane.showMessageDialog(frame, "It is a " + Monster.monsters.get(monsterNumber).getName() + "!",
+				"COMBAT",
+				JOptionPane.QUESTION_MESSAGE);
+		return monsterNumber;
+		}
+	
+	//@Override
+	public void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel)
+		{
+		//takes in the hero health and the monster damage returns damage done
+		}
+	
+	@Override
+	public void defend()
+		{
+		//nothing yet
+		}
 	
 	public boolean isBoss()
 		{
@@ -49,30 +86,5 @@ public class Monster extends Creature
 		Monster.monsters = monsters;
 		}
 
-	public Monster(String n, int h, boolean b, String l, int md)
-		{
-		setHitPoints(h);
-		setName(n);
-		boss = b;
-		location = l;
-		monsterDamage = md;
-		}
 	
-	public static int randomize()
-		{
-		int monsterNumber = (int) (Math.random() * monsters.size());
-		return monsterNumber;
-		}
-	
-	//@Override
-	public void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel)
-		{
-		//takes in the hero health and the monster damage returns damage done
-		}
-	
-	@Override
-	public void defend()
-		{
-		//nothing yet
-		}
 	}

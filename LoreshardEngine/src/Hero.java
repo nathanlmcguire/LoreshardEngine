@@ -14,7 +14,6 @@ public class Hero extends Creature
 	private int speechLevel;
 	private String characterClass;
 	static ArrayList <Hero> heroes = new ArrayList<Hero>();
-	
 	static ArrayList <Item> heroInventory = new ArrayList<Item>();
 	
 	
@@ -32,12 +31,13 @@ public class Hero extends Creature
 		}
 	
 	
-	public static void chooseAttack()
+	public static void chooseAttack(int monsterNum)
 		{
-		int weaponNumber, monsterNum = Monster.randomize();
+		int weaponNumber;
 		JFrame frame = new JFrame();
 		int CombatChoice;
 		int damage = 1;
+		
 		Object[] combatType = {"Melee", "Magic", "Scroll"};
 		CombatChoice = JOptionPane.showOptionDialog(frame, "What would you like to do?",
 				"COMBAT",
@@ -66,11 +66,12 @@ public class Hero extends Creature
 						}
 					}
 				attack(Monster.monsters.get(monsterNum).getHitPoints(), Monster.monsters.get(monsterNum).getMonsterDamage(), 3, Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getStrengthLevel());
+				Monster.monsters.get(monsterNum).setHitPoints(10);
 				break;
 				}
 			case 1:
 				{
-				
+				castMagic(Monster.monsters.get(monsterNum).getHitPoints(), Hero.heroes.get(0).getMagicLevel());
 				break;
 				}
 			case 2:
@@ -81,7 +82,7 @@ public class Hero extends Creature
 			}
 		}
 
-	public static int attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel)
+	public static void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel)
 		{			
 		JFrame frame = new JFrame();
 		int meleeChoice;
@@ -139,7 +140,45 @@ public class Hero extends Creature
 			Hero.heroInventory.add(Hero.openLoot());
 			Hero.levelUp(Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
 			}
-		return hitPoints;
+		}
+	
+	public static void castMagic(int hitPoints, int magicLev)
+		{
+		JFrame frame = new JFrame();
+		Object[] magicType = {"Fire", "Water", "Earth", "Air"};
+		int magicChoice = JOptionPane.showOptionDialog(frame, "What element would you like to cast?",
+				"COMBAT",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null, magicType, magicType[1]);
+		
+		switch(magicChoice)
+			{
+			case 0:
+				{
+				JOptionPane.showMessageDialog(frame, "You blast fire at the creature!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE);
+				}
+			case 1:
+				{
+				JOptionPane.showMessageDialog(frame, "You heal yourself!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE);
+				}
+			case 2:
+				{
+				JOptionPane.showMessageDialog(frame, "You turn your skin to stone!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE);
+				}
+			case 3:
+				{
+				JOptionPane.showMessageDialog(frame, "You teleport past the monster!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE);
+				}
+			}
 		}
 	
 	public void defend()
