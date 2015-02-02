@@ -35,9 +35,25 @@ public class Monster extends Creature
 		}
 	
 	//@Override
-	public void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel)
+	public static void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel, int monsterNum)
 		{
-		//takes in the hero health and the monster damage returns damage done
+		JFrame frame = new JFrame();
+		damage = (int) (Math.random() * damage) + 1;
+		heroHP = heroHP - damage;
+		Hero.heroes.get(0).setHeroHP(heroHP);
+		JOptionPane.showMessageDialog(frame, "The monster attacks and does " + damage + " damage!",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE);
+		if(Hero.heroes.get(0).getHeroHP() <= 0)
+			{
+			JOptionPane.showMessageDialog(frame, "You have been slain!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "GAME OVER",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE);
+			System.exit(0);
+			}
 		}
 	
 	@Override
