@@ -23,21 +23,20 @@ public class SetUp
 			case 0:
 				{
 				Hero.heroes.add(new Hero(chosenName, 20, 0, 1, 0, 1, 2, 1, "Fighter"));
-				
 				break;
 				}
 			case 1:
 				{
 				Hero.heroes.add(new Hero(chosenName, 20, 0, 1, 2, 1, 0, 1, "Mage"));
-				
 				break;
 				}
 			case 2:
 				{
 				Hero.heroes.add(new Hero(chosenName, 20, 0, 1, 0, 2, 1, 1, "Rogue"));
-				
 				break;
 				}
 			}
+		Hero.heroInventory.add(new Sword("Fists", 0, 1, true));
+		Hero.heroInventory.add(new LightArmor("Rags", 0, "Light", 0, true));
 		}
 	}

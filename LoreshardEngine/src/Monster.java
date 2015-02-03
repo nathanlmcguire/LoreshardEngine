@@ -39,7 +39,11 @@ public class Monster extends Creature
 		{
 		JFrame frame = new JFrame();
 		damage = (int) (Math.random() * damage) + 1;
-		heroHP = heroHP - damage;
+		if(Hero.heroInventory.get(1) instanceof Armor)
+			{
+			Armor armor = (Armor) Hero.heroInventory.get(1);
+			heroHP = heroHP - (damage - armor.getArmorLevel());
+			}
 		Hero.heroes.get(0).setHeroHP(heroHP);
 		JOptionPane.showMessageDialog(frame, "The monster attacks and does " + damage + " damage!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
