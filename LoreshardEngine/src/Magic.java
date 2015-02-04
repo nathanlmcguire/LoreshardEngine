@@ -29,8 +29,8 @@ public class Magic
 				}
 			case 2:
 				{
-				//castStoneSkin(magicLev);
-				//NEEDS WORK
+				castStoneSkin(magicLev);
+				
 				break;
 				}
 			case 3:
@@ -69,14 +69,20 @@ public class Magic
 				JOptionPane.QUESTION_MESSAGE);
 		}
 	
-	public static void castStoneSkin(int armor, int magicLev)
+	public static void castStoneSkin(int magicLev)
 		{
 		int stoneValue = (int) (Math.random() * (magicLev * 2)) + magicLev;
+		int oldAC;
+		Armor armor;
 		JFrame frame = new JFrame();
+		if(Hero.heroInventory.get(1) instanceof Armor)
+			{
+			armor = (Armor) Hero.heroInventory.get(1);
+			oldAC = armor.getArmorLevel();
+			armor.setArmorLevel(oldAC + stoneValue);
+			}
 		
-		Hero.heroInventory.get(1).setArmorLevel(armor + stoneValue);
-		
-		JOptionPane.showMessageDialog(frame, "You turn your skin to stone!",
+		JOptionPane.showMessageDialog(frame, "You turn your skin to stone! You get + " + stoneValue + " armor!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE);
 		}

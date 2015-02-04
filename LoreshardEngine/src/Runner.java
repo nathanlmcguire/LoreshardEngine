@@ -31,6 +31,19 @@ public class Runner
 		Monster.monsters.add(new Monster("Troll", 20, false, "Arena", 7));
 		Monster.monsters.add(new Monster("Gladiator", 10, false, "Arena", 6));
 		Monster.monsters.add(new Monster("Prisoner of War", 4, false, "Arena", 11));
+		//WARDS
+		//Item.items.add(new Ward("Damage Ward", 100, 20, 1)); DON'T USE
+		//Item.items.add(new Ward("Instant Kill Ward", 100, 20, 2)); NOT FINISHED
+		//Item.items.add(new Ward("Damage Ward", 100, 20, 3)); NOT FINISHED
+		//Item.items.add(new Ward("Armor Ward", 100, 20, 4)); NOT FINISHED
+		Item.items.add(new Ward("Treasure Ward", 100, 20, 5));
+		Item.items.add(new Ward("Heal Ward", 100, 20, 6));
+		//Item.items.add(new Ward("Adrenaline Ward", 100, 20, 7)); NOT FINISHED
+		Item.items.add(new Ward("Level Ward", 100, 20, 8));
+		//POTIONS
+		
+		//INGREDIENTS
+		
 		
 		JFrame frame = new JFrame();
 		JOptionPane.showMessageDialog(frame, "Start game?",

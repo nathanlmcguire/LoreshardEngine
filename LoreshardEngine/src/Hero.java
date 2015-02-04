@@ -13,11 +13,12 @@ public class Hero extends Creature
 	private int strengthLevel;
 	private int speechLevel;
 	private String characterClass;
+	private int wardPower;
 	static ArrayList <Hero> heroes = new ArrayList<Hero>();
 	static ArrayList <Item> heroInventory = new ArrayList<Item>();
 	
 	
-	public Hero(String n, int h, int ad, int o, int m, int ag, int st, int sp, String c)
+	public Hero(String n, int h, int ad, int o, int m, int ag, int st, int sp, String c, int wp)
 		{
 		setName(n);
 		heroHP = h;
@@ -28,9 +29,10 @@ public class Hero extends Creature
 		strengthLevel = st;
 		speechLevel = sp;
 		characterClass = c;
+		wardPower = wp;
 		}
-	
-	
+
+
 	public static void chooseAttack(int monsterNum)
 		{
 		int weaponNumber;
@@ -38,7 +40,7 @@ public class Hero extends Creature
 		int damage = 2;
 		JFrame frame = new JFrame();
 		
-		Object[] combatType = {"Melee", "Magic", "Scroll"};
+		Object[] combatType = {"Melee", "Magic", "Ward", "Potion"};
 		CombatChoice = JOptionPane.showOptionDialog(frame, "What would you like to do?",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
 				JOptionPane.YES_NO_CANCEL_OPTION,
@@ -62,6 +64,11 @@ public class Hero extends Creature
 				break;
 				}
 			case 2:
+				{
+				Ward.useWard();
+				break;
+				}
+			case 3:
 				{
 				
 				break;
@@ -154,53 +161,8 @@ public class Hero extends Creature
 			JOptionPane.showMessageDialog(frame, "You have defeated the monster!",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
 					JOptionPane.QUESTION_MESSAGE);
-			Item loot = Hero.openLoot();
-			if(Hero.heroInventory.size() > 0)
-				{
-				if(loot instanceof Weapon && Hero.heroInventory.get(0) instanceof Weapon)
-					{
-					Weapon oldWeapon = (Weapon) Hero.heroInventory.get(0);
-					int oldDamage = oldWeapon.getDamage();
-					
-					Weapon newWeapon = (Weapon) loot;
-					int newDamage = newWeapon.getDamage();
-					if(newDamage > oldDamage)
-						{
-						Hero.heroInventory.set(0, loot);
-						}
-					}
-				if(loot instanceof Armor && Hero.heroInventory.get(0) instanceof Armor)
-					{
-					Armor oldArmor = (Armor) Hero.heroInventory.get(0);
-					int oldAC = oldArmor.getArmorLevel();
-					
-					Armor newArmor = (Armor) loot;
-					int newAC = newArmor.getArmorLevel();
-					if(newAC > oldAC)
-						{
-						Hero.heroInventory.set(1, loot);
-						}
-					}
-				}
-			
-			showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName());
 			Hero.levelUp(Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
-			if(Monster.monsters.size() <= 0)
-				{
-				JOptionPane.showMessageDialog(frame, "As the last of your foes falls to the ground the crowd cheers!",
-						"",
-						JOptionPane.QUESTION_MESSAGE);
-				JOptionPane.showMessageDialog(frame, "You have beaten the arena, and are free to leave.",
-						"",
-						JOptionPane.QUESTION_MESSAGE);
-				JOptionPane.showMessageDialog(frame, "You walk through the gates of the arena into a land of danger.",
-						"",
-						JOptionPane.QUESTION_MESSAGE);
-				JOptionPane.showMessageDialog(frame, "Adventure awaits.",
-						"",
-						JOptionPane.QUESTION_MESSAGE);
-				System.exit(0);
-				}
+			Hero.openLoot();
 			}
 		else
 			{
@@ -208,7 +170,7 @@ public class Hero extends Creature
 			}
 		}
 	
-	public static Item openLoot()
+	public static void openLoot()
 		{
 		int lootNumber = (int) (Math.random() * Item.items.size());
 		JFrame frame = new JFrame();
@@ -217,14 +179,46 @@ public class Hero extends Creature
 				"LOOTING",
 				JOptionPane.QUESTION_MESSAGE);
 		Item.items.get(lootNumber).setIsEquipped(true);
-		return Item.items.get(lootNumber);
+		Item loot = Item.items.get(lootNumber);
+		
+			if(loot instanceof Weapon && Hero.heroInventory.get(0) instanceof Weapon)
+				{
+				Weapon oldWeapon = (Weapon) Hero.heroInventory.get(0);
+				int oldDamage = oldWeapon.getDamage();
+				
+				Weapon newWeapon = (Weapon) loot;
+				int newDamage = newWeapon.getDamage();
+				if(newDamage > oldDamage)
+					{
+					Hero.heroInventory.set(0, loot);
+					}
+				}
+			if(loot instanceof Armor && Hero.heroInventory.get(1) instanceof Armor)
+				{
+				Armor oldArmor = (Armor) Hero.heroInventory.get(1);
+				int oldAC = oldArmor.getArmorLevel();
+				
+				Armor newArmor = (Armor) loot;
+				int newAC = newArmor.getArmorLevel();
+				if(newAC > oldAC)
+					{
+					Hero.heroInventory.set(1, loot);
+					}
+				}
+			
+			if(loot instanceof Ward && Hero.heroInventory.get(2) instanceof Ward)
+				{
+				Hero.heroInventory.set(2, loot);
+				}
+		
+		showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName(), Hero.heroInventory.get(2).getItemName());
 		}
 	
-	public static void showInventory(String weapon, String armor)
+	public static void showInventory(String weapon, String armor, String ward)
 		{
 		JFrame frame = new JFrame();
 		
-		JOptionPane.showMessageDialog(frame, "WEAPON: " + weapon + "\n ARMOR: " + armor + "",
+		JOptionPane.showMessageDialog(frame, "WEAPON: " + weapon + "\n ARMOR: " + armor + "\n WARD: " + ward + "",
 				"INVENTORY",
 				JOptionPane.QUESTION_MESSAGE);
 		}
@@ -292,7 +286,18 @@ public class Hero extends Creature
 	//potion craft method
 	//enhance attack method
 
+	public int getWardPower()
+		{
+		return wardPower;
+		}
 
+
+	public void setWardPower(int wardPower)
+		{
+		this.wardPower = wardPower;
+		}
+	
+	
 	public int getHeroHP()
 		{
 		return heroHP;

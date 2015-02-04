@@ -24,13 +24,34 @@ public class Monster extends Creature
 	public static int randomize()
 		{
 		JFrame frame = new JFrame();
-		int monsterNumber = (int) (Math.random() * monsters.size());
-		JOptionPane.showMessageDialog(frame, "A monster enters the arena.",
-				"COMBAT",
-				JOptionPane.QUESTION_MESSAGE);
-		JOptionPane.showMessageDialog(frame, "It is a " + Monster.monsters.get(monsterNumber).getName() + "!",
-				"COMBAT",
-				JOptionPane.QUESTION_MESSAGE);
+		int monsterNumber = 0;
+		
+		if(Monster.monsters.size() <= 0)
+			{
+			JOptionPane.showMessageDialog(frame, "As the last of your foes falls to the ground the crowd cheers!",
+					"",
+					JOptionPane.QUESTION_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "You have beaten the arena, and are free to leave.",
+					"",
+					JOptionPane.QUESTION_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "You walk through the gates of the arena into a land of danger.",
+					"",
+					JOptionPane.QUESTION_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "Adventure awaits.",
+					"",
+					JOptionPane.QUESTION_MESSAGE);
+			System.exit(0);
+			}
+		else
+			{
+			monsterNumber = (int) (Math.random() * monsters.size());
+			JOptionPane.showMessageDialog(frame, "A monster enters the arena.",
+					"COMBAT",
+					JOptionPane.QUESTION_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "It is a " + Monster.monsters.get(monsterNumber).getName() + "!",
+					"COMBAT",
+					JOptionPane.QUESTION_MESSAGE);
+			}
 		return monsterNumber;
 		}
 	

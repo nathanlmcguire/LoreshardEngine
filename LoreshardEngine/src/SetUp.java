@@ -22,21 +22,22 @@ public class SetUp
 			{
 			case 0:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 0, 1, 0, 1, 2, 1, "Fighter"));
+				Hero.heroes.add(new Hero(chosenName, 20, 0, 1, 0, 1, 2, 1, "Fighter", 10));
 				break;
 				}
 			case 1:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 0, 1, 2, 1, 0, 1, "Mage"));
+				Hero.heroes.add(new Hero(chosenName, 20, 0, 1, 2, 1, 0, 1, "Mage", 10));
 				break;
 				}
 			case 2:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 0, 1, 0, 2, 1, 1, "Rogue"));
+				Hero.heroes.add(new Hero(chosenName, 20, 0, 1, 0, 2, 1, 1, "Rogue", 10));
 				break;
 				}
 			}
 		Hero.heroInventory.add(new Sword("Fists", 0, 1, true));
 		Hero.heroInventory.add(new LightArmor("Rags", 0, "Light", 0, true));
+		Hero.heroInventory.add(new Ward("Broken Ward", 0, 1, 9));
 		}
 	}
