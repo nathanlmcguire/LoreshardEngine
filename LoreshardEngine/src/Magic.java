@@ -47,7 +47,7 @@ public class Magic
 		int damage = (int) (Math.random() * (magicLev * 10)) + magicLev;
 		JFrame frame = new JFrame();
 		
-		JOptionPane.showMessageDialog(frame, "You blast fire at the creature and do " + 5 * magicLev + " damage!",
+		JOptionPane.showMessageDialog(frame, "You blast fire at the creature and do " + damage + " damage!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE);
 		hitPoints = hitPoints - damage;
@@ -63,6 +63,11 @@ public class Magic
 		JFrame frame = new JFrame();
 		
 		Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() + healValue);
+		
+		if(Hero.heroes.get(0).getHeroHP() > Hero.heroes.get(0).getMaxHeroHP())
+			{
+			Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getMaxHeroHP());
+			}
 		
 		JOptionPane.showMessageDialog(frame, "You heal yourself for " + healValue + " health!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",

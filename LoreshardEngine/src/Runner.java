@@ -24,16 +24,16 @@ public class Runner
 		Item.items.add(new HeavyArmor("Steel Armor", 100, "Heavy", 50, false));
 		Item.items.add(new HeavyArmor("Platinum Armor", 140, "Heavy", 70, false));
 		//CREATURES
-		Monster.monsters.add(new Monster("Warg", 12, false, "Arena", 4));
-		Monster.monsters.add(new Monster("Goblin", 10, false, "Arena", 5));
-		Monster.monsters.add(new Monster("Wolf", 5, false, "Arena", 3));
-		Monster.monsters.add(new Monster("Minotaur", 50, false, "Arena", 10));
-		Monster.monsters.add(new Monster("Troll", 20, false, "Arena", 7));
-		Monster.monsters.add(new Monster("Gladiator", 10, false, "Arena", 6));
-		Monster.monsters.add(new Monster("Prisoner of War", 4, false, "Arena", 11));
+		Monster.monsters.add(new Monster("Warg", 17, false, "Arena", 12));
+		Monster.monsters.add(new Monster("Goblin", 15, false, "Arena", 10));
+		Monster.monsters.add(new Monster("Wolf", 15, false, "Arena", 9));
+		Monster.monsters.add(new Monster("Minotaur", 70, false, "Arena", 20));
+		Monster.monsters.add(new Monster("Troll", 28, false, "Arena", 14));
+		Monster.monsters.add(new Monster("Gladiator", 17, false, "Arena", 12));
+		Monster.monsters.add(new Monster("Prisoner of War", 12, false, "Arena", 14));
 		//WARDS
 		//Item.items.add(new Ward("Damage Ward", 100, 20, 1)); DON'T USE
-		//Item.items.add(new Ward("Instant Kill Ward", 100, 20, 2)); NOT FINISHED
+		Item.items.add(new Ward("Instant Kill Ward", 100, 20, 2));
 		//Item.items.add(new Ward("Damage Ward", 100, 20, 3)); NOT FINISHED
 		//Item.items.add(new Ward("Armor Ward", 100, 20, 4)); NOT FINISHED
 		Item.items.add(new Ward("Treasure Ward", 100, 20, 5));

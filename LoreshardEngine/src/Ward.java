@@ -15,16 +15,19 @@ public class Ward extends Item
 		wardIdentity = id;
 		}
 	
-	public static void useWard()
+	public static void useWard(int monsterNum)
 		{
 		int wardID = 9;
+		int wardCost = 0;
 		JFrame frame = new JFrame();
 		
 		if(Hero.heroInventory.get(2) instanceof Ward)
 			{
 			Ward ward = (Ward) Hero.heroInventory.get(2);
 			wardID = ward.getWardIdentity();
+			wardCost = ward.getWardPowerNeeded();
 			}
+		Hero.heroes.get(0).setWardPower(Hero.heroes.get(0).getWardPower() - wardCost);
 		switch(wardID)
 			{
 			case 1:
@@ -36,9 +39,10 @@ public class Ward extends Item
 				}
 			case 2:
 				{
-				JOptionPane.showMessageDialog(frame, "Nothing happens.",
+				JOptionPane.showMessageDialog(frame, "Lightning explodes from your hands and you incinerate the monster!",
 						"WARD",
 						JOptionPane.QUESTION_MESSAGE);
+				Monster.monsters.get(monsterNum).setHitPoints(0);
 				break;
 				}
 			case 3:
@@ -66,11 +70,8 @@ public class Ward extends Item
 				}
 			case 6:
 				{
-				int healValue = (Hero.heroes.get(0).getHeroHP() / 2);
-				
-				Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() + healValue);
-				
-				JOptionPane.showMessageDialog(frame, "You heal yourself for " + healValue + " health!",
+				Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getMaxHeroHP());
+				JOptionPane.showMessageDialog(frame, "You are healed completely!",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE);
 				break;
@@ -87,7 +88,7 @@ public class Ward extends Item
 				JOptionPane.showMessageDialog(frame, "You feel the experience of your ancestors flow through you.",
 						"WARD",
 						JOptionPane.QUESTION_MESSAGE);
-				Hero.levelUp(Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
+				Hero.levelUp(Hero.heroes.get(0).getMaxHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
 				break;
 				}
 			case 9:

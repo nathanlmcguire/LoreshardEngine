@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 public class Hero extends Creature
 	{
 	private int heroHP;
+	private int maxHeroHP;
 	private int adrenaline;
 	private int overAllLevel;
 	private int magicLevel;
@@ -18,10 +19,11 @@ public class Hero extends Creature
 	static ArrayList <Item> heroInventory = new ArrayList<Item>();
 	
 	
-	public Hero(String n, int h, int ad, int o, int m, int ag, int st, int sp, String c, int wp)
+	public Hero(String n, int ch, int mh, int ad, int o, int m, int ag, int st, int sp, String c, int wp)
 		{
 		setName(n);
-		heroHP = h;
+		heroHP = ch;
+		maxHeroHP = mh;
 		adrenaline = ad;
 		overAllLevel = o;
 		magicLevel = m;
@@ -38,14 +40,36 @@ public class Hero extends Creature
 		int weaponNumber;
 		int CombatChoice;
 		int damage = 2;
+		int wardCost = 0;
 		JFrame frame = new JFrame();
 		
-		Object[] combatType = {"Melee", "Magic", "Ward", "Potion"};
-		CombatChoice = JOptionPane.showOptionDialog(frame, "What would you like to do?",
-				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-				JOptionPane.YES_NO_CANCEL_OPTION,
-				JOptionPane.QUESTION_MESSAGE,
-				null, combatType, combatType[1]);
+		if(Hero.heroInventory.get(2) instanceof Ward)
+			{
+			Ward ward = (Ward) Hero.heroInventory.get(2);
+			wardCost = ward.getWardPowerNeeded();
+			}
+		
+		if(Hero.heroes.get(0).getWardPower() < wardCost)
+			{
+			Object[] combatType = {"Melee", "Magic", "Potion"};
+			CombatChoice = JOptionPane.showOptionDialog(frame, "What would you like to do?",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null, combatType, combatType[1]);
+			}
+		else
+			{
+			Object[] combatType = {"Melee", "Magic", "Potion", "Ward"};
+			CombatChoice = JOptionPane.showOptionDialog(frame, "What would you like to do?",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null, combatType, combatType[1]);
+			}
+		
+		
+		Hero.heroes.get(0).setWardPower(Hero.heroes.get(0).getWardPower() + 1);
 		switch(CombatChoice)
 			{
 			case 0:
@@ -65,12 +89,12 @@ public class Hero extends Creature
 				}
 			case 2:
 				{
-				Ward.useWard();
+				
 				break;
 				}
 			case 3:
 				{
-				
+				Ward.useWard(monsterNum);
 				break;
 				}
 			}
@@ -92,6 +116,7 @@ public class Hero extends Creature
 		
 		checkForCrit(damage);
 		
+		Monster.defend(meleeChoice);
 		switch(meleeChoice)
 			{
 			case 0:
@@ -109,9 +134,11 @@ public class Hero extends Creature
 			case 1:
 				{
 				damage = damage + strengthLevel;
+				
 				JOptionPane.showMessageDialog(frame, "You attack mid and do " + damage + " damage to the monster!",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
-						JOptionPane.QUESTION_MESSAGE);	
+						JOptionPane.QUESTION_MESSAGE);
+				
 				hitPoints = hitPoints - damage;
 				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
@@ -147,9 +174,31 @@ public class Hero extends Creature
 			}
 		}
 	
-	public void defend()
+	public static boolean defend(int enemyAttackLocation)
 		{
-		//nothing yet
+		int blockChoice;
+		JFrame frame = new JFrame();
+		
+		Object[] blockType = {"High", "Medium", "Low"};
+		blockChoice = JOptionPane.showOptionDialog(frame, "Where would you like to block?",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null, blockType, blockType[1]);
+		if(blockChoice == enemyAttackLocation)
+			{
+			JOptionPane.showMessageDialog(frame, "You block the opponent's blow!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE);
+			return true;
+			}
+		else
+			{
+			JOptionPane.showMessageDialog(frame, "Your opponent gets past your block!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE);
+			return false;
+			}
 		}
 	
 	public static void continueBattle(int monsterNum)
@@ -161,7 +210,7 @@ public class Hero extends Creature
 			JOptionPane.showMessageDialog(frame, "You have defeated the monster!",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
 					JOptionPane.QUESTION_MESSAGE);
-			Hero.levelUp(Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
+			Hero.levelUp(Hero.heroes.get(0).getMaxHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
 			Hero.openLoot();
 			}
 		else
@@ -223,7 +272,7 @@ public class Hero extends Creature
 				JOptionPane.QUESTION_MESSAGE);
 		}
 	
-	public static void levelUp(int heroHP, int adrenaline, int overAllLevel, int magicLevel, int agilityLevel, int strengthLevel, int speechLevel)
+	public static void levelUp(int maxHeroHP, int adrenaline, int overAllLevel, int magicLevel, int agilityLevel, int strengthLevel, int speechLevel)
 		{
 		int levelUpChoice;
 		JFrame frame = new JFrame();
@@ -237,8 +286,9 @@ public class Hero extends Creature
 		
 		overAllLevel++;
 		Hero.heroes.get(0).setOverAllLevel(overAllLevel);
-		heroHP = heroHP + (10 * strengthLevel);
-		Hero.heroes.get(0).setHeroHP(heroHP);
+		maxHeroHP = maxHeroHP + (2 * strengthLevel);
+		Hero.heroes.get(0).setMaxHeroHP(maxHeroHP);
+		Hero.heroes.get(0).setHeroHP(maxHeroHP);
 		switch(levelUpChoice)
 			{
 			case 0:
@@ -286,9 +336,23 @@ public class Hero extends Creature
 	//potion craft method
 	//enhance attack method
 
+	
+	
 	public int getWardPower()
 		{
 		return wardPower;
+		}
+
+
+	public int getMaxHeroHP()
+		{
+		return maxHeroHP;
+		}
+
+
+	public void setMaxHeroHP(int maxHeroHP)
+		{
+		this.maxHeroHP = maxHeroHP;
 		}
 
 
