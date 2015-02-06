@@ -1,6 +1,8 @@
 import java.util.ArrayList; 
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class Hero extends Creature
@@ -79,7 +81,7 @@ public class Hero extends Creature
 					Weapon weapon = (Weapon) Hero.heroInventory.get(0);
 					damage = weapon.getDamage();
 					}
-				attack(Monster.monsters.get(monsterNum).getHitPoints(), Monster.monsters.get(monsterNum).getMonsterDamage(), 3, Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getStrengthLevel(), monsterNum);
+				attack(Monster.monsters.get(monsterNum).getHitPoints(), Monster.monsters.get(monsterNum).getMonsterDamage(), damage, Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getStrengthLevel(), monsterNum);
 				break;
 				}
 			case 1:
@@ -101,8 +103,9 @@ public class Hero extends Creature
 		continueBattle(monsterNum);
 		}
 
-	public static void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel, int monsterNum)
+	public static void attack(int hitPoints, int monsterDamage, int damage, int heroHP, int strengthLevel, int monsterNum)
 		{	
+		ImageIcon icon = new ImageIcon(("combat.jpg"));
 		int meleeChoice;
 		damage = (int) (Math.random() * (damage + strengthLevel)) + strengthLevel;
 		JFrame frame = new JFrame();
@@ -114,68 +117,89 @@ public class Hero extends Creature
 				JOptionPane.QUESTION_MESSAGE,
 				null, attackType, attackType[1]);
 		
-		checkForCrit(damage);
 		
-		Monster.defend(meleeChoice);
-		switch(meleeChoice)
+		
+		if(Monster.defend(meleeChoice))
 			{
-			case 0:
+			switch(meleeChoice)
 				{
-				damage = damage + (strengthLevel * 2);
-				JOptionPane.showMessageDialog(frame, "You attack high and do " + damage + " damage to the monster!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
-						JOptionPane.QUESTION_MESSAGE);	
-				hitPoints = hitPoints - damage;
-				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
-						JOptionPane.QUESTION_MESSAGE);		
-				break;
+				case 0:
+					{
+					damage = checkForCrit(damage) + (strengthLevel * 2);
+					JOptionPane.showMessageDialog(frame, "You attack high and do " + damage + " damage to the monster!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);	
+					hitPoints = hitPoints - damage;
+					
+					JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);		
+					break;
+					}
+				case 1:
+					{
+					damage = checkForCrit(damage) + strengthLevel;
+					
+					JOptionPane.showMessageDialog(frame, "You attack mid and do " + damage + " damage to the monster!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					
+					hitPoints = hitPoints - damage;
+					JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);	
+					break;
+					}
+				case 2:
+					{
+					damage = checkForCrit(damage);
+					JOptionPane.showMessageDialog(frame, "You attack low and do " + damage + " damage to the monster!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);			
+					hitPoints = hitPoints - damage;
+					JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);	
+					break;
+					}
 				}
-			case 1:
-				{
-				damage = damage + strengthLevel;
-				
-				JOptionPane.showMessageDialog(frame, "You attack mid and do " + damage + " damage to the monster!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
-						JOptionPane.QUESTION_MESSAGE);
-				
-				hitPoints = hitPoints - damage;
-				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
-						JOptionPane.QUESTION_MESSAGE);	
-				break;
-				}
-			case 2:
-				{
-				JOptionPane.showMessageDialog(frame, "You attack low and do " + damage + " damage to the monster!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
-						JOptionPane.QUESTION_MESSAGE);			
-				hitPoints = hitPoints - damage;
-				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
-						JOptionPane.QUESTION_MESSAGE);	
-				break;
-				}
+			Monster.monsters.get(monsterNum).setHitPoints(hitPoints);
 			}
-		Monster.monsters.get(monsterNum).setHitPoints(hitPoints);
+		else
+			{
+			JOptionPane.showMessageDialog(frame, "Your attack was blocked!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
+					JOptionPane.QUESTION_MESSAGE);		
+			}
 		}
 	
-	public static void checkForCrit(int damage)
+	public static int checkForCrit(int damage)
 		{
 		int chance = (int) (Math.random() * 100) + 1;
+		ImageIcon icon = new ImageIcon(("crit.jpg"));
 		JFrame frame = new JFrame();
 				
 		if(chance <= 5)
 			{
 			JOptionPane.showMessageDialog(frame, "CRITICAL HIT, 2x DAMAGE!",
 					"CRITICAL HIT",
-					JOptionPane.QUESTION_MESSAGE);
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
 			damage = damage * 2;
 			}
+		return damage;
 		}
 	
 	public static boolean defend(int enemyAttackLocation)
 		{
+		ImageIcon iconOne = new ImageIcon(("shield.jpg"));
+		ImageIcon iconTwo = new ImageIcon(("claws.jpg"));
 		int blockChoice;
 		JFrame frame = new JFrame();
 		
@@ -189,14 +213,16 @@ public class Hero extends Creature
 			{
 			JOptionPane.showMessageDialog(frame, "You block the opponent's blow!",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-					JOptionPane.QUESTION_MESSAGE);
+					JOptionPane.QUESTION_MESSAGE,
+					iconOne);
 			return true;
 			}
 		else
 			{
 			JOptionPane.showMessageDialog(frame, "Your opponent gets past your block!",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-					JOptionPane.QUESTION_MESSAGE);
+					JOptionPane.QUESTION_MESSAGE,
+					iconTwo);
 			return false;
 			}
 		}
@@ -222,11 +248,13 @@ public class Hero extends Creature
 	public static void openLoot()
 		{
 		int lootNumber = (int) (Math.random() * Item.items.size());
+		ImageIcon icon = new ImageIcon(("search.jpg"));
 		JFrame frame = new JFrame();
 		
 		JOptionPane.showMessageDialog(frame, "You found: " + Item.items.get(lootNumber).getItemName() + "!",
 				"LOOTING",
-				JOptionPane.QUESTION_MESSAGE);
+				JOptionPane.QUESTION_MESSAGE,
+				icon );
 		Item.items.get(lootNumber).setIsEquipped(true);
 		Item loot = Item.items.get(lootNumber);
 		
@@ -265,16 +293,19 @@ public class Hero extends Creature
 	
 	public static void showInventory(String weapon, String armor, String ward)
 		{
+		ImageIcon icon = new ImageIcon(("bag.jpg"));
 		JFrame frame = new JFrame();
 		
 		JOptionPane.showMessageDialog(frame, "WEAPON: " + weapon + "\n ARMOR: " + armor + "\n WARD: " + ward + "",
 				"INVENTORY",
-				JOptionPane.QUESTION_MESSAGE);
+				JOptionPane.QUESTION_MESSAGE,
+				icon);
 		}
 	
 	public static void levelUp(int maxHeroHP, int adrenaline, int overAllLevel, int magicLevel, int agilityLevel, int strengthLevel, int speechLevel)
 		{
 		int levelUpChoice;
+		ImageIcon icon = new ImageIcon(("arrow.jpg"));
 		JFrame frame = new JFrame();
 		
 		Object[] level = {"Magic", "Agility", "Strength", "Speech"};
@@ -296,7 +327,8 @@ public class Hero extends Creature
 				magicLevel++;
 				JOptionPane.showMessageDialog(frame, "You have leveled up in Magic!",
 						"Magic: " + (magicLevel - 1) + " > " + magicLevel + "",
-						JOptionPane.QUESTION_MESSAGE);
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
 				Hero.heroes.get(0).setMagicLevel(magicLevel);
 				break;
 				}
@@ -305,7 +337,8 @@ public class Hero extends Creature
 				agilityLevel++;
 				JOptionPane.showMessageDialog(frame, "You have leveled up in Agility!",
 						"Agility: " + (agilityLevel - 1) + " > " + agilityLevel + "",
-						JOptionPane.QUESTION_MESSAGE);
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
 				Hero.heroes.get(0).setAgilityLevel(agilityLevel);
 				break;
 				}
@@ -314,7 +347,8 @@ public class Hero extends Creature
 				strengthLevel++;
 				JOptionPane.showMessageDialog(frame, "You have leveled up in Strength!",
 						"Strength: " + (strengthLevel - 1) + " > " + strengthLevel + "",
-						JOptionPane.QUESTION_MESSAGE);
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
 				Hero.heroes.get(0).setStrengthLevel(strengthLevel);
 				break;
 				}
@@ -324,7 +358,8 @@ public class Hero extends Creature
 				JOptionPane.showMessageDialog(frame, "You have leveled up in Charisma!",
 						"Speech"
 						+ ": " + (speechLevel - 1) + " > " + speechLevel + "",
-						JOptionPane.QUESTION_MESSAGE);
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
 				Hero.heroes.get(0).setSpeechLevel(speechLevel);
 				break;
 				}

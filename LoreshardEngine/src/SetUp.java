@@ -1,3 +1,4 @@
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -6,6 +7,7 @@ public class SetUp
 	{
 	public static void createHero()
 		{
+		ImageIcon icon = new ImageIcon(("scroll.jpg"));
 		String chosenName = "";
 		int chosenClass = 0;
 		JFrame frame = new JFrame();

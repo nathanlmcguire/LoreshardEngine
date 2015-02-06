@@ -1,3 +1,4 @@
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -44,12 +45,14 @@ public class Magic
 	
 	public static void castFireBall(int hitPoints, int magicLev, int monsterNum)
 		{
+		ImageIcon icon = new ImageIcon(("fireball.jpg"));
 		int damage = (int) (Math.random() * (magicLev * 10)) + magicLev;
 		JFrame frame = new JFrame();
 		
 		JOptionPane.showMessageDialog(frame, "You blast fire at the creature and do " + damage + " damage!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-				JOptionPane.QUESTION_MESSAGE);
+				JOptionPane.QUESTION_MESSAGE,
+				icon);
 		hitPoints = hitPoints - damage;
 				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
@@ -59,6 +62,7 @@ public class Magic
 	
 	public static void castHeal(int hitPoints, int magicLev)
 		{
+		ImageIcon icon = new ImageIcon(("heal.jpg"));
 		int healValue = (int) (Math.random() * (magicLev * 10)) + magicLev;
 		JFrame frame = new JFrame();
 		
@@ -71,11 +75,13 @@ public class Magic
 		
 		JOptionPane.showMessageDialog(frame, "You heal yourself for " + healValue + " health!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-				JOptionPane.QUESTION_MESSAGE);
+				JOptionPane.QUESTION_MESSAGE,
+				icon);
 		}
 	
 	public static void castStoneSkin(int magicLev)
 		{
+		ImageIcon icon = new ImageIcon(("stone.jpg"));
 		int stoneValue = (int) (Math.random() * (magicLev * 2)) + magicLev;
 		int oldAC;
 		Armor armor;
@@ -89,7 +95,8 @@ public class Magic
 		
 		JOptionPane.showMessageDialog(frame, "You turn your skin to stone! You get + " + stoneValue + " armor!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-				JOptionPane.QUESTION_MESSAGE);
+				JOptionPane.QUESTION_MESSAGE,
+				icon);
 		}
 	
 	public static void castTeleport(int magicLev)

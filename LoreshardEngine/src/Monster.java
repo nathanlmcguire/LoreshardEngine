@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -23,6 +24,7 @@ public class Monster extends Creature
 	
 	public static int randomize()
 		{
+		ImageIcon icon = new ImageIcon(("monster comin.png"));
 		JFrame frame = new JFrame();
 		int monsterNumber = 0;
 		
@@ -45,12 +47,14 @@ public class Monster extends Creature
 		else
 			{
 			monsterNumber = (int) (Math.random() * monsters.size());
-			JOptionPane.showMessageDialog(frame, "A monster enters the arena.",
+			JOptionPane.showMessageDialog(frame, "An opponent enters the arena.",
 					"COMBAT",
-					JOptionPane.QUESTION_MESSAGE);
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
 			JOptionPane.showMessageDialog(frame, "It is a " + Monster.monsters.get(monsterNumber).getName() + "!",
 					"COMBAT",
-					JOptionPane.QUESTION_MESSAGE);
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
 			}
 		return monsterNumber;
 		}
@@ -58,28 +62,34 @@ public class Monster extends Creature
 	//@Override
 	public static void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel, int monsterNum)
 		{
+		ImageIcon icon = new ImageIcon(("rip.jpg"));
+		ImageIcon iconTwo = new ImageIcon(("game over.jpg"));
+		ImageIcon iconThree = new ImageIcon(("claws.jpg"));
 		JFrame frame = new JFrame();
-		damage = (int) (Math.random() * damage) + 1;
+		monsterDamage = (int) (Math.random() * monsterDamage) + monsterDamage;
 		int enemyAttackLovation = (int) (Math.random() * 2);
 		if(Hero.defend(enemyAttackLovation) == false)
 			{
 			if(Hero.heroInventory.get(1) instanceof Armor)
 				{
 				Armor armor = (Armor) Hero.heroInventory.get(1);
-				heroHP = heroHP - (damage - armor.getArmorLevel());
+				heroHP = heroHP - (monsterDamage - armor.getArmorLevel());
 				}
 			Hero.heroes.get(0).setHeroHP(heroHP);
-			JOptionPane.showMessageDialog(frame, "The monster attacks and does " + damage + " damage!",
+			JOptionPane.showMessageDialog(frame, "The monster attacks and does " + monsterDamage + " damage!",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-					JOptionPane.QUESTION_MESSAGE);
+					JOptionPane.QUESTION_MESSAGE,
+					iconThree);
 			if(Hero.heroes.get(0).getHeroHP() <= 0)
 				{
 				JOptionPane.showMessageDialog(frame, "You have been slain!",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-						JOptionPane.QUESTION_MESSAGE);
+						JOptionPane.QUESTION_MESSAGE,
+						iconTwo);
 				JOptionPane.showMessageDialog(frame, "GAME OVER",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-						JOptionPane.QUESTION_MESSAGE);
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
 				System.exit(0);
 				}
 			}
@@ -88,12 +98,29 @@ public class Monster extends Creature
 	//@Override
 	public static boolean defend(int meleeChoice)
 		{
-		int enemyBlockLocation = (int) (Math.random() * 15);
-		if(enemyBlockLocation == meleeChoice)
+		int enemyBlockLocation = 0;
+		
+		if(meleeChoice == 0)
+			{
+			enemyBlockLocation = (int) (Math.random() * 4) + 1;
+			}
+		if(meleeChoice == 1)
+			{
+			enemyBlockLocation = (int) (Math.random() * 6) + 1;
+			}
+		if(meleeChoice == 2)
+			{
+			enemyBlockLocation = (int) (Math.random() * 15) + 1;
+			}
+		
+		if(enemyBlockLocation == 1)
+			{
+			return false;
+			}
+		else
 			{
 			return true;
 			}
-		return false;
 		}
 	
 	public boolean isBoss()

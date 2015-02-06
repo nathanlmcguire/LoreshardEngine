@@ -1,11 +1,13 @@
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
 public class Runner
-	{
+	{	
 	public static void main(String[] args)
 		{
+		
 		//WEAPONS
 		Item.items.add(new Sword("Iron Sword", 30, 4, false));
 		Item.items.add(new Sword("Steel Sword", 50, 6, false));
@@ -33,22 +35,24 @@ public class Runner
 		Monster.monsters.add(new Monster("Prisoner of War", 12, false, "Arena", 14));
 		//WARDS
 		//Item.items.add(new Ward("Damage Ward", 100, 20, 1)); DON'T USE
-		Item.items.add(new Ward("Instant Kill Ward", 100, 20, 2));
+		Item.items.add(new Ward("Instant Kill Ward", 100, 10, 2));
 		//Item.items.add(new Ward("Damage Ward", 100, 20, 3)); NOT FINISHED
 		//Item.items.add(new Ward("Armor Ward", 100, 20, 4)); NOT FINISHED
-		Item.items.add(new Ward("Treasure Ward", 100, 20, 5));
-		Item.items.add(new Ward("Heal Ward", 100, 20, 6));
+		Item.items.add(new Ward("Treasure Ward", 100, 10, 5));
+		Item.items.add(new Ward("Heal Ward", 100, 10, 6));
 		//Item.items.add(new Ward("Adrenaline Ward", 100, 20, 7)); NOT FINISHED
-		Item.items.add(new Ward("Level Ward", 100, 20, 8));
+		Item.items.add(new Ward("Level Ward", 100, 10, 8));
 		//POTIONS
 		
 		//INGREDIENTS
 		
 		
+		ImageIcon icon = new ImageIcon(("scroll.jpg"));
 		JFrame frame = new JFrame();
-		JOptionPane.showMessageDialog(frame, "Start game?",
-			"CHARACTER CREATION",
-			JOptionPane.QUESTION_MESSAGE);
+		JOptionPane.showMessageDialog(frame, "Start?",
+			"LORESHARD 2 ALPHA",
+			JOptionPane.QUESTION_MESSAGE,
+			icon);
 		
 		SetUp.createHero();
 		while(true)
