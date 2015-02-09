@@ -60,20 +60,21 @@ public class Monster extends Creature
 		}
 	
 	//@Override
-	public static void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel, int monsterNum)
+	public static void attack(int monsterDamage, int heroHP)
 		{
 		ImageIcon icon = new ImageIcon(("rip.jpg"));
 		ImageIcon iconTwo = new ImageIcon(("game over.jpg"));
 		ImageIcon iconThree = new ImageIcon(("claws.jpg"));
 		JFrame frame = new JFrame();
-		monsterDamage = (int) (Math.random() * monsterDamage) + monsterDamage;
+		monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage);
 		int enemyAttackLovation = (int) (Math.random() * 2);
 		if(Hero.defend(enemyAttackLovation) == false)
 			{
 			if(Hero.heroInventory.get(1) instanceof Armor)
 				{
 				Armor armor = (Armor) Hero.heroInventory.get(1);
-				heroHP = heroHP - (monsterDamage - armor.getArmorLevel());
+				monsterDamage = monsterDamage - armor.getArmorLevel();
+				heroHP = heroHP - monsterDamage;
 				}
 			Hero.heroes.get(0).setHeroHP(heroHP);
 			JOptionPane.showMessageDialog(frame, "The monster attacks and does " + monsterDamage + " damage!",

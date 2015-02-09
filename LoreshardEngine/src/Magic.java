@@ -46,7 +46,7 @@ public class Magic
 	public static void castFireBall(int hitPoints, int magicLev, int monsterNum)
 		{
 		ImageIcon icon = new ImageIcon(("fireball.jpg"));
-		int damage = (int) (Math.random() * (magicLev * 10)) + magicLev;
+		int damage = (int) (Math.random() * (magicLev * 2)) + magicLev;
 		JFrame frame = new JFrame();
 		
 		JOptionPane.showMessageDialog(frame, "You blast fire at the creature and do " + damage + " damage!",
@@ -82,7 +82,7 @@ public class Magic
 	public static void castStoneSkin(int magicLev)
 		{
 		ImageIcon icon = new ImageIcon(("stone.jpg"));
-		int stoneValue = (int) (Math.random() * (magicLev * 2)) + magicLev;
+		int stoneValue = (int) (Math.random() * (magicLev / 2)) + 1;
 		int oldAC;
 		Armor armor;
 		JFrame frame = new JFrame();

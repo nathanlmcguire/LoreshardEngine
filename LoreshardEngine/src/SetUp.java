@@ -39,5 +39,6 @@ public class SetUp
 		Hero.heroInventory.add(new Sword("Fists", 0, 1, true));
 		Hero.heroInventory.add(new LightArmor("Rags", 0, "Light", 0, true));
 		Hero.heroInventory.add(new Ward("Broken Ward", 0, 1, 9));
+		Hero.heroInventory.add(new Potion("Weak Healing Potion", 5, 0, true));
 		}
 	}

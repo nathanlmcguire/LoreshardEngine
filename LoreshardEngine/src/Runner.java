@@ -28,11 +28,20 @@ public class Runner
 		//CREATURES
 		Monster.monsters.add(new Monster("Warg", 17, false, "Arena", 12));
 		Monster.monsters.add(new Monster("Goblin", 15, false, "Arena", 10));
+		Monster.monsters.add(new Monster("Goblin", 15, false, "Arena", 10));
+		Monster.monsters.add(new Monster("Goblin", 15, false, "Arena", 10));
 		Monster.monsters.add(new Monster("Wolf", 15, false, "Arena", 9));
 		Monster.monsters.add(new Monster("Minotaur", 70, false, "Arena", 20));
 		Monster.monsters.add(new Monster("Troll", 28, false, "Arena", 14));
-		Monster.monsters.add(new Monster("Gladiator", 17, false, "Arena", 12));
-		Monster.monsters.add(new Monster("Prisoner of War", 12, false, "Arena", 14));
+		Monster.monsters.add(new Monster("Kobold", 3, false, "Arena", 5));
+		Monster.monsters.add(new Monster("Kobold", 3, false, "Arena", 5));
+		Monster.monsters.add(new Monster("Kobold", 3, false, "Arena", 5));
+		Monster.monsters.add(new Monster("Kobold", 3, false, "Arena", 5));
+		Monster.monsters.add(new Monster("Giant Spider", 25, false, "Arena", 14));
+		Monster.monsters.add(new Monster("Giant Snake", 32, false, "Arena", 10));
+		Monster.monsters.add(new Monster("Orc", 15, false, "Arena", 12));
+		Monster.monsters.add(new Monster("Dragon", 100, true, "Arena", 25));
+		
 		//WARDS
 		//Item.items.add(new Ward("Damage Ward", 100, 20, 1)); DON'T USE
 		Item.items.add(new Ward("Instant Kill Ward", 100, 10, 2));
@@ -43,7 +52,13 @@ public class Runner
 		//Item.items.add(new Ward("Adrenaline Ward", 100, 20, 7)); NOT FINISHED
 		Item.items.add(new Ward("Level Ward", 100, 10, 8));
 		//POTIONS
-		
+		Item.items.add(new Potion("Healing Potion", 10, 1, true));
+		//Item.items.add(new Potion("Adrenaline Potion", 40, 2));
+		Item.items.add(new Potion("Strength Potion", 30, 3, true));
+		//Item.items.add(new Potion("Agility Potion", 20, 4));
+		//Item.items.add(new Potion("Charisma Potion", 30, 5));
+		Item.items.add(new Potion("Potion of Magic", 50, 6, true));
+		Item.items.add(new Potion("Ward Potion", 100, 7, true));
 		//INGREDIENTS
 		
 		
@@ -55,6 +70,7 @@ public class Runner
 			icon);
 		
 		SetUp.createHero();
+		Hero.showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName(), Hero.heroInventory.get(2).getItemName(), Hero.heroInventory.get(3).getItemName());
 		while(true)
 			{
 			int monsterNum = Monster.randomize();

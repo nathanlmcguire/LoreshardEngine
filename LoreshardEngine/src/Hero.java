@@ -91,7 +91,21 @@ public class Hero extends Creature
 				}
 			case 2:
 				{
-				
+				if(Hero.heroInventory.get(3) instanceof Potion)
+					{
+					Potion potion = (Potion) Hero.heroInventory.get(3);
+					if(potion.isFull() == true)
+						{
+						Potion.drink();
+						}
+					else
+						{
+						JOptionPane.showMessageDialog(frame, "Your potion is empty!",
+								"POTION",
+								JOptionPane.QUESTION_MESSAGE);
+						}
+					}
+					
 				break;
 				}
 			case 3:
@@ -107,7 +121,7 @@ public class Hero extends Creature
 		{	
 		ImageIcon icon = new ImageIcon(("combat.jpg"));
 		int meleeChoice;
-		damage = (int) (Math.random() * (damage + strengthLevel)) + strengthLevel;
+		damage = (int) (Math.random() * (damage + strengthLevel)) + (strengthLevel);
 		JFrame frame = new JFrame();
 		
 		Object[] attackType = {"High", "Medium", "Low"};
@@ -125,7 +139,7 @@ public class Hero extends Creature
 				{
 				case 0:
 					{
-					damage = checkForCrit(damage) + (strengthLevel * 2);
+					damage = checkForCrit(damage) + (strengthLevel * 3);
 					JOptionPane.showMessageDialog(frame, "You attack high and do " + damage + " damage to the monster!",
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
 							JOptionPane.QUESTION_MESSAGE,
@@ -187,11 +201,11 @@ public class Hero extends Creature
 				
 		if(chance <= 5)
 			{
-			JOptionPane.showMessageDialog(frame, "CRITICAL HIT, 2x DAMAGE!",
+			JOptionPane.showMessageDialog(frame, "CRITICAL HIT, 5x DAMAGE!",
 					"CRITICAL HIT",
 					JOptionPane.QUESTION_MESSAGE,
 					icon);
-			damage = damage * 2;
+			damage = damage * 5;
 			}
 		return damage;
 		}
@@ -229,19 +243,21 @@ public class Hero extends Creature
 	
 	public static void continueBattle(int monsterNum)
 		{
+		ImageIcon icon = new ImageIcon(("victory.png"));
 		JFrame frame = new JFrame();
 		
 		if(Monster.monsters.get(monsterNum).getHitPoints() <= 0)
 			{
 			JOptionPane.showMessageDialog(frame, "You have defeated the monster!",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-					JOptionPane.QUESTION_MESSAGE);
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
 			Hero.levelUp(Hero.heroes.get(0).getMaxHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
 			Hero.openLoot();
 			}
 		else
 			{
-			Monster.attack(Monster.monsters.get(monsterNum).getHitPoints(), Monster.monsters.get(monsterNum).getMonsterDamage(), 3, Hero.heroes.get(0).getHeroHP(), Hero.heroes.get(0).getStrengthLevel(), monsterNum);
+			Monster.attack(Monster.monsters.get(monsterNum).getMonsterDamage(), Hero.heroes.get(0).getHeroHP());
 			}
 		}
 	
@@ -287,16 +303,21 @@ public class Hero extends Creature
 				{
 				Hero.heroInventory.set(2, loot);
 				}
+			
+			if(loot instanceof Potion && Hero.heroInventory.get(3) instanceof Potion)
+				{
+				Hero.heroInventory.set(3, loot);
+				}
 		
-		showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName(), Hero.heroInventory.get(2).getItemName());
+		showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName(), Hero.heroInventory.get(2).getItemName(), Hero.heroInventory.get(3).getItemName());
 		}
 	
-	public static void showInventory(String weapon, String armor, String ward)
+	public static void showInventory(String weapon, String armor, String ward, String potion)
 		{
 		ImageIcon icon = new ImageIcon(("bag.jpg"));
 		JFrame frame = new JFrame();
 		
-		JOptionPane.showMessageDialog(frame, "WEAPON: " + weapon + "\n ARMOR: " + armor + "\n WARD: " + ward + "",
+		JOptionPane.showMessageDialog(frame, "WEAPON: " + weapon + "\n ARMOR: " + armor + "\n WARD: " + ward + "\n POTION: " + potion + "",
 				"INVENTORY",
 				JOptionPane.QUESTION_MESSAGE,
 				icon);
