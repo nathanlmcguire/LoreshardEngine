@@ -40,5 +40,66 @@ public class SetUp
 		Hero.heroInventory.add(new LightArmor("Rags", 0, "Light", 0, true));
 		Hero.heroInventory.add(new Ward("Broken Ward", 0, 1, 9));
 		Hero.heroInventory.add(new Potion("Weak Healing Potion", 5, 0, true));
+		Hero.alchemyBag.add(new Ingredient("Mudstock", 10, 0));
+		Hero.alchemyBag.add(new Ingredient("Grigs", 10, -1));
+		Hero.alchemyBag.add(new Ingredient("Pettleroot", 10, 1));
+		
+		}
+	
+	public static void generateSituation()
+		{
+		int situationNum = (int) (Math.random() * 8) + 1;
+		
+		switch(situationNum)
+			{
+			case 1:
+			case 2:
+			case 3:
+			
+				{
+				//MONSTER
+				int monsterNum = Monster.randomize();
+				while(Monster.monsters.get(monsterNum).getHitPoints() > 0)
+					{
+					Hero.chooseAttack(monsterNum);
+					}
+				Monster.monsters.remove(monsterNum);
+				break;
+				}
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+				{
+				//CAULDRON
+				Ingredient.brew();
+				break;
+				}
+			case 9:
+				{
+				//LOCKPICKING 
+				//pickLock();
+				break;
+				}
+			case 10:
+				{
+				//SIDE QUEST
+				//generateSideQuest();
+				break;
+				}
+			case 11:
+				{
+				//DYNAMIC EVENT
+				//generateEvent();
+				break;
+				}
+			case 12:
+				{
+				//HERBS
+				//gatherHerbs();
+				break;
+				}
+			}
 		}
 	}

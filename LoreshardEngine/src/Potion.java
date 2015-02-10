@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -7,6 +9,7 @@ public class Potion extends Item
 	{
 	private int potionID;
 	private boolean full;
+	static ArrayList <Potion> potions = new ArrayList<Potion>();
 	
 	public Potion(String in, int v, int pid, boolean f)
 		{
@@ -126,6 +129,14 @@ public class Potion extends Item
 					}
 				break;
 				}
+			default:
+				{
+				JOptionPane.showMessageDialog(frame, "Nothing happens!",
+						"POTION",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
+				}
+				
 			}
 		if(Hero.heroInventory.get(3) instanceof Potion)
 			{

@@ -19,6 +19,7 @@ public class Hero extends Creature
 	private int wardPower;
 	static ArrayList <Hero> heroes = new ArrayList<Hero>();
 	static ArrayList <Item> heroInventory = new ArrayList<Item>();
+	static ArrayList <Ingredient> alchemyBag = new ArrayList<Ingredient>();
 	
 	
 	public Hero(String n, int ch, int mh, int ad, int o, int m, int ag, int st, int sp, String c, int wp)
@@ -341,6 +342,13 @@ public class Hero extends Creature
 						break;
 						}
 					}
+				}
+			
+			if(loot instanceof Ingredient)
+				{
+				Ingredient herb = (Ingredient) loot;
+				Hero.alchemyBag.add(herb);
+				Hero.openLoot();
 				}
 		
 		showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName(), Hero.heroInventory.get(2).getItemName(), Hero.heroInventory.get(3).getItemName());
