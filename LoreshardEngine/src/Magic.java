@@ -46,7 +46,7 @@ public class Magic
 	public static void castFireBall(int hitPoints, int magicLev, int monsterNum)
 		{
 		ImageIcon icon = new ImageIcon(("fireball.jpg"));
-		int damage = (int) (Math.random() * (magicLev * 2)) + magicLev;
+		int damage = (int) (Math.random() * (magicLev * 5)) + magicLev;
 		JFrame frame = new JFrame();
 		
 		JOptionPane.showMessageDialog(frame, "You blast fire at the creature and do " + damage + " damage!",

@@ -74,6 +74,10 @@ public class Monster extends Creature
 				{
 				Armor armor = (Armor) Hero.heroInventory.get(1);
 				monsterDamage = monsterDamage - armor.getArmorLevel();
+				if(monsterDamage <= 0)
+					{
+					monsterDamage = 1;
+					}
 				heroHP = heroHP - monsterDamage;
 				}
 			Hero.heroes.get(0).setHeroHP(heroHP);
@@ -103,7 +107,7 @@ public class Monster extends Creature
 		
 		if(meleeChoice == 0)
 			{
-			enemyBlockLocation = (int) (Math.random() * 4) + 1;
+			enemyBlockLocation = (int) (Math.random() * 3) + 1;
 			}
 		if(meleeChoice == 1)
 			{

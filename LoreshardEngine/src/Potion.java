@@ -111,6 +111,21 @@ public class Potion extends Item
 				Hero.heroes.get(0).setWardPower(Hero.heroes.get(0).getWardPower() + healValue);
 				break;
 				}
+			case 8:
+				{
+				int healValue = (int) (Math.random() * 50) + 25;
+				JOptionPane.showMessageDialog(frame, "Your health has been healed for " + healValue + " hit points!",
+						"POTION",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
+				Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() + healValue);
+				
+				if(Hero.heroes.get(0).getHeroHP() > Hero.heroes.get(0).getMaxHeroHP())
+					{
+					Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getMaxHeroHP());
+					}
+				break;
+				}
 			}
 		if(Hero.heroInventory.get(3) instanceof Potion)
 			{

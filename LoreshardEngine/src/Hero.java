@@ -301,12 +301,46 @@ public class Hero extends Creature
 			
 			if(loot instanceof Ward && Hero.heroInventory.get(2) instanceof Ward)
 				{
-				Hero.heroInventory.set(2, loot);
+				Object[] wardType = {Hero.heroInventory.get(2).getItemName(), loot.getItemName()};
+				int WardChoice = JOptionPane.showOptionDialog(frame, "Which Ward would you like to keep?",
+						"LOOT",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						null, wardType, wardType[1]);
+				switch(WardChoice)
+					{
+					case 0:
+						{
+						break;
+						}
+					case 1:
+						{
+						Hero.heroInventory.set(2, loot);
+						break;
+						}
+					}
 				}
 			
 			if(loot instanceof Potion && Hero.heroInventory.get(3) instanceof Potion)
 				{
-				Hero.heroInventory.set(3, loot);
+				Object[] potionType = {Hero.heroInventory.get(3).getItemName(), loot.getItemName()};
+				int PotionChoice = JOptionPane.showOptionDialog(frame, "Which potion would you like to keep?",
+						"LOOT",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						null, potionType, potionType[1]);
+				switch(PotionChoice)
+					{
+					case 0:
+						{
+						break;
+						}
+					case 1:
+						{
+						Hero.heroInventory.set(3, loot);
+						break;
+						}
+					}
 				}
 		
 		showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName(), Hero.heroInventory.get(2).getItemName(), Hero.heroInventory.get(3).getItemName());

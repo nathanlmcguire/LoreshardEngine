@@ -27,7 +27,7 @@ public class SetUp
 				}
 			case 1:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 20, 0, 1, 2, 1, 0, 1, "Mage", 10));
+				Hero.heroes.add(new Hero(chosenName, 20, 20, 0, 1, 5, 1, 0, 1, "Mage", 10));
 				break;
 				}
 			case 2:
