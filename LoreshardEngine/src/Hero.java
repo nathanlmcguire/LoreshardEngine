@@ -140,7 +140,7 @@ public class Hero extends Creature
 				{
 				case 0:
 					{
-					damage = checkForCrit(damage) + (strengthLevel * 3);
+					damage = checkForCrit(damage) + (strengthLevel * 2);
 					JOptionPane.showMessageDialog(frame, "You attack high and do " + damage + " damage to the monster!",
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
 							JOptionPane.QUESTION_MESSAGE,
@@ -171,7 +171,7 @@ public class Hero extends Creature
 					}
 				case 2:
 					{
-					damage = checkForCrit(damage);
+					damage = checkForCrit(damage - (damage / 4));
 					JOptionPane.showMessageDialog(frame, "You attack low and do " + damage + " damage to the monster!",
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "",
 							JOptionPane.QUESTION_MESSAGE,
@@ -380,7 +380,7 @@ public class Hero extends Creature
 		
 		overAllLevel++;
 		Hero.heroes.get(0).setOverAllLevel(overAllLevel);
-		maxHeroHP = maxHeroHP + (2 * strengthLevel);
+		maxHeroHP = maxHeroHP + (strengthLevel + 1);
 		Hero.heroes.get(0).setMaxHeroHP(maxHeroHP);
 		Hero.heroes.get(0).setHeroHP(maxHeroHP);
 		switch(levelUpChoice)

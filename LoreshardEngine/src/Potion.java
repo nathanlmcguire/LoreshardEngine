@@ -49,7 +49,7 @@ public class Potion extends Item
 				}
 			case 1:
 				{
-				int healValue = (int) (Math.random() * 15) + 10;
+				int healValue = (int) (Math.random() * 15) + 16;
 				JOptionPane.showMessageDialog(frame, "Your health has been healed for " + healValue + " hit points!",
 						"POTION",
 						JOptionPane.QUESTION_MESSAGE,

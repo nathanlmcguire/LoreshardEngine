@@ -48,14 +48,15 @@ public class SetUp
 	
 	public static void generateSituation()
 		{
-		int situationNum = (int) (Math.random() * 5) + 1;
+		int situationNum = (int) (Math.random() * 9) + 1;
 		
 		switch(situationNum)
 			{
 			case 1:
 			case 2:
 			case 3:
-			
+			case 4:
+			case 5:
 				{
 				//MONSTER
 				int monsterNum = Monster.randomize();
@@ -66,22 +67,20 @@ public class SetUp
 				Monster.monsters.remove(monsterNum);
 				break;
 				}
-			case 4:
+			case 6:
+			case 7:
+			case 8:
 				{
 				//CAULDRON
 				Ingredient.brew();
 				break;
 				}
-			case 5:
+			case 9:
 				{
 				//Stubs
 				Stubs.play();
 				break;
 				}
-			case 6:
-			case 7:
-			case 8:
-			case 9:
 			case 10:
 				{
 				//SIDE QUEST

@@ -16,7 +16,7 @@ public class Ingredient extends Item
 	
 	public static void brew()
 		{
-		Object [] fred = new Object[Hero.alchemyBag.size()];
+		
 		int brewTotal = 0;
 		Potion createdPotion = Potion.potions.get(0);
 		ImageIcon icon = new ImageIcon(("cauldron.jpg"));
@@ -37,12 +37,13 @@ public class Ingredient extends Item
 		
 		else
 			{
-			for(int i = 0; i < Hero.alchemyBag.size(); i++)
-				{
-				fred [i] = Hero.alchemyBag.get(i).getItemName();
-				}
 			for(int i = 0; i < 2; i++)
 				{
+				Object [] fred = new Object[Hero.alchemyBag.size()];
+				for(int b = 0; b < Hero.alchemyBag.size(); b++)
+					{
+					fred [b] = Hero.alchemyBag.get(b).getItemName();
+					}
 				int ingredientChoice = JOptionPane.showOptionDialog(frame, "Which ingredient would you like to use?",
 						"BREW",
 						JOptionPane.YES_NO_CANCEL_OPTION,

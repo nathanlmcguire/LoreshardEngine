@@ -29,11 +29,9 @@ public class Runner
 			Monster.monsters.add(new Monster("Warg", 17, false, "Arena", 12));
 			Monster.monsters.add(new Monster("Goblin", 15, false, "Arena", 10));
 			Monster.monsters.add(new Monster("Goblin", 15, false, "Arena", 10));
-			Monster.monsters.add(new Monster("Goblin", 15, false, "Arena", 10));
 			Monster.monsters.add(new Monster("Wolf", 15, false, "Arena", 9));
 			Monster.monsters.add(new Monster("Minotaur", 70, false, "Arena", 20));
 			Monster.monsters.add(new Monster("Troll", 28, false, "Arena", 14));
-			Monster.monsters.add(new Monster("Kobold", 3, false, "Arena", 5));
 			Monster.monsters.add(new Monster("Kobold", 3, false, "Arena", 5));
 			Monster.monsters.add(new Monster("Kobold", 3, false, "Arena", 5));
 			Monster.monsters.add(new Monster("Kobold", 3, false, "Arena", 5));
@@ -71,18 +69,18 @@ public class Runner
 			Item.items.add(new Potion("Mega Healing Potion", 100, 8, true));
 			Potion.potions.add(new Potion("Mega Healing Potion", 100, 8, true));
 		//INGREDIENTS
-			Item.items.add(new Ingredient("Mudstock", 10, 0));
-			Item.items.add(new Ingredient("Grigs", 10, -1));
+			Item.items.add(new Ingredient("Mudstock Root", 10, 0));
+			Item.items.add(new Ingredient("Grigs Root", 10, -1));
 			Item.items.add(new Ingredient("Pettleroot", 10, 1));
 			Item.items.add(new Ingredient("Flame Cherries", 10, 3));
 			Item.items.add(new Ingredient("Greenweed", 10, -2));
 			Item.items.add(new Ingredient("Climber's Ivy", 10, 4));
-			Item.items.add(new Ingredient("Moon Lust", 10, 4));
-			Item.items.add(new Ingredient("Roofhead", 10, 1));
+			Item.items.add(new Ingredient("Moon Lust Flower", 10, 4));
+			Item.items.add(new Ingredient("Roofhead Mushroom", 10, 1));
 			Item.items.add(new Ingredient("Blood Sap", 10, -3));
 			Item.items.add(new Ingredient("Frost Grass", 10, 2));
-			Item.items.add(new Ingredient("Dragon's Breath", 10, 3));
-			Item.items.add(new Ingredient("Dawnchild", 10, 5));
+			Item.items.add(new Ingredient("Dragon's Breath Flower", 10, 3));
+			Item.items.add(new Ingredient("Dawnchild Flower", 10, 5));
 		
 		ImageIcon icon = new ImageIcon(("scroll.jpg"));
 		JFrame frame = new JFrame();

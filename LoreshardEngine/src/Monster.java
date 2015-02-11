@@ -66,7 +66,7 @@ public class Monster extends Creature
 		ImageIcon iconTwo = new ImageIcon(("game over.jpg"));
 		ImageIcon iconThree = new ImageIcon(("claws.jpg"));
 		JFrame frame = new JFrame();
-		monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage);
+		monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage + (Hero.heroes.get(0).getOverAllLevel() * 2));
 		int enemyAttackLovation = (int) (Math.random() * 2);
 		if(Hero.defend(enemyAttackLovation) == false)
 			{
