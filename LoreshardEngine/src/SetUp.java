@@ -7,7 +7,7 @@ public class SetUp
 	{
 	public static void createHero()
 		{
-		ImageIcon icon = new ImageIcon(("scroll.jpg"));
+		ImageIcon icon = new ImageIcon(("class.jpg"));
 		String chosenName = "";
 		int chosenClass = 0;
 		JFrame frame = new JFrame();
@@ -17,7 +17,7 @@ public class SetUp
 				"CHARACTER CREATION",
 				JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.QUESTION_MESSAGE,
-				null, chooseClassChoice, chooseClassChoice[0]);
+				icon, chooseClassChoice, chooseClassChoice[0]);
 		switch(chosenClass)
 			{
 			case 0:
@@ -48,7 +48,7 @@ public class SetUp
 	
 	public static void generateSituation()
 		{
-		int situationNum = (int) (Math.random() * 8) + 1;
+		int situationNum = (int) (Math.random() * 5) + 1;
 		
 		switch(situationNum)
 			{
@@ -67,21 +67,21 @@ public class SetUp
 				break;
 				}
 			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
 				{
 				//CAULDRON
 				Ingredient.brew();
 				break;
 				}
-			case 9:
+			case 5:
 				{
-				//LOCKPICKING 
-				//pickLock();
+				//Stubs
+				Stubs.play();
 				break;
 				}
+			case 6:
+			case 7:
+			case 8:
+			case 9:
 			case 10:
 				{
 				//SIDE QUEST
@@ -98,6 +98,12 @@ public class SetUp
 				{
 				//HERBS
 				//gatherHerbs();
+				break;
+				}
+			case 13:
+				{
+				//LOCKPICKING 
+				//pickLock();
 				break;
 				}
 			}

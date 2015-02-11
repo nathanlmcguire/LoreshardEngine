@@ -16,6 +16,7 @@ public class Ingredient extends Item
 	
 	public static void brew()
 		{
+		Object [] fred = new Object[Hero.alchemyBag.size()];
 		int brewTotal = 0;
 		Potion createdPotion = Potion.potions.get(0);
 		ImageIcon icon = new ImageIcon(("cauldron.jpg"));
@@ -26,7 +27,7 @@ public class Ingredient extends Item
 				JOptionPane.QUESTION_MESSAGE,
 				icon);
 		
-		if(Hero.alchemyBag.size() < 3)
+		if(Hero.alchemyBag.size() < 2)
 			{
 			JOptionPane.showMessageDialog(frame, "Unfortunately you don't have enough ingredients.",
 					"BREW",
@@ -36,25 +37,17 @@ public class Ingredient extends Item
 		
 		else
 			{
-			Object[] potionType = {Hero.alchemyBag.get(0).getItemName(), Hero.alchemyBag.get(1).getItemName()};
-			switch(Hero.alchemyBag.size())
+			for(int i = 0; i < Hero.alchemyBag.size(); i++)
 				{
-				case 3:
-					{
-					potionType = {Hero.alchemyBag.get(0).getItemName(), Hero.alchemyBag.get(1).getItemName()};
-					}
-				case 4:
-				case 5:
-				default:
+				fred [i] = Hero.alchemyBag.get(i).getItemName();
 				}
 			for(int i = 0; i < 2; i++)
 				{
-				//Object[] potionType = {Hero.alchemyBag.get(0).getItemName(), Hero.alchemyBag.get(1).getItemName()};
 				int ingredientChoice = JOptionPane.showOptionDialog(frame, "Which ingredient would you like to use?",
 						"BREW",
 						JOptionPane.YES_NO_CANCEL_OPTION,
 						JOptionPane.QUESTION_MESSAGE,
-						null, potionType, potionType[1]);
+						null, fred, fred[0]);
 
 				brewTotal = brewTotal + Hero.alchemyBag.get(ingredientChoice).getHerbValue();
 				Hero.alchemyBag.remove(ingredientChoice);
