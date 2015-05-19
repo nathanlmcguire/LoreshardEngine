@@ -11,7 +11,7 @@ public class Magic
 		int magicChoice;
 		if(Hero.heroes.get(0).getAdrenaline() >= 40)
 			{
-			Object[] magicType = {"Fire", "Water", "Earth", "Air", "UBER CAST"};
+			Object[] magicType = {"Fire", "Water", "Earth","UBER CAST"};
 			magicChoice = JOptionPane.showOptionDialog(frame, "What element would you like to cast?",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.YES_NO_CANCEL_OPTION,
@@ -20,7 +20,7 @@ public class Magic
 			}
 		else
 			{
-			Object[] magicType = {"Fire", "Water", "Earth", "Air"};
+			Object[] magicType = {"Fire", "Water", "Earth"};
 			magicChoice = JOptionPane.showOptionDialog(frame, "What element would you like to cast?",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.YES_NO_CANCEL_OPTION,
@@ -47,12 +47,6 @@ public class Magic
 				break;
 				}
 			case 3:
-				{
-				//castTeleport(magicLev);
-				//NEEDS WORK
-				break;
-				}
-			case 4:
 				{
 				castUber(hitPoints, magicLev, monsterNum);
 				break;

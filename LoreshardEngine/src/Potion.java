@@ -68,7 +68,7 @@ public class Potion extends Item
 						"POTION",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
-				Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() + 30);
+				Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() + 40);
 				break;
 				}
 			case 3:
