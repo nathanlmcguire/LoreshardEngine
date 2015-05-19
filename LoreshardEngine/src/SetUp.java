@@ -48,7 +48,7 @@ public class SetUp
 	
 	public static void generateSituation()
 		{
-		int situationNum = (int) (Math.random() * 8) + 1;
+		int situationNum = (int) (Math.random() * 9) + 1;
 		
 		switch(situationNum)
 			{
@@ -77,14 +77,14 @@ public class SetUp
 				}
 			case 9:
 				{
-				//Stubs
-				Stubs.play();
+				//Traps
+				activateTrap();
 				break;
 				}
 			case 10:
 				{
-				//SIDE QUEST
-				//generateSideQuest();
+				//Stubs
+				Stubs.play();
 				break;
 				}
 			case 11:
@@ -105,6 +105,48 @@ public class SetUp
 				//pickLock();
 				break;
 				}
+			case 14:
+				{
+				//SIDE QUEST
+				//generateSideQuest();
+				break;
+				}
+			}
+		}
+	
+	public static void activateTrap()
+		{
+		ImageIcon icon = new ImageIcon(("trap.jpg"));
+		ImageIcon evade = new ImageIcon(("evade.png"));
+		JFrame frame = new JFrame();
+		
+		JOptionPane.showMessageDialog(frame, "As you creep through the dungeon you unknowingly activate a tripwire!",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " +  Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon);	
+		int chance = (int) (Math.random() * Hero.heroes.get(0).getAgilityLevel()) + 3;
+		
+		if(chance > Hero.heroes.get(0).getAgilityLevel())
+			{
+			JOptionPane.showMessageDialog(frame, "You are too slow to get out of the way and poison darts slice into your side!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);	
+			int dmg = (int) (Math.random() * 3) + 3;
+			Hero.heroes.get(0).setMaxHeroHP(Hero.heroes.get(0).getMaxHeroHP() - dmg);
+			Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getMaxHeroHP());
+			
+			JOptionPane.showMessageDialog(frame, "Your max health is decreased by " + dmg + "!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);	
+			}
+		else
+			{
+			JOptionPane.showMessageDialog(frame, "Luckily you dodge away, unscathed.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					evade);	
 			}
 		}
 	}

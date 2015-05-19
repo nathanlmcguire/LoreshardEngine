@@ -1,0 +1,3460 @@
+public class Combat 
+	{
+	
+	public static void main(String[] args) 
+		{
+		Intros.startGameIntro();
+		Hero.askName();
+		Hero.generateCharacter();
+		Hero.generatePlayerHitPoints();
+		MonsterGenerator.areaChange();
+		while (Fight.playAgainChoice == 1)
+			{
+			Fight.chooseAction();
+			Fight.simulateCombat();
+			MonsterGenerator.areaChange();
+			}
+		}		
+	}
+	import java.util.Random;
+import java.util.Scanner;
+
+public class Hero 
+	{
+	static int playerHitPoints, godHealth, levelOfPlayer = 1;
+	static int diceRollOne, diceRollTwo, diceRollThree, totalDice;
+	static int difficultyHealth, difficultyDamage, difficultyLevel, nameNumber;
+	static int classWeaponBonus = 0, classFireballBonus = 0, classHealingBonus = 0, classDodgeBonus = 0, raceWeaponBonus = 0, raceFireballBonus = 0, raceHealingBonus = 0, raceDodgeBonus = 0;
+	static String nameOfPlayer, jobOfPlayer, homeLand, raceOfPlayer;
+	static String weaponName, healingTypeName, dodgeTypeName; 
+	static String weaponSymbol;	
+	static int classDamage, classHealth, healingName, numberOfPotions = 3, lockDifficulty;
+	
+	public static int generatePlayerHitPoints()//Generates the monster's hit points and tell you what they are.
+		{
+	    Random randomNumber = new Random();
+	    playerHitPoints = 10 + randomNumber.nextInt(godHealth + (levelOfPlayer * 10) + Loot.armorBonus + classHealth);
+		System.out.println();
+	    return playerHitPoints;
+	    }
+	
+	public static String askName() //Asks the name of the player.
+		{
+		System.out.println("Name:");
+		Scanner userInput1 = new Scanner(System.in);        
+	    nameOfPlayer = userInput1.nextLine();        
+	    System.out.println("You recall your name.  It is " + nameOfPlayer + ".");
+	    System.out.println();
+	    Intros.delayOneSecond();
+	    
+	    if ("TGM".equals(nameOfPlayer))
+	    	{
+	    	godHealth = 1000;
+	    	levelOfPlayer = 20;
+	    	}
+	    else
+	    	{
+	    	godHealth = 5;
+	    	}	
+	    System.out.println();
+	    Intros.delayOneSecond();
+	    return nameOfPlayer;
+		}
+	
+	public static int playerAttackRoll()//Rolls dice for the damage done by the player's sword.
+		{
+		Fight.dodgeAffect = 0;
+		Fight.resetDiceForRoll();
+		Random randomNumber = new Random();
+		diceRollOne = 2 + randomNumber.nextInt(classDamage);
+		diceRollTwo = 2 + randomNumber.nextInt(classDamage);
+		diceRollThree = 2 + randomNumber.nextInt(classDamage);
+		totalDice = (diceRollOne + diceRollTwo + diceRollThree + Loot.weaponBonus + classWeaponBonus + raceWeaponBonus);
+		Monster.monsterHitPoints = (Monster.monsterHitPoints - totalDice);
+		System.out.println("You swing your " + weaponName + " and do " + totalDice + " damage!");
+		Intros.delayOneSecond();
+		return totalDice;
+		}
+	
+	public static int generateCharacter() //Asks the player where he/she is from, what they want the difficulty level to be, and what they want their class to be.
+		{
+		System.out.println("But where are you from?"); 
+		Scanner userInput1 = new Scanner(System.in);
+		homeLand = userInput1.nextLine();
+		System.out.println("You think back and remember that you are from " + homeLand + ".");
+		System.out.println(" ");
+		Intros.delayOneSecond();
+		System.out.println("Choose the difficulty level.");
+		System.out.println(" ");
+		Intros.delayOneSecond();
+		System.out.println("1) Trainee, 2) Adept(Recommended), 3) Journyman, 4) Master, or 5) DEATH.");
+		Scanner userInput2 = new Scanner(System.in);
+		difficultyLevel = userInput2.nextInt();
+			if (1 == difficultyLevel)
+				{
+				difficultyHealth = 15;
+				difficultyDamage = 2;
+				}
+			if (2 == difficultyLevel)
+				{
+				difficultyHealth = 20;
+				difficultyDamage = 4;
+				}
+			if (3 == difficultyLevel)
+				{	
+				difficultyHealth = 30;
+				difficultyDamage = 6;
+				}
+			if (4 == difficultyLevel)
+				{
+				difficultyHealth = 50;
+				difficultyDamage = 8;
+				}
+			if (5 == difficultyLevel)
+				{
+				difficultyHealth = 10;
+				difficultyDamage = 15;
+				}
+		System.out.println("You remember your fighting style.");	
+		System.out.println(" ");
+		Intros.delayOneSecond();
+		System.out.println("Base Classes: Fighter, Healer, Thief, or Mage.");
+		System.out.println();
+		Intros.delayOneSecond();
+		System.out.println("Advanced Classes: Paladin(Healer+Fighter), Battlemage(Fighter+Mage), Nightblade(Thief+Mage) or Swordsman(Fighter+Thief).");
+		System.out.println();
+		Intros.delayOneSecond();
+		System.out.println("Type what you remember your stlye to be.");
+		jobOfPlayer = userInput1.nextLine();
+		if ("FIGHTER".equals(jobOfPlayer) || "fighter".equals(jobOfPlayer) || "Fighter".equals(jobOfPlayer))
+			{
+			classWeaponBonus = 3;
+			classFireballBonus = -10;
+			classHealingBonus = -1;
+			classDodgeBonus = -3;
+			weaponName = "Sword";
+			dodgeTypeName = "Block";
+			healingTypeName = "Health Potion";
+			healingName = 3;
+			classDamage = 8;
+			classHealth = 16;
+			weaponSymbol = "t  ";
+			lockDifficulty = 100000000;
+			}
+		if ("MAGE".equals(jobOfPlayer) || "mage".equals(jobOfPlayer) || "Mage".equals(jobOfPlayer))
+			{
+			classWeaponBonus = -10;
+			classFireballBonus = 3;
+			classHealingBonus = 2;
+			classDodgeBonus = -1;
+			dodgeTypeName = "Shield Spell";
+			healingTypeName = "Healing Spell";
+			healingName = 6;
+			weaponName = "Staff";
+			classDamage = 4;
+			classHealth = 13;
+			weaponSymbol = "*  ";
+			lockDifficulty = 100000000;
+			}
+		if ("HEALER".equals(jobOfPlayer) || "healer".equals(jobOfPlayer) || "Healer".equals(jobOfPlayer))
+			{
+			classWeaponBonus = 2;
+			classFireballBonus = -2;
+			classHealingBonus = 3;
+			classDodgeBonus = -2;
+			dodgeTypeName = "Block";
+			healingTypeName = "Healing Spell";
+			healingName = 6;
+			weaponName = "Mace";
+			classDamage = 7;
+			classHealth = 15;
+			weaponSymbol = "i";
+			lockDifficulty = 100000000;
+			}
+		if ("THIEF".equals(jobOfPlayer) || "thief".equals(jobOfPlayer) || "Thief".equals(jobOfPlayer))
+			{
+			classWeaponBonus = 1;
+			classFireballBonus = -10;
+			classHealingBonus = -2;
+			classDodgeBonus = 3;
+			dodgeTypeName = "Dodge";
+			healingTypeName = "Healing Potion";
+			healingName = 3;
+			weaponName = "Dagger";
+			classDamage = 5;
+			classHealth = 14;
+			weaponSymbol = "-  ";
+			lockDifficulty = 1000000;
+			}
+		if ("PALADIN".equals(jobOfPlayer) || "paladin".equals(jobOfPlayer) || "Paladin".equals(jobOfPlayer))
+			{
+			classWeaponBonus = 2;
+			classFireballBonus = -10;
+			classHealingBonus = 2;
+			classDodgeBonus = -3;
+			dodgeTypeName = "Block";
+			healingTypeName = "Healing Spell";
+			healingName = 6;
+			weaponName = "Hammer";
+			classDamage = 7;
+			classHealth = 15;
+			weaponSymbol = "--#";
+			lockDifficulty = 100000000;
+			}
+		if ("NIGHTBLADE".equals(jobOfPlayer) || "Nightblade".equals(jobOfPlayer) || "nightblade".equals(jobOfPlayer))
+			{
+			classWeaponBonus = 0;
+			classFireballBonus = 3;
+			classHealingBonus = -5;
+			classDodgeBonus = 3;
+			dodgeTypeName = "Dodge";
+			healingTypeName = "Healing Spell";
+			healingName = 6;
+			weaponName = "Spear";
+			classDamage = 5;
+			classHealth = 13;
+			weaponSymbol = "-  ";
+			lockDifficulty = 10000000;
+			}
+		if ("BATTLEMAGE".equals(jobOfPlayer) || "Battlemage".equals(jobOfPlayer) || "battlemage".equals(jobOfPlayer))
+			{
+			classWeaponBonus = 1;
+			classFireballBonus = 3;
+			classHealingBonus = 1;
+			classDodgeBonus = -3;
+			dodgeTypeName = "Shield Spell";
+			healingTypeName = "Healing Spell";
+			healingName = 6;
+			weaponName = "Battle Staff";
+			classDamage = 6;
+			classHealth = 14;
+			weaponSymbol = "I  ";
+			lockDifficulty = 100000000;
+			}
+		if ("SWORDSMAN".equals(jobOfPlayer) || "swordsman".equals(jobOfPlayer) || "Swordsman".equals(jobOfPlayer))
+			{
+			classWeaponBonus = 2;
+			classFireballBonus = -10;
+			classHealingBonus = -2;
+			classDodgeBonus = 2;
+			dodgeTypeName = "Dodge";
+			healingTypeName = "Healing Potion";
+			healingName = 3;
+			weaponName = "Katana";
+			classDamage = 5;
+			classHealth = 14;
+			weaponSymbol = ")";
+			lockDifficulty = 10000000;
+			}
+		System.out.println("You see your reflection in a pool of water and realize your race. (Type: Elf, Human, Dwarf, or Hobbit)");
+		raceOfPlayer = userInput1.nextLine();
+		
+			if("HUMAN".equals(raceOfPlayer) || "Human".equals(raceOfPlayer) || "human".equals(raceOfPlayer))
+				{
+				raceWeaponBonus = 2; 
+				raceFireballBonus = 0;
+				raceHealingBonus = -1;
+				raceDodgeBonus = 1;	
+				}
+			if("ELF".equals(raceOfPlayer) || "Elf".equals(raceOfPlayer) || "elf".equals(raceOfPlayer))
+				{
+				raceWeaponBonus = -1; 
+				raceFireballBonus = 1;
+				raceHealingBonus = 2;
+				raceDodgeBonus = 0;		
+				}
+			if("DWARF".equals(raceOfPlayer) || "Dwarf".equals(raceOfPlayer) || "dwarf".equals(raceOfPlayer))
+				{
+				raceWeaponBonus = 1; 
+				raceFireballBonus = 2;
+				raceHealingBonus = 0;
+				raceDodgeBonus = -1;		
+				}
+			if("HOBBIT".equals(raceOfPlayer) || "Hobbit".equals(raceOfPlayer) || "hobbit".equals(raceOfPlayer))
+				{
+				raceWeaponBonus = 0; 
+				raceFireballBonus = -1;
+				raceHealingBonus = 1;
+				raceDodgeBonus = 2;		
+				}	
+		System.out.println("You try hard, but you can't remember anything else about yourself.");
+		System.out.println(" ");
+		Intros.delayOneSecond();
+		System.out.println("You raise up a torch to see your surroundings");
+		System.out.println();
+		Intros.delayOneSecond();
+		Intros.startKildarinIntro();
+		return difficultyLevel;	
+		}
+		
+	}
+
+	import java.util.Random;
+import java.util.Scanner;
+
+
+public class Fight 
+	{
+	static int diceRollOne, diceRollTwo, diceRollThree, totalDice;
+	static int playAgainChoice = 1, actionChoice;
+	static int dodgeAffect = 0; 
+	static int numberOfSlainEnemies = 0;
+	static String pluralVariable;
+	
+	public static int chooseAction()//Lets the player choose their action.
+		{
+		System.out.println("_________________________________________________________________________________________________");
+		System.out.println("|                                                                                                |");
+		System.out.println("|                                                                                                |");
+		System.out.println("|                                                                                                |");
+		System.out.println("|                                                                                                |");
+		System.out.println("|                                                o                                               |");
+		System.out.println("|                                               ~0~" + Hero.weaponSymbol + "                                           |");
+		System.out.println("|                                                A                                               |");
+		System.out.println("|________________________________________________________________________________________________|");
+		System.out.println(MonsterGenerator.monsterName + "'s HP = " + Monster.monsterHitPoints + " 									" + Hero.nameOfPlayer + "'s HP = " + Hero.playerHitPoints + ".");
+		System.out.println("Would you like to use a 1) " + Hero.weaponName + ", 2) Fireball Spell, 3) " + Hero.healingTypeName + ",");
+		System.out.println("4) Lightning Blast(do not try unless Level 20), or 5) to use " + Hero.dodgeTypeName + " on the next Atack."); 
+		Scanner userInput1 = new Scanner(System.in);
+		actionChoice = userInput1.nextInt();
+		switch (actionChoice)
+			{
+			case 1:
+				{
+				dodgeAffect = 0;	
+				Hero.playerAttackRoll();
+				break;
+				}
+	
+			case 2:
+				{
+				dodgeAffect = 0;
+				resetDiceForRoll();
+				Random randomNumber = new Random();
+				diceRollOne = 1 + randomNumber.nextInt(3);
+				diceRollTwo = 1 + randomNumber.nextInt(3);
+				diceRollThree = 1 + randomNumber.nextInt(15);
+				totalDice = (diceRollOne + diceRollTwo + diceRollThree + Loot.fireballBonus + Hero.classFireballBonus + Hero.raceFireballBonus);
+				Monster.monsterHitPoints = (Monster.monsterHitPoints - totalDice);				
+				System.out.println("You blast the enemy with flames and do " + totalDice + " damage!");
+				Intros.delayOneSecond();
+				break;
+				}
+			case 3:	
+				{
+					dodgeAffect = 0;
+					resetDiceForRoll();
+					Random randomNumber = new Random();
+					diceRollOne = 1 + randomNumber.nextInt(Hero.healingName);
+					diceRollTwo = 1 + randomNumber.nextInt(Hero.healingName);
+					diceRollThree = 1 + randomNumber.nextInt(Hero.healingName);
+					totalDice = diceRollOne + diceRollTwo + diceRollThree + Loot.healingSpellBonus + Hero.classHealingBonus + Hero.raceHealingBonus;
+					Hero.playerHitPoints = (Hero.playerHitPoints + totalDice);
+					System.out.println("You heal yourself " + totalDice + " points of health with your " + Hero.healingTypeName + "!");
+					Intros.delayOneSecond();
+					Monster.playerHealthResetCounter = Monster.playerHealthResetCounter - totalDice;
+					if (Hero.healingName == 3)
+						{
+						Hero.numberOfPotions--;
+						System.out.println();
+						System.out.println(Hero.numberOfPotions + " potions left.");
+						Intros.delayOneSecond();
+						}
+				else if (Hero.numberOfPotions == 0)
+					{
+					System.out.println("You have no potions left.");
+					Intros.delayOneSecond();
+					}
+				break;	
+				}
+			case 4:
+				{
+				if(Hero.levelOfPlayer >= 20)
+					{
+					dodgeAffect = 0;
+					resetDiceForRoll();
+					Random randomNumber = new Random();
+					diceRollOne = 50 + randomNumber.nextInt(100);
+					diceRollTwo = 50 + randomNumber.nextInt(100);
+					diceRollThree = 50 + randomNumber.nextInt(100);
+					totalDice = diceRollOne + diceRollTwo + diceRollThree;
+					Monster.monsterHitPoints = (Monster.monsterHitPoints - totalDice);
+					System.out.println("Lightning archs towards the beast doing " + totalDice + " damage");
+					Intros.delayOneSecond();
+					}
+				else
+					{
+					dodgeAffect = 0;
+					resetDiceForRoll();
+					Random randomNumber = new Random();
+					diceRollOne = 1 + randomNumber.nextInt(2);
+					diceRollTwo = 1 + randomNumber.nextInt(2);
+					diceRollThree = 1 + randomNumber.nextInt(2);
+					totalDice = diceRollOne + diceRollTwo + diceRollThree;
+					Hero.playerHitPoints = (Hero.playerHitPoints - totalDice);
+					System.out.println("The spell backfires doing " + totalDice + " damage to yourself.");
+					Intros.delayOneSecond();
+					}
+				break;
+				}
+			case 5:
+				{
+				dodgeAffect = 0;	
+				resetDiceForRoll();
+				Random randomNumber = new Random();
+				diceRollOne = 1 + randomNumber.nextInt(10);
+				dodgeAffect = diceRollOne + Hero.classDodgeBonus + Loot.dodgeBonus + Hero.raceDodgeBonus;
+				System.out.println("You prepare to " + Hero.dodgeTypeName + " the enemie's next blow.");
+				System.out.println();
+				Intros.delayOneSecond();
+				System.out.println("You will " + Hero.dodgeTypeName + " " + dodgeAffect + " points of damage.");
+				Intros.delayOneSecond();
+				break;
+				}
+			}
+		return actionChoice;
+		}
+	
+	public static int simulateCombat()//The whole combat package which makes it so that you fight until you or the beast is dead.
+		{
+		while(Monster.monsterHitPoints > 0)
+			{
+			Monster.monsterAttackRoll();
+			if (Hero.playerHitPoints <= 0)
+				{
+				System.out.println("YOU DIED!");
+				System.out.println();
+				Intros.delayOneSecond();
+				Fight.askPlayerIfTheyWantToPlayAgain();
+				}
+			if (Hero.playerHitPoints != 0)
+				{
+				Fight.chooseAction();
+				}
+			}
+	
+		if (Monster.monsterHitPoints <= 0)
+			{
+			System.out.println();
+			System.out.println("YOU HAVE SLAIN THE CREATURE!");
+			System.out.println();
+			Intros.delayOneSecond();
+			System.out.println("You find some treasure on the body of the beast.");
+			System.out.println();
+			numberOfSlainEnemies++;
+			Intros.delayOneSecond();
+			Loot.lootBeast();
+			Intros.delayOneSecond();
+			Inventory.showInventory();
+			Intros.delayThreeSeconds();
+			
+			Hero.playerHitPoints = Hero.playerHitPoints + Monster.playerHealthResetCounter;
+			Monster.playerHealthResetCounter = 0;
+			if (MonsterGenerator.bossFight == 1)
+				{
+				System.out.println("LEVEL UP!");
+				Hero.levelOfPlayer++;
+				System.out.println();
+				Intros.delayOneSecond();
+				System.out.println("You are now a Level " + Hero.levelOfPlayer + "!");
+				Hero.playerHitPoints = Hero.playerHitPoints + (Hero.levelOfPlayer * 2);
+				System.out.println();
+				Intros.delayOneSecond();
+				System.out.println("YOU HAVE FOUND A LORE SHARD!");
+				System.out.println();
+				Intros.delayOneSecond();
+				MonsterGenerator.loreShardReveal();
+				System.out.println();
+				Intros.delayOneSecond();
+				}
+			}	
+		return Monster.monsterHitPoints;
+		}
+	
+	public static int askPlayerIfTheyWantToPlayAgain()//Asks the player if they want to play again or if they want to stop playing.
+		{
+		Hero.playerHitPoints = Hero.playerHitPoints + Monster.playerHealthResetCounter;
+		Monster.playerHealthResetCounter = 0;
+		System.out.println("Would you like to play again/continue " + Hero.nameOfPlayer + "?");
+		System.out.println();
+		Intros.delayOneSecond();
+		System.out.println("Or does " + Hero.homeLand + " need you?");
+		System.out.println();
+		System.out.println("Press 1 to play again/continue and press 2 to exit the game.");
+		Scanner userInput1 = new Scanner(System.in);
+		playAgainChoice = userInput1.nextInt();
+		if (playAgainChoice == 2)
+			{
+			System.out.println("Farewell " + Hero.nameOfPlayer + " of " + Hero.homeLand + ".");
+			System.out.println();
+			Intros.delayOneSecond();
+			if (numberOfSlainEnemies == 1)
+				{
+				pluralVariable = "1 deadly beast.  Better one than none.";
+				}
+			else if (numberOfSlainEnemies == 0)
+				{
+				pluralVariable = "no deadly beasts.  You are a failure.";
+				}
+			else 
+				{
+				pluralVariable = "" + numberOfSlainEnemies + " deadly beasts.";
+				if(numberOfSlainEnemies < 10)
+					{
+					System.out.println();
+					System.out.println("You are a Warrior of COMBAT.");
+					System.out.println();
+					}
+				else if (numberOfSlainEnemies < 20)
+					{
+					System.out.println();
+					System.out.println("You are a Hero of COMBAT.");
+					System.out.println();
+					}
+				else if (numberOfSlainEnemies < 30)
+					{
+					System.out.println();
+					System.out.println("You are a Legend of COMBAT.");
+					System.out.println();
+					}
+				else if (numberOfSlainEnemies < 40)
+					{
+					System.out.println();
+					System.out.println("You spend too much time on this game.");
+					System.out.println();
+					}
+				}
+			Intros.delayOneSecond();
+			System.out.println("Let everyone know that you were a Level " + Hero.levelOfPlayer + " " + Hero.raceOfPlayer + " " + Hero.jobOfPlayer + " and you fought "
+					+ "valiantly, defeating " + pluralVariable + "");
+			System.out.println();
+			Intros.delayOneSecond();
+			System.out.println("Best of luck to you.");
+			System.exit(0);
+			}
+		return playAgainChoice;
+		}
+	
+	public static int resetDiceForRoll()
+		{
+		diceRollOne = 0;
+		diceRollTwo = 0;
+		diceRollThree = 0;
+		totalDice = 0;
+		return totalDice;
+		}
+	
+	}
+
+	import java.util.concurrent.TimeUnit;
+
+
+public class Intros 
+	{
+	public static void startGameIntro()
+		{
+		System.out.println("The moon shines brightly in the sky as you sit on your porch.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Your neighborhood stands silent all around you, lights off, cars asleep, everyone is dreaming.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You adjust your telescope to focus in on a large red planet: Mars.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("While you admire the beauty of this planet you ponder the classic question.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Is there alien life out there?  Somewhere out there in the great expanse of space?");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("As you head inside you don't know it, but hundreds of light years away there IS an alien planet.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("A dying alien planet.  A planet calling out for help, a planet being devoured, devoured by Shadow.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Coded by Nathan McGuire");
+		delayThreeSeconds();
+		System.out.println("With help from Michael McGuire");
+		delayThreeSeconds();
+		System.out.println("Steelax Productions(tm) brings you...");
+		delayThreeSeconds();
+		System.out.println("--}LORESHARD!{--");
+		delayThreeSeconds();
+		System.out.println();
+		System.out.println("*");
+		delayOneSecond();
+		System.out.println("*");
+		delayOneSecond();
+		System.out.println("*");
+		delayOneSecond();
+		System.out.println();
+		System.out.println("GO TO THE VALE.  ESCAPE IT.  The strange message is all you recall as you awake in a cave.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You remember nothing, but the basics begin to come back to you.");
+		System.out.println("");
+		}	
+	
+	public static void startTemplateIntro()
+		{
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		}
+	
+	public static void startKildarinIntro()
+		{
+		System.out.println("You look around yourself to see a massive cave.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("It is easy to see marks from pickaxes on the walls, but you can't find any minerals left, only stone.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Every action you take sends an echo into the darkness of the seemingly unending cave.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You hear scuttling sounds, but those could be echoes from miles down this cave.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Who knows what could be lurking in the depths of Kildarin?");
+		delayThreeSeconds();
+		}
+	
+	public static void startGormarIntro()
+		{
+		System.out.println("You crest a hill to see the huge expanse of the Gormar plains.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Long golden grass covers this massive area and it is hard to see the end with the sun setting.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You can see jet black horses with flaming manes and tails covering this plains, cantering over hundreds of corpses.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Zombies also walk this area, adorned in the armor of Human soldiers.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void startFarstarnIntro()
+		{
+		System.out.println("You crest a hill to see the huge marsh of Farstarn.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The marsh is grey, decaying, languid, unmoving, dead.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You see a boat on the poison choked river that leads out of this place.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You know that you must get to it, so you begin to walk there, your boots sqeulching in the mud of the poisonous swamp.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void startSerebisIntro()
+		{
+		System.out.println("You crest a hill to the the ancient forest Serebis, Capital of the Elves.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The outermost trees are entwined together to act as a wall against foes.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You can imagine the forest would look beautiful in its prime, but the forest is old, withered, and covered in webs.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Thousands and thousands of webs.  Spider webs.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void startDarktarnIntro()
+		{
+		System.out.println("You crest a hill to see a massive volcano: Darktarn.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The air is choked with smoke, and it is hard to see, but you can sense that there are enemies here.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You hear the sounds of hammer on anvil in the distance. You wonder if this is some type of forge, and who, or what, owns it?");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void startDeepstainIntro()
+		{
+		System.out.println("As you walk forward you fall into a pit.  You fall through several weak wooden floors untill you hit the ground.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("After you have bandaged your minor wounds from the fall you look around.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You stand in a grand room, connected to thousands of others.  Gold, Silver, and rubies adourn the walls.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("This city would look grand if it were not shrouded in darkness, and littered with millions of bones.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Dwarven bones.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void startVortonsinIntro()
+		{
+		System.out.println("You crest a hill to see a massive icy tundra.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The land is snowy and empty, but you can sense there is life.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You know you should tread softly, for any life that survives in this place must be brutal.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void startTerikIntro()
+		{
+		System.out.println("In front of you stand the great jungle of Terik.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You can see thousands of trees, and one massive tree looming above them all.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You sense that this once sacred part of the Elven Realm in now corrupted by The Shadow, and you should tread lightly.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("This forest has turned against those who once mastered it.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void startPartokIntro()
+		{
+		System.out.println("You crest a hill to see an amazing sight.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The inland sea of Partok, which is completely frozen over by ice.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("It is freezing cold here, but you know that even this temperature could not freeze an entire sea, magic must be at work.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The ice does not budge when you put your weight upon it, so you carefully walk forward.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You see forms moving under the ice, some very large, and you pray that they will not notice your passage through this place on the way to the Vale.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void startSorthusIntro()
+		{
+		System.out.println("Before you is a grand landmark of this world.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The canyon Sorthus.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You can see ramshackle houses and crude pathways all over this area.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The walls of the canyon look almost red, and are perferated with many holes, large and small.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You stay wary of those holes, they are perfect ofr creatures to hide from the burning sun in.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+		
+	public static void startDoomkeepIntro()
+		{
+		System.out.println("You see your final obstacle looming in front of you.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The great castle of the Humans: Doomkeep.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The walls, once white, are now stained black but suprisingly intact and covered in defensive wards.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("All except one piece of the wall wich is shattered.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You wonder why The Shadow would choose to destroy this wall, instead of the gate wich is still intact and covered in wards.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You the remaints of the Human Army patrolling the walls, corrupted in Shadow.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The final part of your journey is here, you just have to fight your way to the Vale Gate and get to safetey.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void startValeIntro()
+		{
+		System.out.println("You stand back suprised.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You killed it, you killed The Shadow!  You need to tell the King!  You need to get to the Vale and report your triumph!");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You run over to the shimmering door to the Vale, and without hesitation jump through.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You appear in a shimmering white land, infront of you are two guards, a Human and a Dwarf.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You gaze at the beauty of this place you have tried so hard to get to, but then you suddenly feel weak ");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You collapse to the floor, and the Guards pcik you up and carry you through a mass of white tents to the healer");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("They lay you down on a cot, and a healer looks over at you.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("A new arrival?' 'Yea, just popped in and collapsed.'  'Just Vale sickness, every arrival gets it.  He needs rest.'");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Then you fall asleep, safe in the Vale.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("*");
+		delayThreeSeconds();
+		System.out.println("*");
+		delayThreeSeconds();
+		System.out.println("*");
+		delayThreeSeconds();
+		System.out.println("");
+		System.out.println("Thank you for playing Loresh-");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You suddenly awake to the smell of death.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("Around you the tent, the floor is all stain with shadow.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You stand up, look around to the the corrupted corpses of the healer, and of the two Guards.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You open the tent to see the whole Vale, corrupted and destroyed.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("But I killed him, you think.  I slew him in the throne room.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You must find Thornwir and protect him, maybe the King can restore the Vale.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void startEndgameIntro()
+		{
+		System.out.println("Suddenly Thronwir's armor falls to the ground, empty.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The Kingblade clatters to the floor.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You pick up these sacred artifacts in wonder, but you jump as you hear a rumbling.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You look outside to the the Vale, collapsing.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You run with all your might for the exit, and just barely make it, clutching Thornwir's armor you your chest.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You stand up, in the empty Throne Room of Doomkeep, alone, in the dark, the last of this planet.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("In front of you is the world that was ravaged by The Shadow.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("You can not save it, it is over, you sit down on the Throne of Thornwir in despair.");
+		System.out.println("");
+		delayThreeSeconds();
+		System.out.println("The Throne entwines around you pullinhg you downward deep into the catacombs of Doomkeep, where you will sleep for thousands of years... untill you are awaken.");
+		System.out.println("");
+		delayThreeSeconds();
+		}
+	
+	public static void delayOneSecond()
+		{
+		try
+			{
+			TimeUnit.SECONDS.sleep(1);	
+			}
+		catch (InterruptedException e)
+			{
+			
+			}
+		}	
+	
+	public static void delayThreeSeconds()
+	{
+	try
+		{
+		TimeUnit.SECONDS.sleep(3);	
+		}
+	catch (InterruptedException e)
+		{
+		
+		}
+	}	
+	
+	public static void delayHalfSecond()
+	{
+	try
+		{
+		TimeUnit.SECONDS.sleep((long) .9);	
+		}
+	catch (InterruptedException e)
+		{
+		
+		}
+	}	
+}
+	
+	import java.util.ArrayList;
+public class Inventory 
+	{
+	static String equippedArmor, equippedWeapon, equippedFireItem, equippedHealingItem, equipedBootsOrCloak;
+	
+	//static ArrayList <String> PlayerInventory = new <String> ArrayList()
+
+	public static void showInventory()
+		{
+		System.out.println("Inventory");
+		System.out.println("Armor: " + Loot.armorName + " (" + Loot.armorBonus + ")");
+		System.out.println("Weapon: " + Hero.weaponName + " (" + Loot.weaponBonus + ")");
+		System.out.println("Spell: " + Loot.fireItemName + " (" + Loot.fireballBonus + ")");
+		System.out.println("Healing Spell: " + Loot.healingItemName + " (" + Loot.healingSpellBonus + ")");
+		System.out.println("Apparel: " + Loot.bootOrCloakName + " (" + Loot.dodgeBonus + ")");
+		System.out.println("Potions: " + Hero.numberOfPotions + "");
+		System.out.println("Gold: " + Loot.goldOfPlayer +"");
+		System.out.println("Level: "+ Hero.levelOfPlayer + "");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		}
+	}
+	
+	import java.util.Random;
+
+
+public class Loot 
+	{
+	static int lootNumber, findingLuck, playerLuck, dodgeAffect = 0; 
+	static int armorBonus = 0, weaponBonus = 0, fireballBonus = 0, healingSpellBonus = 0, dodgeBonus = 0;
+	static int weight, goldOfPlayer = 10, itemID;
+	static String armorName = "Leather Armor", fireItemName = "Training Fire Scroll", healingItemName = "Training Healing Scroll", bootOrCloakName = "Training Boots";
+	
+	public static int lootBeast()//Randomly generates loot from the dead beast.(Only if you killed it.) 30 different items!
+		{
+		generateNumber();
+		System.out.println("You open the bag of loot at your feet.");
+		System.out.println("");
+		Intros.delayOneSecond();
+		switch (lootNumber)
+			{ 
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+				{
+				System.out.println("You have found some Stone Armor!");
+				System.out.println();
+				armorName = "Stone Armor";
+				System.out.println("Level 1 Item.");
+				System.out.println();
+				armorBonus = 1;
+				System.out.println("Your max HP has now been increased by 1.");
+				System.out.println();
+				itemID = 1;
+				break;
+				}
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+				{
+				System.out.println("You have found some Iron Armor!");
+				System.out.println();
+				armorName = "Iron Armor";
+				System.out.println("Level 2 Item.");
+				System.out.println();
+				armorBonus = 2;
+				System.out.println("Your max HP has now been increased by 2.");
+				System.out.println();
+				itemID = 2;
+				break;
+				}
+			case 10:
+			case 11:
+			case 12:
+				{
+				System.out.println("You have found some Steel Armor!");
+				System.out.println();
+				armorName = "Steel Armor";
+				System.out.println("Level 3 Item.");
+				System.out.println();
+				armorBonus = 4;
+				System.out.println("Your max HP has now been increased by 4.");
+				System.out.println();
+				itemID = 4;
+				break;
+				}
+			case 13:
+			case 14:
+				{
+				System.out.println("You have found some Titanium Armor!");
+				System.out.println();
+				armorName = "Titanium Armor";
+				System.out.println("Level 4 Item.");
+				System.out.println();
+				System.out.println("Your max HP has now been increased by 6.");
+				System.out.println();
+				itemID = 6;
+				armorBonus = 6;
+				break;
+				}
+			case 15:
+				{
+				System.out.println("You have found some Platinum Armor!");
+				System.out.println();
+				armorName = "Platinum Armor";
+				System.out.println("Level 5 Item.");
+				System.out.println();
+				armorBonus = 8;
+				System.out.println("Your max health is 8 more points now!");
+				System.out.println();
+				itemID = 8;
+				break;	
+				}
+			case 16:
+			case 17:
+			case 18:
+			case 19:
+			case 20:
+				{
+				System.out.println("You have found a Stone " + Hero.weaponName + "!");
+				System.out.println();
+				Hero.weaponName = Hero.weaponName;
+				Hero.weaponName = "Stone " + Hero.weaponName + "";
+				System.out.println("Level 1 Item.");
+				System.out.println();
+				weaponBonus = 1;
+				System.out.println("You now do 1 more damage with your " + Hero.weaponName + "!");
+				System.out.println();
+				itemID = 1;
+				break;
+				}
+			case 21:
+			case 22:
+			case 23:
+			case 24:
+				{
+				System.out.println("You have found an Iron " + Hero.weaponName + "!");
+				System.out.println();
+				Hero.weaponName = Hero.weaponName;
+				Hero.weaponName = "Iron " + Hero.weaponName + "";
+				System.out.println("Level 2 Item.");
+				System.out.println();
+				weaponBonus = 2;
+				System.out.println("You now do 2 more damage with your " + Hero.weaponName + "!");
+				System.out.println();
+				itemID = 2;
+				break;	
+				}
+			case 25:
+			case 26:
+			case 27:
+				{
+				System.out.println("You have found a Steel " + Hero.weaponName + "!");
+				System.out.println();
+				Hero.weaponName = Hero.weaponName;
+				Hero.weaponName = "Steel " + Hero.weaponName + "";
+				System.out.println("Level 3 Item.");
+				System.out.println();
+				weaponBonus = 4;
+				System.out.println("You now do 4 more damage with your " + Hero.weaponName + "!");
+				System.out.println();
+				itemID = 4;
+				break;	
+				}
+			case 28:
+			case 29:
+				{
+				System.out.println("You have found a Titanium " + Hero.weaponName + "!");
+				System.out.println();
+				Hero.weaponName = Hero.weaponName;
+				Hero.weaponName = "Titanium " + Hero.weaponName + "";
+				System.out.println("Level 4 Item.");
+				System.out.println();
+				weaponBonus = 6;
+				System.out.println("You now do 6 more damage with your " + Hero.weaponName + "!");
+				System.out.println();
+				itemID = 6;
+				break;
+				}
+			case 30:
+				{
+				System.out.println("You have found a Platinum " + Hero.weaponName + "!");
+				System.out.println();
+				Hero.weaponName = "Platinum " + Hero.weaponName + "";
+				System.out.println("Level 5 Item.");
+				System.out.println();
+				weaponBonus = 8;
+				System.out.println("You do 8 more points of damage with your " + Hero.weaponName + " now!");
+				System.out.println();
+				itemID = 8;
+				break;		
+				}
+			case 31:
+			case 32:
+			case 33:
+			case 34:
+			case 35:
+				{
+				System.out.println("You have found a Weak Fireball Scroll!");
+				System.out.println();
+				fireItemName = "Weak Fireball Scroll";
+				System.out.println("Level 1 Item.");
+				System.out.println();
+				fireballBonus = 1;
+				System.out.println("Your Fireball Spell does 1 more damage now.");
+				System.out.println();
+				itemID = 1;
+				break;	
+				}
+			case 36:
+			case 37:
+			case 38:
+			case 39:
+				{
+				System.out.println("You have found a Moderate Fireball Scroll!");
+				System.out.println();
+				fireItemName = "Moderate Fireball Scroll";
+				System.out.println("Level 2 Item.");
+				System.out.println();
+				fireballBonus = 2;
+				System.out.println("Your Fireball Spell does 2 more damage now.");
+				System.out.println();
+				itemID = 2;
+				break;	
+				}
+			case 40:
+			case 41:
+			case 42:
+				{
+				System.out.println("You have found an Advanced Fireball Scroll!");
+				System.out.println();
+				fireItemName = "Advanced Fireball Scroll";
+				System.out.println("Level 3 Item.");
+				System.out.println();
+				fireballBonus = 4;
+				System.out.println("Your Fireball Spell does 4 more damage now.");
+				System.out.println();
+				itemID = 4;
+				break;	
+				}
+			case 43:
+			case 44:
+				{
+				System.out.println("You have found an Apprentice Ring of Fire!");
+				System.out.println();
+				fireItemName = "Apprentice Ring of Fire";
+				System.out.println("Level 4 Item.");
+				System.out.println();
+				fireballBonus = 6;
+				System.out.println("Your Fireball Spell does 6 more damage now.");
+				System.out.println();
+				itemID = 6;
+				break;			
+				}
+			case 45:
+				{
+				System.out.println("You have found a Master Ring of Fire!");
+				System.out.println();
+				fireItemName = "Master Ring of Fire";
+				System.out.println("Level 5 Item.");
+				System.out.println();
+				fireballBonus = 8;
+				System.out.println("Your Fireball Spell does 8 more damage now.");
+				System.out.println();
+				itemID = 8;
+				break;			
+				}
+			case 46:
+			case 47:
+			case 48:
+			case 49:
+			case 50:
+				{				
+				System.out.println("You have found a Weak Healing Scroll!");
+				System.out.println();
+				healingItemName = "Weak Healing Scroll";
+				System.out.println("Level 1 Item.");
+				System.out.println();
+				healingSpellBonus = 1;
+				System.out.println("Your Healing Spell/Healing Potions heal you up 1 more now.");
+				System.out.println();
+				itemID = 1;
+				break;
+				}	
+			case 51:
+			case 52:
+			case 53:
+			case 54:
+				{
+				System.out.println("You have found a Moderate Healing Scroll!");
+				System.out.println();
+				healingItemName = "Moderate Healing Scroll";
+				System.out.println("Level 2 Item.");
+				System.out.println();
+				healingSpellBonus = 2;
+				System.out.println("Your Healing Spell/Healing Potions heal you up 2 more now.");
+				System.out.println();
+				itemID = 2;
+				break;	
+				}
+			case 55:
+			case 56:
+			case 57:
+				{
+				System.out.println("You have found an Advanced Healing Scroll!");
+				System.out.println();
+				healingItemName = "Advanced Healing Scroll";
+				System.out.println("Level 3 Item.");
+				System.out.println();
+				healingSpellBonus = 4;
+				System.out.println("Your Healing Spell/Healing Potions heal you up 4 more now.");
+				System.out.println();
+				itemID = 4;
+				break;
+				}	
+			case 58:
+			case 59:
+				{
+				System.out.println("You have found an Apprentice Ring of Healing!");
+				System.out.println();
+				healingItemName = "Apprentice Ring of Healing";
+				System.out.println("Level 4 Item.");
+				System.out.println();
+				healingSpellBonus = 6;
+				System.out.println("Your Healing Spell/Healing Potions heal you up 6 more now.");
+				System.out.println();
+				itemID = 6;
+				break;
+				}
+			case 60:
+				{
+				System.out.println("You have found a Master Ring of Healing!");
+				System.out.println();
+				healingItemName = "Master Ring of Healing";
+				System.out.println("Level 5 Item.");
+				System.out.println();
+				healingSpellBonus = 8;
+				System.out.println("Your Healing Spell/Healing Potions heal you up 8 more now.");
+				System.out.println();
+				itemID = 8;
+				break;
+				}
+			case 61:
+			case 62:
+			case 63:
+			case 64:
+			case 65:
+				{
+				System.out.println("You have found Weak Boots of " + Hero.dodgeTypeName + "ing!");
+				System.out.println();
+				bootOrCloakName = "Weak Boots of " + Hero.dodgeTypeName + "ing";
+				System.out.println("Level 1 Item.");
+				System.out.println();
+				dodgeBonus = 1;
+				System.out.println("You " + Hero.dodgeTypeName + " 1 more point of damage now!");
+				System.out.println();
+				itemID = 1;
+				break;
+				}
+			case 66:
+			case 67:
+			case 68:
+			case 69:
+				{
+				System.out.println("You have found Moderate Boots of " + Hero.dodgeTypeName + "ing!");
+				System.out.println();
+				bootOrCloakName = "Moderate Boots of " + Hero.dodgeTypeName + "ing";
+				System.out.println("Level 2 Item.");
+				System.out.println();
+				dodgeBonus = 2;
+				System.out.println("You " + Hero.dodgeTypeName + " 2 more points of damage now!");
+				System.out.println();
+				itemID = 2;
+				break;
+				}
+			case 70:
+			case 71:
+			case 72:
+				{
+				System.out.println("You have found Advanced Boots of " + Hero.dodgeTypeName + "ing!");
+				System.out.println();
+				bootOrCloakName = "Advanced Boots of " + Hero.dodgeTypeName + "ing";
+				System.out.println("Level 3 Item.");
+				System.out.println();
+				dodgeBonus = 4;
+				System.out.println("You " + Hero.dodgeTypeName + " 6 more points of damage now!");
+				System.out.println();
+				itemID = 4;
+				break;
+				}
+			case 73:
+			case 74:
+				{
+				System.out.println("You have found an Apprentice Cloak of " + Hero.dodgeTypeName + "ing!");
+				System.out.println();
+				bootOrCloakName = "Apprentice Cloak of " + Hero.dodgeTypeName + "ing";
+				System.out.println("Level 4 Item.");
+				System.out.println();
+				dodgeBonus = 6;
+				System.out.println("You " + Hero.dodgeTypeName + " 6 more points of damage now!");
+				System.out.println();
+				itemID = 6;
+				break;
+				}
+			case 75:
+				{
+				System.out.println("You have found a Master Cloak of " + Hero.dodgeTypeName + "ing!");
+				System.out.println();
+				bootOrCloakName = "Master Cloak of " + Hero.dodgeTypeName + "ing";
+				System.out.println("Level 5 Item.");
+				System.out.println();
+				dodgeBonus = 8;
+				System.out.println("You " + Hero.dodgeTypeName + " 8 more points of damage now!");
+				System.out.println();
+				itemID = 8;
+				break;
+				}
+			case 76:
+			case 77:
+			case 78:
+			case 79:
+			case 80:
+				{
+				System.out.println("You have found 2 Healing Potions!");
+				System.out.println();
+				System.out.println("Level 1 Item.");
+				System.out.println();
+				Hero.numberOfPotions = Hero.numberOfPotions + 2;
+				System.out.println("You have " + Hero.numberOfPotions + " healing potions now.");
+				System.out.println();
+				break;	
+				}
+			case 81:
+			case 82:
+			case 83:
+			case 84:
+				{
+				System.out.println("You have found 3 Healing Potions!");
+				System.out.println();
+				System.out.println("Level 2 Item.");
+				System.out.println();
+				Hero.numberOfPotions = Hero.numberOfPotions + 3;
+				System.out.println("You have " + Hero.numberOfPotions + " healing potions now.");
+				System.out.println();
+				break;		
+				}
+			case 85:
+			case 86:
+			case 87:
+				{
+				System.out.println("You have found 4 Healing Potions!");
+				System.out.println();
+				System.out.println("Level 3 Item.");
+				System.out.println();
+				Hero.numberOfPotions = Hero.numberOfPotions + 4;
+				System.out.println("You have " + Hero.numberOfPotions + " healing potions now.");
+				System.out.println();
+				break;
+				}
+			case 88:
+			case 89:
+				{
+				System.out.println("You have found 5 Healing Potions!");
+				System.out.println();
+				System.out.println("Level 4 Item.");
+				System.out.println();
+				Hero.numberOfPotions = Hero.numberOfPotions + 5;
+				System.out.println("You have " + Hero.numberOfPotions + " healing potions now.");
+				System.out.println();
+				break;
+				}
+			case 90:
+				{
+				System.out.println("You have found 6 Healing Potions!");
+				System.out.println();
+				System.out.println("Level 5 Item.");
+				System.out.println();
+				Hero.numberOfPotions = Hero.numberOfPotions + 6;
+				System.out.println("You have " + Hero.numberOfPotions + " healing potions now.");
+				System.out.println();
+				break;
+				}
+			case 91:
+				{
+				System.out.println("You have found an Essence!");
+				System.out.println();
+				System.out.println("Level 5 Item.");
+				System.out.println();
+				weaponBonus = weaponBonus * 2;
+				System.out.println("Your " + Hero.weaponName + " does 2x damage now!");
+				System.out.println();
+				break;	
+				}
+			case 92:
+			case 93:
+			case 94:
+			case 95:
+				{
+				System.out.println("You have found 20 Gold!");
+				System.out.println();
+				System.out.println("Level 2 Item.");
+				System.out.println();
+				goldOfPlayer = goldOfPlayer + 20;
+				System.out.println("You have " + goldOfPlayer + " gold now.");
+				System.out.println();
+				break;
+				}
+			case 96:
+			case 97:
+			case 98:
+				{
+				System.out.println("You have found 30 Gold!");
+				System.out.println();
+				System.out.println("Level 3 Item.");
+				System.out.println();
+				goldOfPlayer = goldOfPlayer + 30;
+				System.out.println("You have " + goldOfPlayer + " gold now.");
+				System.out.println();
+				break;	
+				}
+			case 99:
+			case 100:
+				{
+				System.out.println("You have found 40 Gold!");
+				System.out.println();
+				System.out.println("Level 4 Item.");
+				System.out.println();
+				goldOfPlayer = goldOfPlayer + 40;
+				System.out.println("You have " + goldOfPlayer + " gold now.");
+				System.out.println();
+				break;		
+				}
+			case 101:
+				{
+				System.out.println("You have found 50 Gold!");
+				System.out.println();
+				System.out.println("Level 5 Item.");
+				System.out.println();
+				goldOfPlayer = goldOfPlayer + 50;
+				System.out.println("You have " + goldOfPlayer + " gold now.");
+				System.out.println();
+				break;		
+				}
+			}
+		return lootNumber;
+		}
+	
+	public static int generateNumber()//Generates the random number for the lootBeast method.
+		{
+		Random randomNumber = new Random();
+		lootNumber = 1 + randomNumber.nextInt(94);
+		return lootNumber;
+		}	
+	
+	}
+	import java.util.Scanner;
+
+
+public class Market 
+	{
+	static int itemChoice;
+	
+	public static int sellOrBuy()
+		{
+		System.out.println("As you walk along the dirt path, you see a tired old man sittiong on the side of the road.");	
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("He has a massive cart next to him piled high with items.");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("Hello Sir, he says.  Need anything?  I have a [1]Steel Sword for 10 gold, [2]Steel Armor for 20 gold, and [3]Two Health Potions for 15.");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("What would you like?(type in the number of the item you want or 0 to leave)");
+		System.out.println("Your GP: " + Loot.goldOfPlayer + "");
+		Scanner userInput1 = new Scanner(System.in);
+		itemChoice = userInput1.nextInt();
+		if(Loot.goldOfPlayer >= 0)
+			{
+			if(itemChoice == 1)
+				{
+				System.out.println("Here you go, one Steel Sword!  Now, I msut be off!");
+				System.out.println();
+				Intros.delayOneSecond();
+				Loot.goldOfPlayer = Loot.goldOfPlayer - 10;
+				Hero.weaponName = "Steel " + Hero.weaponName + "";
+				Loot.weaponBonus = 4;
+				System.out.println("You now do 4 more damage with your " + Hero.weaponName + "!");
+				System.out.println();
+				Intros.delayOneSecond();
+				Inventory.showInventory();
+				Intros.delayThreeSeconds();
+				}
+			else if(itemChoice == 2)
+				{
+				System.out.println("Here you go, one set of Steel Armor!  Now, I must be off!");
+				System.out.println();
+				Intros.delayOneSecond();
+				Loot.goldOfPlayer = Loot.goldOfPlayer - 20;
+				Loot.armorName = "Steel Armor";
+				Loot.armorBonus = 4;
+				System.out.println("Your max HP has now been increased by 4.");
+				System.out.println();
+				Intros.delayOneSecond();
+				Inventory.showInventory();
+				Intros.delayThreeSeconds();
+				}
+			else if(itemChoice == 3)
+				{
+				System.out.println("There you go, 2 Healin Potions!  Now I must be off!");
+				System.out.println();
+				Intros.delayOneSecond();
+				Loot.goldOfPlayer = Loot.goldOfPlayer - 15;
+				Hero.numberOfPotions = Hero.numberOfPotions + 2;
+				System.out.println("You have " + Hero.numberOfPotions + " healing potions now.");
+				System.out.println();
+				Intros.delayOneSecond();
+				Inventory.showInventory();
+				Intros.delayThreeSeconds();
+				}
+			else if(itemChoice == 0)
+				{
+				System.out.println("Maybe another time then.  You continue on your quest to the Vale.");
+				System.out.println();
+				Intros.delayOneSecond();
+				}
+			}
+		else if(Loot.goldOfPlayer <= 0)
+			{
+			System.out.println("Oh, you don't have the money.");
+			System.out.println();
+			Intros.delayOneSecond();
+			System.out.println("Maybe another time then.  You continue on your quest to the Vale.");
+			System.out.println();
+			Intros.delayOneSecond();
+			}
+		return itemChoice;
+		}	
+	}
+
+	import java.util.Random;
+
+
+public class Monster 
+	{
+	static int monsterHitPoints, playerHealthResetCounter = 0;
+		
+	public static int monsterAttackRoll()//Rolls dice for the damage done by the monster's claws.
+		{
+		System.out.println();
+		System.out.println("The " + MonsterGenerator.monsterName + MonsterGenerator.
+				monsterAttackName + "!");
+		System.out.println();
+		Intros.delayOneSecond();
+		Fight.resetDiceForRoll();
+		Random randomNumber = new Random();
+		Fight.diceRollOne = 1 + randomNumber.nextInt(Hero.difficultyDamage + MonsterGenerator.monsterDamage);
+		Fight.diceRollTwo = 1 + randomNumber.nextInt(Hero.difficultyDamage + MonsterGenerator.monsterDamage);
+		Fight.diceRollThree = 1 + randomNumber.nextInt(Hero.difficultyDamage + MonsterGenerator.monsterDamage);
+		Fight.totalDice = Fight.diceRollOne + Fight.diceRollTwo + Fight.diceRollThree + (Hero.levelOfPlayer * 5);
+		for (Fight.dodgeAffect = Fight.dodgeAffect; Fight.dodgeAffect > Fight.totalDice; Fight.dodgeAffect++)
+			{
+			
+			}
+		Fight.totalDice = Fight.totalDice - Fight.dodgeAffect;	
+		System.out.println("The " + MonsterGenerator.monsterName + " does " + Fight.totalDice + " damage!");
+		System.out.println();
+		Intros.delayOneSecond();
+		Hero.playerHitPoints = (Hero.playerHitPoints - Fight.totalDice);
+		playerHealthResetCounter = playerHealthResetCounter + Fight.totalDice;
+		return Fight.totalDice;
+		}	
+	
+	public static int generateMonsterHitPoints()//Generates the player's hit points and tell you what they are.
+		{
+		Random randomNumber = new Random(); 
+		monsterHitPoints = (5 * Hero.levelOfPlayer + 10) + randomNumber.nextInt(Hero.difficultyHealth + MonsterGenerator.monsterHealth);
+		return monsterHitPoints;
+		}
+	}
+
+	import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
+public class MonsterGenerator 
+	{
+	static String monsterAttackName, monsterName, areaOfBoss;
+	static int randomMonsterNumber, monsterHealth = 0, monsterDamage = 0, areaChoiceOne, areaChoiceTwo, areaChoiceThree, bossFight = 0;
+		
+	public static int kildarinMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		String[] listOfKildarinMonsters = {"Hunter Goblin", "Warrior Goblin", "Shaman Goblin", "Weak Goblin", "Giant Rat", "Rat Rider Goblin"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Hunter Goblin";
+				monsterHealth = 1;
+				monsterDamage = 3;
+				monsterAttackName = " aims his bow and shoots at you";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Warrior Goblin";	
+				monsterHealth = 3;
+				monsterDamage = 3;
+				monsterAttackName = " swings his sword at you";	
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Shaman Goblin";	
+				monsterHealth = 0;
+				monsterDamage = 4;
+				monsterAttackName = " blasts a ball of fire at you";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Weak Goblin";
+				monsterHealth = 0;
+				monsterDamage = 0;
+				monsterAttackName = " launches himself at you";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Giant Rat";
+				monsterHealth = 2;
+				monsterDamage = 3;
+				monsterAttackName = " launches itself at you";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Rat Rider Goblin";
+				monsterHealth = 4;
+				monsterDamage = 5;
+				monsterAttackName = " lowers his spear and charges at you";	
+				bossFight = 0;
+				break;
+				}
+			}
+		return randomMonsterNumber;
+		}
+		
+	public static int gormarMonsterArray()
+		{		
+		Monster.generateMonsterHitPoints();
+		String[] listOfGormarMonsters = {"Nightmare", "Wandering Zombie", "Hunter Zombie", "Zombie Nightmare Rider", "Ice Nightmare", "Nightmare Stallion"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Nightmare";
+				monsterHealth = 3;
+				monsterDamage = 3;
+				monsterAttackName = " charges at you";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Wandering Zombie";	
+				monsterHealth = 1;
+				monsterDamage = 1;
+				monsterAttackName = " groans and slowly walks towards you";	
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Hunter Zombie";	
+				monsterHealth = 0;
+				monsterDamage = 4;
+				monsterAttackName = " screams and runs at you";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Zombie Nightmare Rider";
+				monsterHealth = 3;
+				monsterDamage = 4;
+				monsterAttackName = " turns the Nightmare towars you and charges";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Ice Nightmare";
+				monsterHealth = 4;
+				monsterDamage = 4;
+				monsterAttackName = " charges at you";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Nightmare Stallion";
+				monsterHealth = 5;
+				monsterDamage = 5;
+				monsterAttackName = " charges at you";	
+				bossFight = 0;
+				break;
+				}
+			}
+		return randomMonsterNumber;
+		}
+
+	public static int farstarnMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		String[] listOfFarstarnMonsters = {"Fading Ghost", "Vengful Ghost", "Ghost Sailor", "Poisonous Mushroom", "Giant Toad", "Ghost Thief"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Fading Ghost";
+				monsterHealth = 4;
+				monsterDamage = 1;
+				monsterAttackName = " turns toward you and attacks";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Vengful Ghost";	
+				monsterHealth = 4;
+				monsterDamage = 3;
+				monsterAttackName = " glares at you with its red eyes and attacks";	
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Ghost Sailor";	
+				monsterHealth = 4;
+				monsterDamage = 2;
+				monsterAttackName = " turns toward you and attacks";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Poisonous Mushroom";
+				monsterHealth = 2;
+				monsterDamage = 5;
+				monsterAttackName = " blasts poison spores in your direction";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Giant Toad";
+				monsterHealth = 6;
+				monsterDamage = 1;
+				monsterAttackName = " jumps out from the bank at you";
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Ghost THief";
+				monsterHealth = 2;
+				monsterDamage = 1;
+				monsterAttackName = " tries to stab you with a ghostly knife";	
+				bossFight = 0;
+				break;
+				}
+			}
+		return randomMonsterNumber;
+		}
+	
+	public static int serebisMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		String[] listOfFarstarnMonsters = {"Giant Spider", "Two-Headed Spider", "Spider Swarm", "Giant Venus Fly Trap", "Giant Daddy Long Legs", "Hardened Spider"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Giant Spider";
+				monsterHealth = 3;
+				monsterDamage = 2;
+				monsterAttackName = " scuttles toward you and attacks";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Two-Headed Spider";	
+				monsterHealth = 4;
+				monsterDamage = 3;
+				monsterAttackName = " glares at you with all 16 eyes and attacks";
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Spider Swarm";	
+				monsterHealth = 6;
+				monsterDamage = 3;
+				monsterAttackName = " scutles toward you in hube numbers";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Giant Venus Fly Trap";
+				monsterHealth = 1;
+				monsterDamage = 7;
+				monsterAttackName = " snaps at you with it's giant mouth";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Giant Daddy Long Legs";
+				monsterHealth = 6;
+				monsterDamage = 1;
+				monsterAttackName = " quickly scuttles towards you snapping its mandibles";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Hardened Spider";
+				monsterHealth = 8;
+				monsterDamage = 2;
+				monsterAttackName = " quickly scuttles towards you snapping its mandibles";	
+				bossFight = 0;
+				break;	
+				}
+			}
+		return randomMonsterNumber;
+		}
+
+	public static int darktarnMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		String[] listOfDarktarnMonsters = {"Lava Elemental", "Troll Worker", "Troll Fighter", "Rusty Automaton", "Troll Crossbowman", "Crazed Troll"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Lava Elemental";
+				monsterHealth = 3;
+				monsterDamage = 3;
+				monsterAttackName = " lurches out of a pool of lava and comes towards you";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Troll Worker";	
+				monsterHealth = 1;
+				monsterDamage = 0;
+				monsterAttackName = " raises its tools and attacks you";
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Troll Fighter";	
+				monsterHealth = 2;
+				monsterDamage = 6;
+				monsterAttackName = " dips its blade in the lava and come at you with it";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Rusty Automoton";
+				monsterHealth = 5;
+				monsterDamage = 5;
+				monsterAttackName = " wakes from its slumber and shakes of the rust as it charges you";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Troll Crossbowman";
+				monsterHealth = 0;
+				monsterDamage = 9;
+				monsterAttackName = " raises its expertly crafted crossbow and fires at you";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Crazed Troll";
+				monsterHealth = 1;
+				monsterDamage = 3;
+				monsterAttackName = " charges at you screaming dwarvish curses";	
+				bossFight = 0;
+				break;	
+				}
+			}
+		return randomMonsterNumber;
+		}
+
+	public static int deepstainMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		String[] listOfDeepstainMonsters = {"Ancient Skeleton", "Vengful Skeleton", "Wraith", "Dark Automotan", "Necromancer", "Corrupted Soul"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Ancient Skeleton";
+				monsterHealth = 0;
+				monsterDamage = 1;
+				monsterAttackName = " its bone grates together as it comes at you with an ancient blade";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Vengful Skeleton";	
+				monsterHealth = 0;
+				monsterDamage = 5;
+				monsterAttackName = " charges at you wishing to avenge the wrongs done to it";
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Wraith";	
+				monsterHealth = 6;
+				monsterDamage = 3;
+				monsterAttackName = " blasts dark magic at you";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Dark Automaton";
+				monsterHealth = 7;
+				monsterDamage = 7;
+				monsterAttackName = " wakes from its slumber and shakes of the rust as it charges you";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Necromancer";
+				monsterHealth = 3;
+				monsterDamage = 9;
+				monsterAttackName = " blasts evil magic at you";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Corrupted Soul";
+				monsterHealth = 7;
+				monsterDamage = 2;
+				monsterAttackName = " charges at you wishing to use you as a host";	
+				bossFight = 0;
+				break;	
+				}
+			}
+		return randomMonsterNumber;
+		}
+
+	public static int vortonsinMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		System.out.println();
+		String[] listOfVortonsinMonsters = {"Wolf", "Ferocious Man", "Snow Leopard", "Dark Druid", "Werewolf", "Alpha Wolf"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Wolf";
+				monsterHealth = 3;
+				monsterDamage = 3;
+				monsterAttackName = " growls and lunges at you";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Ferocious Man";	
+				monsterHealth = 6;
+				monsterDamage = 3;
+				monsterAttackName = " growls and lunges at you";
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Snow Leapard";	
+				monsterHealth = 7;
+				monsterDamage = 4;
+				monsterAttackName = " growls and lunges at you";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Dark Druid";
+				monsterHealth = 1;
+				monsterDamage = 7;
+				monsterAttackName = " moves the earth to slay you";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Werewolf";
+				monsterHealth = 6;
+				monsterDamage = 5;
+				monsterAttackName = " growls and lunges at you";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Alpha Wolf";
+				monsterHealth = 7;
+				monsterDamage = 7;
+				monsterAttackName = " growls and lunges at you";	
+				bossFight = 0;
+				break;	
+				}
+			}
+		return randomMonsterNumber;
+		}
+	
+	public static int areaChange()
+		{
+		if (Fight.numberOfSlainEnemies < 5)
+			{
+			generateMonsterNumber();
+			kildarinMonsterArray();
+			SideQuests.collectionOfQuests();
+			}
+		 else if (Fight.numberOfSlainEnemies == 5)
+			{
+			Monster.generateMonsterHitPoints();
+			System.out.println("You walk into a large cavern where the Goblin Chief awaits you.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("You can see that his throne is made up of bones, but you can't tell what or who they are from.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("This Chief screams a challenge to you, and you know that he will not let you pass from this cave to journey on to the Vale.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("You must slay him.");
+			System.out.println();
+			Intros.delayOneSecond();
+			monsterName = "Goblin Chief";
+			monsterHealth = 10;
+			monsterDamage = 10;
+			monsterAttackName = " swings his scepter at you";
+			bossFight = 1;
+			areaOfBoss = "Kildarin";
+			}
+		 else if (Fight.numberOfSlainEnemies == 6)
+			{
+			 System.out.println("Three paths are before you.");
+			 System.out.println();
+			 Intros.delayOneSecond();
+			 System.out.println("Do you wish to go to 1, 2, or 3?");
+			 Scanner userInput1 = new Scanner(System.in);
+			 areaChoiceOne = userInput1.nextInt();
+			 switch(areaChoiceOne)
+			 	{
+			 	case 1:
+			 		{
+			 		Intros.startGormarIntro();	
+			 		gormarMonsterArray();
+			 		break;
+			 		}
+				 
+			 	case 2:
+			 		{
+			 		Intros.startFarstarnIntro();	
+			 		farstarnMonsterArray();
+			 		break;
+			 		}
+				 
+			 	case 3:	
+			 		{
+			 		Intros.startSerebisIntro();	
+			 		serebisMonsterArray();
+			 		break;
+			 		}
+			 	}
+			}
+		 else if (Fight.numberOfSlainEnemies < 10 && Fight.numberOfSlainEnemies > 5)
+		 	{
+			 switch(areaChoiceOne)
+				{
+				case 1:
+					{
+					generateMonsterNumber();
+					gormarMonsterArray();
+					SideQuests.collectionOfQuests();
+					break;
+					}
+				case 2:
+					{
+					generateMonsterNumber();	
+					farstarnMonsterArray();
+					SideQuests.collectionOfQuests();
+					break;
+					}
+				case 3:
+					{
+					generateMonsterNumber();
+					serebisMonsterArray();
+					SideQuests.collectionOfQuests();
+					break;
+					}
+				}
+			}
+		 else if (Fight.numberOfSlainEnemies == 10)
+			{
+			 switch(areaChoiceOne)
+				{
+				case 1:
+					{
+					Monster.generateMonsterHitPoints();	
+					System.out.println("You see a Nightmare coming towards you being ridden by a zombie wearing heavy armor.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("The zombie is wearing the armor of a Captain, and it clutches a hardy steel lance.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("He believes that you the one who destroyed all of the troops under him.  You con not continue to the Vale unless he is dead.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("Slay him.");
+					System.out.println();
+					Intros.delayOneSecond();
+					monsterName = "Captain Morthusk";
+					monsterHealth = 10;
+					monsterDamage = 10;
+					monsterAttackName = " attacks you with his lance";
+					bossFight = 1;	
+					areaOfBoss = "Gormar";	
+					break;
+					}
+				case 2:
+					{
+					Monster.generateMonsterHitPoints();	
+					System.out.println("You walk onto a boat floating on murky water.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("This boat is the only way out of Farstarn that eventually leads to the Vale.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("A Ghostly Captain materializes, intent on keeping you off his ship.  Kill him.");
+					System.out.println();
+					Intros.delayOneSecond();
+					monsterName = "Ghost Captain";
+					monsterHealth = 10;
+					monsterDamage = 10;
+					monsterAttackName = " swings his ghostly at you";
+					bossFight = 1;	
+					areaOfBoss = "Farstarn";	
+					break;
+					}
+				case 3:
+					{
+					Monster.generateMonsterHitPoints();	
+					System.out.println("You walk into a large clearing where overhanging trees block out the moon.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("A throne of silver stands before you, it would have been beautiful if not for the thousands of webs covering it.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("You hear a sound and look up to see a massive spider attached to the trees.  She leaps down in front of the exit to Serebis");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("You must slay her to leave the forest.");
+					System.out.println();
+					Intros.delayOneSecond();
+					monsterName = "Spider Queen";
+					monsterHealth = 10;
+					monsterDamage = 10;
+					monsterAttackName = " bites at you with her mandibles";
+					bossFight = 1;	
+					areaOfBoss = "Serebis";	
+					break;
+					}
+				}			 
+			}
+		 else if (Fight.numberOfSlainEnemies == 11)
+			{
+			 generateMonsterNumber();
+			 System.out.println("Three paths are before you.");
+			 System.out.println();
+			 Intros.delayOneSecond();
+			 System.out.println("Do you wish to go to 1, 2, or 3?");
+			 Scanner userInput1 = new Scanner(System.in);
+			 areaChoiceTwo = userInput1.nextInt();
+			 switch(areaChoiceTwo)
+			 	{
+			 	case 1:
+			 		{
+			 		Intros.startDarktarnIntro();	
+			 		darktarnMonsterArray();
+			 		break;
+			 		}
+			 	case 2:
+			 		{
+			 		Intros.startDeepstainIntro();
+			 		deepstainMonsterArray();
+			 		break;	
+			 		}
+			 	case 3:
+			 		{
+			 		Intros.startVortonsinIntro();
+			 		vortonsinMonsterArray();
+			 		break;
+			 		}
+			 	}
+			}
+		 else if (Fight.numberOfSlainEnemies < 15 && Fight.numberOfSlainEnemies > 11)
+		 	{
+			 switch(areaChoiceTwo)
+				{
+				case 1:
+					{
+					generateMonsterNumber();
+					darktarnMonsterArray();
+					SideQuests.collectionOfQuests();
+					break;
+					}
+				case 2:
+					{
+					generateMonsterNumber();	
+					deepstainMonsterArray();
+					SideQuests.collectionOfQuests();
+					break;	
+					}
+				case 3:
+					{
+					generateMonsterNumber();	
+					vortonsinMonsterArray();
+					SideQuests.collectionOfQuests();
+					break;	
+					}
+				}
+			}
+		 else if (Fight.numberOfSlainEnemies == 15)
+			{
+			 switch(areaChoiceTwo)
+				{
+				case 1:
+					{
+					Monster.generateMonsterHitPoints();	
+					System.out.println("You walk to the edge of the fiery volcano, and see a massive rusty suit of armor in the lava.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("Without anyone wearing it, it begins to move, and with a massive gauntlet it attacks you.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("You must destroy it before you proceed to the Vale.");
+					System.out.println();
+					Intros.delayOneSecond();
+					monsterName = "Ancient Pierced Armor";
+					monsterHealth = 10;
+					monsterDamage = 10;
+					monsterAttackName = " swings its great metal claymore at you";
+					bossFight = 1;	
+					areaOfBoss = "Darktarn";	
+					break;		
+					}
+				case 2:
+					{
+					Monster.generateMonsterHitPoints();	
+					System.out.println("You walk into a massive throne room littered with millions of bones.  The Liche Emperor is sitting at his throne, waiting for you.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("You sense that he wants your body for some dark purpose.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("He will not let you pass alive, you must kill him.");
+					System.out.println();
+					Intros.delayOneSecond();
+					monsterName = "Liche Emperor";
+					monsterHealth = 10;
+					monsterDamage = 10;
+					monsterAttackName = " blasts dark hexes at you";
+					bossFight = 1;		
+					areaOfBoss = "Deepstain";
+					break;
+					}
+				case 3:
+					{
+					Monster.generateMonsterHitPoints();	
+					System.out.println("You see a wolf coming towards you.  Or is it a man?");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("The being morphs continuously between a hideous beast and a rabid man.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("This creature will not let you leave its territory on your quest to get to the Vale.  Slay it.");
+					System.out.println();
+					Intros.delayOneSecond();
+					monsterName = "Mutant Elder";
+					monsterHealth = 10;
+					monsterDamage = 10;
+					monsterAttackName = " claws and bites at you";
+					bossFight = 1;		
+					areaOfBoss = "Vortonsin";	
+					break;
+					}
+				}
+			}
+		 else if (Fight.numberOfSlainEnemies == 16)
+			{
+			 generateMonsterNumber();
+			 System.out.println("Three paths are before you.");
+			 System.out.println();
+			 Intros.delayOneSecond();
+			 System.out.println("Do you wish to go to 1, 2, or 3?");
+			 Scanner userInput1 = new Scanner(System.in);
+			 areaChoiceThree = userInput1.nextInt();
+			 switch(areaChoiceThree)
+			 	{
+			 	case 1:
+			 		{
+			 		Intros.startTerikIntro();
+			 		terikMonsterArray();
+			 		break;	
+			 		}
+			 	case 2:
+			 		{
+			 		Intros.startSorthusIntro();
+			 		sorthusMonsterArray();
+			 		break;	
+			 		}
+			 	case 3:
+			 		{
+			 		Intros.startPartokIntro();
+			 		partokMonsterArray();
+			 		break;	
+			 		}
+			 	}
+			}
+		else if (Fight.numberOfSlainEnemies < 20 && Fight.numberOfSlainEnemies > 16)
+			{
+			 switch(areaChoiceThree)
+				{
+				case 1:
+					{
+					generateMonsterNumber();	
+					terikMonsterArray();
+					SideQuests.collectionOfQuests();
+					break;	
+					}
+				case 2:
+					{
+					generateMonsterNumber();	
+					sorthusMonsterArray();
+					SideQuests.collectionOfQuests();
+					break;	
+					}
+				case 3:
+					{
+					generateMonsterNumber();	
+					partokMonsterArray();
+					SideQuests.collectionOfQuests();
+					break;	
+					}
+				}
+			}
+		 else if (Fight.numberOfSlainEnemies == 20)
+			{
+			 switch(areaChoiceThree)
+				{
+				case 1:
+					{
+					Monster.generateMonsterHitPoints();	
+					System.out.println("You walk all the way up the trunk of the Great Tree. At the top is a throne made of charred Elf bones.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("The Chief Barbarian sits on the throne, and he stands, brandishing a mace and screaming war cries.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("This Barbarian is challenging you for the Throne of Terik.  Slay it to continue to the Vale.");
+					System.out.println();
+					Intros.delayOneSecond();
+					monsterName = "Barbarian Chieftan";
+					monsterHealth = 10;
+					monsterDamage = 10;
+					monsterAttackName = " swings his mace of bone at you";
+					bossFight = 1;			
+					areaOfBoss = "Terik";	
+					break;
+					}
+				case 2:
+					{
+					Monster.generateMonsterHitPoints();	
+					System.out.println("In front of you is a path that slopes up and out of the canyon.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("You walk towards it, but a half man half scorpion scuttles out from a hole in the ");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("This creature will not let you continue on the the Vale.  Slay it.");
+					System.out.println();
+					Intros.delayOneSecond();
+					monsterName = "Mutant Scorpion";
+					monsterHealth = 10;
+					monsterDamage = 10;
+					monsterAttackName = " claws and bites at you";
+					bossFight = 1;			
+					areaOfBoss = "Sorthus";	
+					break;
+					}
+				case 3:
+					{
+					Monster.generateMonsterHitPoints();	
+					System.out.println("You find yourself at a tower of solid ice.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("You rap on it, and it feels solid as granite.  Then it moves.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("The ice being turns to face you and you can see a frozen corpse.");
+					System.out.println();
+					Intros.delayThreeSeconds();
+					System.out.println("You know you must slay this ice giant and free the poor explorer from his endless torture.");
+					System.out.println();
+					Intros.delayOneSecond();
+					monsterName = "Frozen Adventurer";
+					monsterHealth = 10;
+					monsterDamage = 10;
+					monsterAttackName = " swings a massive arm of jagged ice at you";
+					bossFight = 1;			
+					areaOfBoss = "Partok";	
+					break;
+					}
+				}
+			}
+		 if (Fight.numberOfSlainEnemies == 21)
+		 	{
+			 Intros.startDoomkeepIntro();
+			 doomkeepMonsterArray();
+		 	}
+		 if (Fight.numberOfSlainEnemies < 30 && Fight.numberOfSlainEnemies > 20)
+			{
+			 generateMonsterNumber();
+			 doomkeepMonsterArray();
+			}
+		 else if (Fight.numberOfSlainEnemies == 30)
+			{
+			 Monster.generateMonsterHitPoints();	
+			System.out.println("You open the door to the Throne Room.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("Where the Throne should be instead there is the door to the Vale.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("You go forward to finally be safe, but before you materializes a great shadow.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("You shudder in fear of this being you have heard so much about, but you know that you must kill it to enter the Vale, and be saved.");
+			System.out.println();
+			Intros.delayOneSecond();
+			monsterName = "-";
+			monsterHealth = 15;
+			monsterDamage = 15;
+			monsterAttackName = " swings a blade of Shadow at you";
+			bossFight = 1;			
+			areaOfBoss = "Doomkeep";
+			}
+		 if (Fight.numberOfSlainEnemies == 31)
+		 	{
+			 Intros.startValeIntro();
+			 valeMonsterArray();
+		 	}
+		 if (Fight.numberOfSlainEnemies < 40 && Fight.numberOfSlainEnemies > 31)
+			{
+			 generateMonsterNumber();
+			 valeMonsterArray();
+			}
+		 else if (Fight.numberOfSlainEnemies == 40)
+			{
+			 Monster.generateMonsterHitPoints();	
+			System.out.println("You enter the massive white tent that is marked as King Thornwir's, hoping to save him.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("As you enter you see the King, his skin made of shadow, his armor pierced and battered.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("Thornwir turns.  'HELLO MORTAL.  I HAVE WAITED LONG FOR THIS MOMENT.'");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("'YOU WISH TO KNOW HOW I CAME HERE? LET ME TELL YOU.'");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("'IT WAS YOU.  YOU BROUGHT ME HERE.  I COULD NOT ENTER THE VALE WITHOUT A HUMAN HOST TO WILLINGLY CARRY ME THERE.'");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("YOU WERE MY HOST, MY PARASITE, NOW I HAVE A TRUE HOST.  I GUIDED YOU TOWARDS MY GOAL.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("ALL HAVE FALLEN TO ME, BECAUSE OF YOU.  I THANK YOU, BUT ONE FOE REMAINS... YOU.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("The Shadow draws the Kingblade of THornwir.  'NOW DIE AT THE HANDS OF YOUR KING!'");
+			System.out.println();
+			Intros.delayOneSecond();
+			monsterName = "The Shadow";
+			monsterHealth = 20;
+			monsterDamage = 20;
+			monsterAttackName = " swings the Kingblade at you";
+			bossFight = 1;				
+			areaOfBoss = "Vale";
+			}
+		 else if (Fight.numberOfSlainEnemies == 41)
+		 	{	
+			 Intros.startEndgameIntro();
+		 	}
+		return areaChoiceThree;
+		}	
+	
+	public static int generateMonsterNumber()//Generates the random number for the lootBeast method.
+		{
+		randomMonsterNumber = 0;
+		Random randomNumber = new Random();
+		randomMonsterNumber = randomNumber.nextInt(5);
+		return randomMonsterNumber;
+		}
+	
+	public static void loreShardReveal()
+		{
+		if(bossFight == 1)
+			{
+			if("Kildarin".equals (areaOfBoss))
+				{
+				System.out.println("Kildarin:The land farthest away from the Vale is mostly comprised of huge cave systems.  These caves were once a rich mining facility owned by the dwarves.  Iron, Steel, and Precious Gems littered these caves, and riches flowed from Kildarin.  Most common materials were mined from this place.  Now it is derelict, barren, and overrun by goblins.  Wether the goblins overthrew the few dwarfs who did not retreat to the Vale, or they are what the dwarfs became, is lost in The Shadow.");
+				}
+			else if("Gormar".equals (areaOfBoss))
+				{
+				System.out.println("Gormar:The massive plains were roamed by the quickest Horses in the land.  The Humans tried to tame them for warfare against The Shadow.  But the Horses were quickly corrupted by The Shadow and developed their flaming manes and tails along with their violent attitudes.  Some of the corpses of the dead human soldiers still roam this plain looking for their mounts who forsake them in battle with the Shadow.");
+				}
+			else if("Farstarn".equals (areaOfBoss))
+				{
+				System.out.println("Farstarn:The swamp was dangerous even before The Shadow came, and travelers paid ferries to guide them through.  Farstarn was a place where adventurers and sailors could make an honest liveing, however, most didn't.  Thieves, conmen, and pirates abounded in this mysterious swamp.  No one knows what they did when The Shadow came, only that now the ghosts of their guilt, and anger still haunt Farstarn looking for a waylaid traveler to take out their anger on.");
+				}
+			else if("Serebis".equals (areaOfBoss))
+				{
+				System.out.println("Serebis:The grand forest where the Elf Queen reigned.  It was infested with spiders and the Queen spent many soldiers to keep them at bay.  But when The Shadow came those soldiers were pulled from their task to fight IT.  Their mistake cost them, and the corpses of their army are still preserved in various webs all over Serebis.");
+				}
+			else if("Darktarn".equals (areaOfBoss))
+				{
+				System.out.println("Darktarn:The massive volcano was once the great forge of the Dwarves.  They crafted many a Legendary Blade here, but they were not warriors. When The Shadow came they begged for their lives.  The Shadow made a deal with the Dwarves that if they made him a suit of armor worthy of him he would grant them immortality.  The dwarves agreed a began to make it, but a few wished to defeat The Shadow.  They built the armor with a flaw so that a hero could strike The Shadow and slay it.  The flaw went unnoticed and the Shadow let Darktarn in peace.  The Dwarf Rebels sent word to Darnth, a great Dwarven Mage who mounted an assault on Doomkeep with the entire Rebel Dwarf army.  While the army was slaughtered out side the walls, Darnth snuck in and faced The Shadow.  Darnth struck the chink with his full might, and pierced it, but The Shadow was unharmed.  After The Shadow destroyed Darnth and the Rebel Dwarves, he went back to Darktarn, furious with the Dwarven smiths there.  They pleaded for their lives, and The Shadow would have taken them, but immortal beings are bound by their word, so he cursed them.  For ever more the traitorous Dwarves of Darktarn will burn inside skin of stone:  the Trolls of the Dwarf Forge.");
+				}
+			else if("Deepstain".equals (areaOfBoss))
+				{
+				System.out.println("Deepstain:The pit that carves its way into the earth was the Capital of the Dwarven Empire.  Here the miners found rare Shardium Ore.  They mined so far down that some accounts even say that they got to the core of the planet.  They were masters of metal work, and they made automatons run on magic to act as soldiers.  These automatons made up the finest army in the land, but they crumbled easily against The Shadow.  The Dwarf Emperor thought that if the automatons were more intelligent they could be effective against The Shadow.  But all attempts simulated intelligence failed, so the King began to use the human brains of the dead to give the fighting machines intelligence.  When this failed as well, the King began to steal the brains of those still alive.  When it proved that human organs powered the machines better than magic most of the Emperor's subjects were robbed to create an army to resist The Shadow.  By the time The Shadow arrived, the Dwarven Emperor was the lone Dwarf in Deepstain, and since The Shadow's to corrupt had already occurred in Deepstain, he let it lie in its twisted state.");
+				}
+			else if("Vortonsin".equals (areaOfBoss))
+				{
+				System.out.println("Vortonsin:The cold plains of Vortonsin were populated by scattered Human settlements.  The Humans there were tough, hardy people.  When news of The Shadow came, they did not flee to the Vale like all those who were sane.  They thought themselves superior to all who lived in comfort.   They all allied together and met with The Shadow at the borders of Vortonsin.  The survivors of the bloodbath were led by Elder Warthon.  He was a very skilled Druid and he convinced the remaining people that the only way to survive was to live as the wolf did.  Wolves still prowl this icy tundra, and ever since Warthon marred the line between beast and man it is hard to tell if the wolves living there were born as wolf, or as man.");
+				}
+			else if("Terik".equals (areaOfBoss))
+				{
+				System.out.println("Terik:The jungle domain of the elves.  Once the home to proud tribes of human barbarians the elves who overthrew them were wild and powerful.  Arguably they had the best change of defeating The Shadow out of all the races.  They rose the whole forest from its slumber, and prepared it for war.  The trees, the plants, the animals, the very grass was ready to fight The Shadow.  The fearsome Elvish warriors amassed themselves and destroyed old feuds. The Great Elvish Resistance stood waiting for The Shadow, but The Shadow knew of their power.  Wisely he did not engage them, but instead he rallied the Barbarians who used to own Terik.  He gave them the gift of Dark Pyromancy and enraged their very essence's.  The Barbarians mounted a surprise attack on the Wild Elves(as they were nicknamed) from the flank and burned them down with Dark Fire.  The elves died, but the jungle lived on, corrupted and twisted.  Not even The Shadow could destroy The Great Tree at the center of Terik, but he could corrupt it, and he did.");
+				}
+			else if("Sorthus".equals (areaOfBoss))
+				{
+				System.out.println("Sorthus:A canyon that stands just before Doomkeep.  The people there lived in peace, and had little defense against the Shadow.  The merchant Morton, who tamed wild beasts as guards for a living, came up with a plan.  He had recently discovered a species of scorpion that was deadly, resilient, hardy, and not aggressive on sight.  He had caught a few, and with the help of mages quickly bred them larger, faster, and easier to train.  In fear of The Shadow he spent weeks breeding them, never sleeping and barely eating.  But unfortunately the scorpions wouldn't work in a unit, for they were independent creatures and they needed a leader. He began to go insane, and in a last attempt to defend the town before The Shadow came he used magic to meld himself with a scorpion to act as a leader.  But the magic corrupted him, and he was more scorpion and fear, than leadership and reason.  Once again The Shadow's goal of corruption had been achieved without him even entering the area.  He was content to let Morton tear his own town apart trying to prepare defense.  Even today Morton still trains his scorpions to follow his lead, and he will not hesitate to use wandering Humans as rewards for his minions.");
+				}
+			else if("Partok".equals (areaOfBoss))
+				{
+				System.out.println("Partok:The unexplored in-land-sea of Partok is shrouded in mystery.  It is so frozen with ice that you can walk upon Partok without fear.  But the area is unmapped, and many wanted to know more of the mysterious place.  The famous explorer Quar, who had journeyed to every land known was sent by the Human King to map this place.  He never came back, but the year after he disappeared The Shadow came forth.  For this reasons many believe that Quar discovered The Shadow's prison here and foolishly opened it.  But no one truly knows.");
+				}
+			else if("Doomkeep".equals (areaOfBoss))
+				{
+				System.out.println("Doomkeep:The legendary keep of the Humans.  During the Age of Shadow Thornwir ruled as King and he was a strong one.  He sent scouts to The Shadow, but none came back.  He was offered advice, and sent reports of destroyed villages, and asked for help.  He sent his quickest cavalry to help defend the forest of Serebis, where the Elf Queen resided.  He was quite close with the Elf Queen and mourned for days when he heard of her death.  This changed him, and he pulled all his soldiers back to the castle, along with all refugees, of any race.  as The Shadow descended on Doomkeep he consulted his old friend, the great mage Yolvar.  Yolvar knew what he needed to do, and began to build the Vale, a refuge for those pursued by The Shadow.  Thornwir gathered every wizard he could to help Yolvar but when The Shadow arrived at the walls of Doomkeep he was not finished. The walls of Doomkeep, however, were heavily enchanted and The Shadow would have to spend months unraveling those wards.  But Thornwir was betrayed by his Steward, Wherem.  Wherem made a bargain with The Shadow and then marred the magic protection of DoomKeep.  The Shadow entered the castle, and Yolvar, knowing that he must buy time, challenged The Shadow to combat.  The Shadow agreed, and Yolvar gave battle, the most difficult battle ever fought by The Shadow, it went on for three hours.  But still Yolvar was mortal, and The Shadow smote him down.  By then, The Vale was complete and all the refugees and soldiers fell back into The Vale.  The Shadow pursued but was unable to follow.  No one knows what happened to Wherem, or what his bargain was, but it must have been fulfilled, for immortal beings must keep their word.");
+				}
+			else if("Vale".equals (areaOfBoss))
+				{
+				System.out.println("The Vale:The magical safe-haven made by Yolvar for protection from The Shadow.  It proved effective, unless The Shadow was given permission to enter in a mortal host.  When " + Hero.nameOfPlayer + " unwittingly acted as that host The Shadow corrupted everyone in the Vale and used King Thornwir as his host.  When the Hero awoke he fought through to The Shadow, and faced him in combat.  Although this Hero came closer than any who came before, all accounts tell that he was slain, and that The Shadow reigned on until the Third Era.  The Age of Redemption.");
+				}
+			else if("Pathway".equals (areaOfBoss))
+				{
+				System.out.println("This old Pathway Gaurdian is one of many magically summoned beings.  These things were made by the great wizard Yolvar, and charged with holding stalling The Shadow and all his minions when they marched on Doomkeep.  But The Shadow must have corrupted them, for now they seem to fight everything that crosses the path that they are charged with protecting.");
+				Intros.delayThreeSeconds();	
+				Intros.delayThreeSeconds();	
+				}
+			else if("Pit".equals(areaOfBoss))
+				{
+				System.out.println("This Pit Demon is the last of its kind.  These creatures used to be numerous all over the land, they were used by the Elves as traps for enemies.  When The Shadow came he turned them to evil, and now they steal from and kill travelers, who pass their homes in ignorance.");
+				Intros.delayThreeSeconds();	
+				Intros.delayThreeSeconds();	
+				}
+			}
+		}
+	
+	public static int partokMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		String[] listOfPartokMonsters = {"Small Ice Elemental", "Ice Elemental", "Massive Ice Elemental", "Ice Mage", "Ice Dragon", "The Really Stupid Fire Mage"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Small Ice Elemental";
+				monsterHealth = 3;
+				monsterDamage = 3;
+				monsterAttackName = " launches itself at you";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Ice Elemental";	
+				monsterHealth = 5;
+				monsterDamage = 5;
+				monsterAttackName = " swings its razor sharp hands of ice at you";	
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Massive Ice Elemental";	
+				monsterHealth = 7;
+				monsterDamage = 7;
+				monsterAttackName = " tries to crush you with a massive hammer of ice";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Ice Mage";
+				monsterHealth = 0;
+				monsterDamage = 8;
+				monsterAttackName = " blasts snow and ice at you while singing, 'Let it Go!'";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Ice Dragon";
+				monsterHealth = 9;
+				monsterDamage = 9;
+				monsterAttackName = " snaps at you and breathes ice";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "The Really Stupid Fire Mage";
+				monsterHealth = 0;
+				monsterDamage = 1;
+				monsterAttackName = " blasts weak fireballs at you";	
+				bossFight = 0;
+				break;
+				}
+			}
+		return randomMonsterNumber;
+		}
+	
+	public static int terikMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		String[] listOfTerikMonsters = {"Corrupted Tree", "Corruupted Elf", "Barbarian Warrior", "Dark Pyromancer", "Barbarian Hunter", "Panther"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Corrupted Tree";
+				monsterHealth = 3;
+				monsterDamage = 3;
+				monsterAttackName = " swings it's withered roots at you";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Corrupted Elf";	
+				monsterHealth = 2;
+				monsterDamage = 2;
+				monsterAttackName = " fires dark arrows at you";	
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Barbarian Warrior";	
+				monsterHealth = 5;
+				monsterDamage = 5;
+				monsterAttackName = " slashes at you with a sword";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Dark Pyromancer";
+				monsterHealth = 0;
+				monsterDamage = 7;
+				monsterAttackName = " blasts shadow fire at you";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Barbarian Hunter";
+				monsterHealth = 2;
+				monsterDamage = 6;
+				monsterAttackName = " aims and shoots at you with a bow and arrow";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Panther";
+				monsterHealth = 2;
+				monsterDamage = 2;
+				monsterAttackName = " lunges at you";	
+				bossFight = 0;
+				break;
+				}
+			}
+		return randomMonsterNumber;
+		}
+	
+	public static int sorthusMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		String[] listOfSorthusMonsters = {"Deadly Scorpion", "Giant Scorpion", "Canyon Golem", "Giant Snake", "Rocs", "Man-Eating Cactus"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Deadly Scorpion";
+				monsterHealth = -2;
+				monsterDamage = 9;
+				monsterAttackName = " tries to sting you with its small but deadly tail";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Giant Scorpion";	
+				monsterHealth = 4;
+				monsterDamage = 4;
+				monsterAttackName = " tries to sting you";	
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Canyon Golem";	
+				monsterHealth = 8;
+				monsterDamage = 0;
+				monsterAttackName = " swings it's massive arm of rock at you";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Giant Snake";
+				monsterHealth = 2;
+				monsterDamage = 6;
+				monsterAttackName = " unsheathes it's fangs and bites at you";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Roc";
+				monsterHealth = 0;
+				monsterDamage = 8;
+				monsterAttackName = " trys to claw you with it's talons";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Man-Eating Cactus";
+				monsterHealth = 9;
+				monsterDamage = 5;
+				monsterAttackName = " opens it's mouth to swallow you";	
+				bossFight = 0;
+				break;
+				}
+			}
+		return randomMonsterNumber;
+		}
+	
+	public static int doomkeepMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		String[] listOfDoomkeepMonsters = {"Corrupted Human Soldier", "Corrupted Human Archer", "Corrupted Human Royal Guard", "Corrupted Human Knight", "Corrupted Human Mage", "Corrupted Human Servant"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Corrupted Human Soldier";
+				monsterHealth = 4;
+				monsterDamage = 4;
+				monsterAttackName = " swings his blade of shadow at you";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Corrupted Human Archer";	
+				monsterHealth = 3;
+				monsterDamage = 6;
+				monsterAttackName = " aims and shoots arrows of shadow at you";	
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Corrupted Human Royal Guard";	
+				monsterHealth = 8;
+				monsterDamage = 8;
+				monsterAttackName = " swings his blade of shadow at you";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Corrupted Human Mage";
+				monsterHealth = 0;
+				monsterDamage = 8;
+				monsterAttackName = " blasts dark magic at you";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Corrupted Human Knight";
+				monsterHealth = 7;
+				monsterDamage = 7;
+				monsterAttackName = " swings his blade of shadow at you";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Corrupted Human Servant";
+				monsterHealth = 0;
+				monsterDamage = 0;
+				monsterAttackName = " swings his knife of shadow at you";	
+				bossFight = 0;
+				break;
+				}
+			}
+		return randomMonsterNumber;
+		}
+	
+	public static int valeMonsterArray()
+		{
+		Monster.generateMonsterHitPoints();
+		String[] listOfValeMonsters = {"Corrupted Human Soldier", "Corrupted Elf Healer", "Corrupted Thornwir's Bodyguard", "Corrupted Hobbit Archer", "Corrupted Dwarf Mage", "Corrupted Refugee"};	
+		switch (randomMonsterNumber)
+			{
+			case 0:
+				{
+				monsterName = "Corrupted Human Soldier";
+				monsterHealth = 5;
+				monsterDamage = 5;
+				monsterAttackName = " swings his blade of shadow at you";
+				bossFight = 0;
+				break;
+				}
+			case 1:
+				{
+				monsterName = "Corrupted Elf Healer";	
+				monsterHealth = 9;
+				monsterDamage = 2;
+				monsterAttackName = " swings his mace of shadow at you";	
+				bossFight = 0;
+				break;
+				}
+			case 2:
+				{
+				monsterName = "Corrupted Thornwir's Bodyguard";	
+				monsterHealth = 10;
+				monsterDamage = 10;
+				monsterAttackName = " swings his blade of shadow at you";	
+				bossFight = 0;
+				break;
+				}
+			case 3:
+				{
+				monsterName = "Corrupted Hobbit Archer";
+				monsterHealth = 3;
+				monsterDamage = 7;
+				monsterAttackName = " aims and shoots arrows of shadow at you";	
+				bossFight = 0;
+				break;
+				}
+			case 4:
+				{
+				monsterName = "Corrupted Dwarf Mage";
+				monsterHealth = 6;
+				monsterDamage = 8;
+				monsterAttackName = " blasts dark magic at you";	
+				bossFight = 0;
+				break;
+				}
+			case 5:
+				{
+				monsterName = "Corrupted Refugee";
+				monsterHealth = 1;
+				monsterDamage = 1;
+				monsterAttackName = " swings his knife of shadow at you";	
+				bossFight = 0;
+				break;
+				}
+			}
+		return randomMonsterNumber;
+		}
+	}
+
+import java.util.Random;
+import java.util.Scanner;
+
+
+public class SideQuests 
+	{
+	static int randomQuestNumber, randomNameNumber, randomCallNumber, moralLeftOrRightChoice, randomOutcomeNumber, helpChoiceOne, helpChoiceTwo;
+	static int tryDoorChoice, lockNumberOne, lockNumberTwo, lockNumberThree, i, lockChoice;
+	static String riddleGuess;
+	
+	public static int generateQuest()//HERE!
+		{
+		Random randomNumber = new Random();
+		randomQuestNumber = 1 + randomNumber.nextInt(12);
+		return randomQuestNumber;
+		}
+
+	public static void generateName()
+		{
+		String [] firstPartOfName= {"Yorgund", "Seth", "Saird", "Martin", "Quarth", "Fend", "Tark", "Nor"};
+		String [] secondPartOfName= {" a Mage", " a Thief", " a Fighter", " a Healer", " a Nightblade", " a Battlemage", " a Paladin", " a Swordsman"};
+		String [] thirdPartOfName= {" of Deepstain", " of Serebis", " of Doomkeep", " of Terik", " of Kildarin", " of Vortonsin", " of Sorthus", " of the Unknown"};
+		generateNameNumber();
+		System.out.println("I am " + firstPartOfName[randomNameNumber] + secondPartOfName[randomNameNumber] + thirdPartOfName[randomNameNumber] + ".");
+		System.out.println();
+		}
+	
+	public static int generateNameNumber()//Generates the random number for the lootBeast method.
+		{
+		Random randomNumber = new Random();
+		randomNameNumber = randomNumber.nextInt(7);
+		return randomNameNumber;
+		}
+	
+	public static int generateCallNumber()//Generates the random number for the lootBeast method.
+		{
+		Random randomNumber = new Random();
+		randomCallNumber = randomNumber.nextInt(2);
+		return randomCallNumber;
+		}
+	
+	public static int generateOutcomeNumber()//Generates the random number for the lootBeast method.
+		{
+		Random randomNumber = new Random();
+		randomOutcomeNumber = 1 + randomNumber.nextInt(2);
+		return randomOutcomeNumber;
+		}
+	
+	public static void collectionOfQuests()
+		{
+		generateQuest();
+		switch (randomQuestNumber)
+			{
+			case 1:
+				{
+				moralChoice();
+				break;
+				}
+			case 2:
+				{
+				pickLock();
+				break;
+				}
+			case 3:
+				{
+				fightBeast();
+				break;
+				}
+			case 4:
+				{
+				getItem();
+				break;
+				}
+			case 5:
+				{
+				savePerson();
+				break;
+				}
+			case 6:
+				{
+				pickLock();	
+				break;
+				}
+			case 7:
+				{
+				healChoice();
+				break;
+				}
+			case 8:
+				{
+				pickLock();		
+				break;
+				}
+			case 9:
+				{
+				Market.sellOrBuy();
+				break;
+				}
+			case 10:
+				{
+				System.out.println("You hear something coming.  You raise your " + Hero.weaponName + " just as a " + MonsterGenerator.monsterName + " walks into your field of vision."); 
+				System.out.println();
+				Intros.delayThreeSeconds();	
+				break;
+				}	
+			case 11:
+				{
+				System.out.println("You hear something coming.  You raise your " + Hero.weaponName + " just as a " + MonsterGenerator.monsterName + " walks into your field of vision."); 
+				System.out.println();
+				Intros.delayThreeSeconds();		
+				break;
+				}	
+			case 12:
+				{
+				System.out.println("You hear something coming.  You raise your " + Hero.weaponName + " just as a " + MonsterGenerator.monsterName + " walks into your field of vision."); 
+				System.out.println();
+				Intros.delayThreeSeconds();		
+				break;
+				}	
+				
+			}
+		}
+			
+	public static String savePerson()
+		{
+		System.out.println("You see, as you continue on your journey, a massive rock with runes inscribed on it.");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("As you look closer you see that the rock has two arms that are wrapped around something... no someone!");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("You hear a muffled, 'Help me, solve the riddle!'");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("Suddenly the stone lights up, and begins to speak.");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("I am lighter than a feather, yet no man can hold me for very long. What am I?(answer in one word, six letters, all lower case)");
+		Scanner userInput3 = new Scanner(System.in);
+		riddleGuess = userInput3.nextLine();		
+		if ("breath".equals (riddleGuess))
+			{
+			System.out.println("Correct you may pass.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("The stone releases its captive and disapears.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("The man you saved looks at you in wonder.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			generateName();
+			Intros.delayThreeSeconds();
+			System.out.println("Here take this, it didn't help me much, but it might help you.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("He throws a bag of loot to you and then runs off.");
+			System.out.println();
+			Intros.delayOneSecond();
+			Loot.lootBeast();
+			Intros.delayOneSecond();
+			}
+		else
+			{
+			System.out.println("You failed. Now I curse you.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("You feel your health weaken 10 points as you are cursed, and the stone disappears, taking it's captive with it.");
+			Hero.playerHitPoints = Hero.playerHitPoints - 10;
+			System.out.println();
+			Intros.delayOneSecond();
+			}
+		return riddleGuess;
+		}
+
+	public static int moralChoice()
+		{
+		System.out.println("As you are walking, you hear the sounds of combat.");	
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("You turn to see two people locked in combat.");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("The fighter on the left is losing the battle while the fighter on the right is winning the battle." );
+		System.out.println();
+		Intros.delayThreeSeconds();
+		generateCallNumber();
+		String [] criesForHelp= {"'Please, help me!  I have nothing!'", "'Please help me, I am wealthy and will give you treasure!'", "'Leave me, I will hold this fiend off!'"};
+		String [] criesForVengence= {"'Help me defeat this traitor!'", "'Help me, and I split his loot!'", "'Help me kill this man, he stole from me!'"};
+		System.out.println("The person on the left calls out, " + criesForHelp[randomCallNumber] + "  The other person says, " + criesForVengence[randomCallNumber] + "");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("Choose to help the man on the left(type 1) or the man on the right(type 2)");
+		Scanner userInput1 = new Scanner(System.in);        
+		moralLeftOrRightChoice = userInput1.nextInt();     
+		if (moralLeftOrRightChoice == 1)
+			{
+			System.out.println("You charge forward and swing your " + Hero.weaponName + " at the fighter on the right, cutting him down instantly.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			generateOutcomeNumber();
+			if (randomOutcomeNumber == 1)
+				{
+				System.out.println("The man you saved looks at you in wonder.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				generateName();
+				Intros.delayThreeSeconds();
+				Intros.delayThreeSeconds();
+				System.out.println("Here take this, it didn't help me much, but it might help you.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				System.out.println("He throws a bag of loot to you and then runs off.");
+				System.out.println();
+				Intros.delayOneSecond();
+				Loot.lootBeast();
+				Intros.delayOneSecond();
+				}
+			if (randomOutcomeNumber == 2)
+				{
+				System.out.println("The man who you saved looks at you in wonder.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				generateName();
+				Intros.delayThreeSeconds();
+				System.out.println("He holds out his hand to shake, and you do.  But instead of shaking your hand he takes your weapon.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				System.out.println("He runs off far faster than you and soon he has lost you.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				System.out.println("Now you do -5 damage.");
+				System.out.println();
+				Intros.delayOneSecond();
+				Loot.weaponBonus = Loot.weaponBonus - 5;
+				Intros.delayOneSecond();
+				}
+			}
+		if (moralLeftOrRightChoice ==2)
+			{
+			System.out.println("You charge forward and swing your " + Hero.weaponName + " at the fighter on the left, cutting him down instantly.");
+			System.out.println();
+			generateOutcomeNumber();
+			if (randomOutcomeNumber == 1)
+				{
+				System.out.println("The man you helped grins at you.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				generateName();
+				Intros.delayThreeSeconds();
+				System.out.println("Here let me teach you what I know.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				System.out.println("LEVEL UP!");
+				Hero.levelOfPlayer++;
+				System.out.println();
+				Intros.delayOneSecond();
+				System.out.println("You are now a Level " + Hero.levelOfPlayer + "!");
+				Hero.playerHitPoints = Hero.playerHitPoints + (Hero.levelOfPlayer * 5);
+				System.out.println();
+				Intros.delayOneSecond();
+				}
+			if (randomOutcomeNumber == 2)
+				{
+				System.out.println("The man who you helped grins at you.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				generateName();
+				Intros.delayThreeSeconds();
+				System.out.println("Thanks for helping me take that traitor out.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				System.out.println("He pats you on the back, but with the other hand he stabs a knife into your side.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				System.out.println("He laughs maniacly as the poison flows into your body, and he runs away, screaming a strange song.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				System.out.println("You lie there for days barely fending off monsters.");
+				System.out.println();
+				Intros.delayThreeSeconds();
+				System.out.println("You survive, but your max health is decreased by 10");
+				Hero.playerHitPoints = Hero.playerHitPoints - 10;
+				Intros.delayOneSecond();
+				}
+			}
+		return moralLeftOrRightChoice;
+		}
+	
+	public static int fightBeast()
+		{
+		System.out.println("As you walk along you come to a traveler sitting at a campfire.");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("He looks up at you, 'Oh, a mighty adventurer!  Will you help me?'");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("Type 1 for yes, and 2 for no.");
+		Scanner userInput3 = new Scanner(System.in);
+		helpChoiceOne = userInput3.nextInt();
+		if (helpChoiceOne == 1)
+			{
+			System.out.println("'You will?  Oh thank you so much!  It's just that, there is a deadly creature blocking my way to the Vale.  I am no warrior, could you kill it?'");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			generateName();
+			Intros.delayThreeSeconds();
+			System.out.println("You have already agreed to help so you say yes.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("Thank you!  Here take this to help you.  You can keep it when you are done.");
+			System.out.println();
+			Intros.delayOneSecond();
+			Loot.lootBeast();
+			Intros.delayOneSecond();
+			MonsterGenerator.monsterName = "Pathway Gaurdian";
+			MonsterGenerator.monsterHealth = 9;
+			MonsterGenerator.monsterDamage = 9;
+			MonsterGenerator.monsterAttackName = " swings his Great Hammer at you";
+			MonsterGenerator.bossFight = 1;
+			MonsterGenerator.areaOfBoss = "Pathway";
+			}
+		if (helpChoiceOne == 2)
+			{
+			System.out.println("'Well, thanks anyway.'  Says the traveler and slumps down at his fire.");
+			System.out.println();
+			Intros.delayOneSecond();
+			}
+		
+		return helpChoiceOne;
+		}
+	
+	public static int getItem()
+		{
+		System.out.println("As you walk along you come to a traveler standing over a pit.");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("He looks up at you, 'Oh, a mighty adventurer!  Will you help me?'");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("Type 1 for yes, and 2 for no.");
+		Scanner userInput3 = new Scanner(System.in);
+		helpChoiceTwo = userInput3.nextInt();
+		if (helpChoiceTwo == 1)
+			{
+			System.out.println("'You will?  Oh thank you so much!  It's just that, I dropped my family ring into a pit! It is an ancient relic and I would like to retrieve it before I go to the Vale.  Please get it for me?'");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			generateName();
+			Intros.delayThreeSeconds();
+			System.out.println("You have already agreed to help so you say yes.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("Thank you!  Here take this to help you.  You can keep it when you are done.");
+			System.out.println();
+			Intros.delayOneSecond();
+			Loot.lootBeast();
+			Intros.delayOneSecond();
+			MonsterGenerator.monsterName = "Pit Demon";
+			MonsterGenerator.monsterHealth = 9;
+			MonsterGenerator.monsterDamage = 9;
+			MonsterGenerator.monsterAttackName = " snarls and bites at you";
+			MonsterGenerator.bossFight = 1;
+			MonsterGenerator.areaOfBoss = "Pit";
+			}
+		if (helpChoiceTwo == 2)
+			{
+			System.out.println("'Well, thanks anyway.'  Says the traveler as you walk away.");
+			System.out.println();
+			Intros.delayOneSecond();
+			}
+	
+		return helpChoiceTwo;
+		}
+	
+	public static int pickLock()
+		{
+		System.out.println("In front of you is an ancient wooden door, covered in moss.");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("You try the handle, but it is locked.  There must be treasure behind it.");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("Do you want to try to pick the lock? Type 1 for yes, and 2 for no.");
+		Scanner userInput3 = new Scanner(System.in);
+		tryDoorChoice = userInput3.nextInt();
+		if (tryDoorChoice == 1)
+			{
+			System.out.println("You put your tools into the lock, and begin to pick it.  (Type the numbers you see to open the door)");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			generateLockNubmers();
+			System.out.println("Type the number exactly as you saw it.");
+			Scanner userInput2 = new Scanner(System.in);
+			lockChoice = userInput2.nextInt();
+			if(lockChoice == lockNumberOne)
+				{
+				System.out.println("You open the door, and behind it is treasure!");
+				System.out.println();
+				Intros.delayOneSecond();
+				Loot.lootBeast();
+				Intros.delayOneSecond();
+				}
+			if(lockChoice != lockNumberOne)
+				{
+				System.out.println("You fail to open the door, and you spring a trap!");
+				System.out.println();
+				Intros.delayOneSecond();
+				Hero.playerHitPoints = Hero.playerHitPoints - 3;
+				System.out.println("Arrows fly out of the door and take away 3 of your hit points!");
+				System.out.println();
+				Intros.delayOneSecond();
+				System.out.println("You limp away from the door, and continue on your journey.");
+				System.out.println();
+				Intros.delayOneSecond();
+				}
+			}
+		if (tryDoorChoice == 2)
+			{
+			System.out.println("You walk away from the door.  There could be traps behind it.");
+			System.out.println();
+			Intros.delayOneSecond();
+			}
+		return tryDoorChoice;
+		}
+	
+	public static int generateLockNubmers()
+		{
+		Random randomNumber = new Random();
+		lockNumberOne = 10000 + randomNumber.nextInt(Hero.lockDifficulty);
+		System.out.println(lockNumberOne);
+		Intros.delayOneSecond();
+		for(i = 0; i < 1001; i++)
+			{
+			System.out.println();
+			}
+		return lockNumberOne;
+		}
+	
+	public static void healChoice()
+		{
+		System.out.println("As you are walking, you smell blood.");	
+		System.out.println();
+		Intros.delayThreeSeconds();
+		System.out.println("You turn a corner to find a man dying from blood loss.");
+		System.out.println();
+		Intros.delayThreeSeconds();
+		generateName();
+		Intros.delayThreeSeconds();
+		if("HEALER".equals(Hero.jobOfPlayer) || "healer".equals(Hero.jobOfPlayer) || "Healer".equals(Hero.jobOfPlayer) || "PALADIN".equals(Hero.jobOfPlayer) || "paladin".equals(Hero.jobOfPlayer) || "Paladin".equals(Hero.jobOfPlayer))
+			{
+			System.out.println("Oh, a " + Hero.jobOfPlayer + "!  Please help me, I am dying.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("You use your magic, and heal the man.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("Thank you so much!  I can't stay, I need to get to my family in the Vale.  But take this.");
+			System.out.println();
+			Intros.delayOneSecond();
+			Loot.lootBeast();
+			Intros.delayOneSecond();
+			System.out.println("You are about to thank him, but he has already left.");
+			System.out.println();
+			Intros.delayOneSecond();
+			}
+		else
+			{
+			System.out.println("As you can see, I'm dying.  But you aren't a healer or a pladin, and therefore no help to me.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("Go on, tell my family at the Vale of my demise.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			System.out.println("There is nothing to do, so you move on.");
+			System.out.println();
+			Intros.delayThreeSeconds();
+			}
+		}
+	
+	}
+
+	
+
+
+
+
+
+
