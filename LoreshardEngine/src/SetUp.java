@@ -22,17 +22,17 @@ public class SetUp
 			{
 			case 0:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 20, 0, 1, 0, 1, 2, 1, "Fighter", 10));
+				Hero.heroes.add(new Hero(chosenName, 20, 20, 0, 1, 0, 1, 2, "Fighter", 10));
 				break;
 				}
 			case 1:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 20, 0, 1, 5, 1, 0, 1, "Mage", 10));
+				Hero.heroes.add(new Hero(chosenName, 20, 10, 0, 1, 5, 1, 0, "Mage", 10));
 				break;
 				}
 			case 2:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 20, 0, 1, 0, 2, 1, 1, "Rogue", 10));
+				Hero.heroes.add(new Hero(chosenName, 20, 15, 0, 1, 0, 2, 1, "Rogue", 10));
 				break;
 				}
 			}
@@ -48,7 +48,7 @@ public class SetUp
 	
 	public static void generateSituation()
 		{
-		int situationNum = (int) (Math.random() * 9) + 1;
+		int situationNum = (int) (Math.random() * 8) + 1;
 		
 		switch(situationNum)
 			{

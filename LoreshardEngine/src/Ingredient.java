@@ -16,7 +16,6 @@ public class Ingredient extends Item
 	
 	public static void brew()
 		{
-		
 		int brewTotal = 0;
 		Potion createdPotion = Potion.potions.get(0);
 		ImageIcon icon = new ImageIcon(("cauldron.jpg"));

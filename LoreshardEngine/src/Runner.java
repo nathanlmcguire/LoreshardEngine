@@ -43,10 +43,10 @@ public class Runner
 			//Item.items.add(new Ward("Damage Ward", 100, 20, 1)); DON'T USE
 			Item.items.add(new Ward("Instant Kill Ward", 100, 10, 2));
 			//Item.items.add(new Ward("Damage Ward", 100, 20, 3)); NOT FINISHED
-			//Item.items.add(new Ward("Armor Ward", 100, 20, 4)); NOT FINISHED
+			Item.items.add(new Ward("Armor Ward", 100, 20, 4));
 			Item.items.add(new Ward("Treasure Ward", 100, 10, 5));
 			Item.items.add(new Ward("Heal Ward", 100, 10, 6));
-			//Item.items.add(new Ward("Adrenaline Ward", 100, 20, 7)); NOT FINISHED
+			Item.items.add(new Ward("Adrenaline Ward", 100, 20, 7)); 
 			Item.items.add(new Ward("Level Ward", 100, 10, 8));
 			
 		//POTIONS
@@ -54,14 +54,14 @@ public class Runner
 			Potion.potions.add(new Potion("Useless Potion", 0, 100, true));
 			Item.items.add(new Potion("Healing Potion", 10, 1, true));
 			Potion.potions.add(new Potion("Healing Potion", 10, 1, true));
-			//Item.items.add(new Potion("Adrenaline Potion", 40, 2));
-			//Potion.potions.add(new Potion("Adrenaline Potion", 40, 2));
+			Item.items.add(new Potion("Adrenaline Potion", 40, 2, true));
+			Potion.potions.add(new Potion("Adrenaline Potion", 40, 2, true));
 			Item.items.add(new Potion("Strength Potion", 30, 3, true));
 			Potion.potions.add(new Potion("Strength Potion", 30, 3, true));
-			//Item.items.add(new Potion("Agility Potion", 20, 4));
-			//Potion.potions.add(new Potion("Agility Potion", 20, 4));
-			//Item.items.add(new Potion("Charisma Potion", 30, 5));
-			//Potion.potions.add(new Potion("Charisma Potion", 30, 5));
+			Item.items.add(new Potion("Agility Potion", 20, 4, true));
+			Potion.potions.add(new Potion("Agility Potion", 20, 4, true));
+			Item.items.add(new Potion("Charisma Potion", 30, 5, true));
+			Potion.potions.add(new Potion("Charisma Potion", 30, 5, true));
 			Item.items.add(new Potion("Potion of Magic", 50, 6, true));
 			Potion.potions.add(new Potion("Potion of Magic", 50, 6, true));
 			Item.items.add(new Potion("Ward Potion", 100, 7, true));
@@ -72,15 +72,23 @@ public class Runner
 			Item.items.add(new Ingredient("Mudstock Root", 10, 0));
 			Item.items.add(new Ingredient("Grigs Root", 10, -1));
 			Item.items.add(new Ingredient("Pettleroot", 10, 1));
-			Item.items.add(new Ingredient("Flame Cherries", 10, 3));
+			Item.items.add(new Ingredient("Flame Cherries", 10, 2));
 			Item.items.add(new Ingredient("Greenweed", 10, -2));
-			Item.items.add(new Ingredient("Climber's Ivy", 10, 4));
-			Item.items.add(new Ingredient("Moon Lust Flower", 10, 4));
+			Item.items.add(new Ingredient("Climber's Ivy", 10, 3));
+			Item.items.add(new Ingredient("Moon Lust  Flower", 10, 4));
 			Item.items.add(new Ingredient("Roofhead Mushroom", 10, 1));
 			Item.items.add(new Ingredient("Blood Sap", 10, -3));
-			Item.items.add(new Ingredient("Frost Grass", 10, 2));
+			Item.items.add(new Ingredient("Frost Grass", 10, 1));
 			Item.items.add(new Ingredient("Dragon's Breath Flower", 10, 3));
 			Item.items.add(new Ingredient("Dawnchild Flower", 10, 5));
+			Item.items.add(new Ingredient("Nettle Leaves", 10, 1));
+			Item.items.add(new Ingredient("Dust Tear Flower", 10, 2));
+			Item.items.add(new Ingredient("Bronth's Fruit", 10, -1));
+			Item.items.add(new Ingredient("Boom Fruit", 10, 10));
+			Item.items.add(new Ingredient("Pupil Fruit", 10, 1));
+			Item.items.add(new Ingredient("Tresler Pinecone", 10, 1));
+			Item.items.add(new Ingredient("Traltsvar Flower Stem", 10, 2));
+			Item.items.add(new Ingredient("Skillshroom", 10, 4));
 		
 		ImageIcon icon = new ImageIcon(("scroll.jpg"));
 		JFrame frame = new JFrame();

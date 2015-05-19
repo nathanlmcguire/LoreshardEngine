@@ -82,17 +82,17 @@ public class Monster extends Creature
 				}
 			Hero.heroes.get(0).setHeroHP(heroHP);
 			JOptionPane.showMessageDialog(frame, "The monster attacks and does " + monsterDamage + " damage!",
-					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.QUESTION_MESSAGE,
 					iconThree);
 			if(Hero.heroes.get(0).getHeroHP() <= 0)
 				{
 				JOptionPane.showMessageDialog(frame, "You have been slain!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						iconTwo);
 				JOptionPane.showMessageDialog(frame, "GAME OVER",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
 				System.exit(0);
@@ -111,11 +111,11 @@ public class Monster extends Creature
 			}
 		if(meleeChoice == 1)
 			{
-			enemyBlockLocation = (int) (Math.random() * 6) + 1;
+			enemyBlockLocation = (int) (Math.random() * 6) + 1 + (Hero.heroes.get(0).getAgilityLevel() / 4);
 			}
 		if(meleeChoice == 2)
 			{
-			enemyBlockLocation = (int) (Math.random() * 15) + 1;
+			enemyBlockLocation = (int) (Math.random() * 15) + 1 + (Hero.heroes.get(0).getAgilityLevel() / 2);
 			}
 		
 		if(enemyBlockLocation == 1)

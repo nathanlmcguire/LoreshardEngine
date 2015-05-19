@@ -61,9 +61,15 @@ public class Ward extends Item
 				}
 			case 4:
 				{
-				JOptionPane.showMessageDialog(frame, "Nothing happens.",
+				JOptionPane.showMessageDialog(frame, "Your skin turns to steel!",
 						"WARD",
 						JOptionPane.QUESTION_MESSAGE);
+				if(Hero.heroInventory.get(1) instanceof Armor)
+					{
+					Armor armor = (Armor) Hero.heroInventory.get(1);
+					int AC = armor.getArmorLevel();
+					armor.setArmorLevel(AC + 5);
+					}
 				break;
 				}
 			case 5:
@@ -79,25 +85,26 @@ public class Ward extends Item
 				{
 				Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getMaxHeroHP());
 				JOptionPane.showMessageDialog(frame, "You are healed completely!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						iconThree);
 				break;
 				}
 			case 7:
 				{
-				JOptionPane.showMessageDialog(frame, "Nothing happens.",
+				JOptionPane.showMessageDialog(frame, "You feel adrenaline surge throughout your body!",
 						"WARD",
 						JOptionPane.QUESTION_MESSAGE);
+				Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() + 40);
 				break;
 				}
 			case 8:
 				{
-				JOptionPane.showMessageDialog(frame, "You feel the experience of your ancestors flow through you.",
+				JOptionPane.showMessageDialog(frame, "Nothing Happens",
 						"WARD",
 						JOptionPane.QUESTION_MESSAGE,
 						iconFour);
-				Hero.levelUp(Hero.heroes.get(0).getMaxHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
+				//Hero.levelUp(Hero.heroes.get(0).getMaxHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
 				break;
 				}
 			case 9:

@@ -8,13 +8,25 @@ public class Magic
 	public static void castMagic(int hitPoints, int magicLev, int monsterNum)
 		{
 		JFrame frame = new JFrame();
-		
-		Object[] magicType = {"Fire", "Water", "Earth", "Air"};
-		int magicChoice = JOptionPane.showOptionDialog(frame, "What element would you like to cast?",
-				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
-				JOptionPane.YES_NO_CANCEL_OPTION,
-				JOptionPane.QUESTION_MESSAGE,
-				null, magicType, magicType[1]);
+		int magicChoice;
+		if(Hero.heroes.get(0).getAdrenaline() >= 40)
+			{
+			Object[] magicType = {"Fire", "Water", "Earth", "Air", "UBER CAST"};
+			magicChoice = JOptionPane.showOptionDialog(frame, "What element would you like to cast?",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null, magicType, magicType[1]);
+			}
+		else
+			{
+			Object[] magicType = {"Fire", "Water", "Earth", "Air"};
+			magicChoice = JOptionPane.showOptionDialog(frame, "What element would you like to cast?",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null, magicType, magicType[1]);
+			}
 		
 		switch(magicChoice)
 			{
@@ -40,6 +52,11 @@ public class Magic
 				//NEEDS WORK
 				break;
 				}
+			case 4:
+				{
+				castUber(hitPoints, magicLev, monsterNum);
+				break;
+				}
 			}
 		}
 	
@@ -50,12 +67,12 @@ public class Magic
 		JFrame frame = new JFrame();
 		
 		JOptionPane.showMessageDialog(frame, "You blast fire at the creature and do " + damage + " damage!",
-				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE,
 				icon);
 		hitPoints = hitPoints - damage;
 				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
-				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE);
 		Monster.monsters.get(monsterNum).setHitPoints(hitPoints);
 		}
@@ -74,7 +91,7 @@ public class Magic
 			}
 		
 		JOptionPane.showMessageDialog(frame, "You heal yourself for " + healValue + " health!",
-				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE,
 				icon);
 		}
@@ -94,7 +111,7 @@ public class Magic
 			}
 		
 		JOptionPane.showMessageDialog(frame, "You turn your skin to stone! You get + " + stoneValue + " armor!",
-				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE,
 				icon);
 		}
@@ -104,7 +121,25 @@ public class Magic
 		JFrame frame = new JFrame();
 		
 		JOptionPane.showMessageDialog(frame, "You teleport past the monster!",
-				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE);
+		}
+	
+	public static void castUber(int hitPoints, int magicLev, int monsterNum)
+		{
+		ImageIcon icon = new ImageIcon(("fireball.jpg"));
+		int damage = (int) (Math.random() * (magicLev * 4)) + magicLev;
+		JFrame frame = new JFrame();
+		damage = damage * 2;
+		JOptionPane.showMessageDialog(frame, "You blast lightning at the creature and do " + damage + " damage!",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon);
+		hitPoints = hitPoints - damage;
+				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE);
+		Monster.monsters.get(monsterNum).setHitPoints(hitPoints);
+		Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() - 40);
 		}
 	}

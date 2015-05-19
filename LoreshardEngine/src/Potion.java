@@ -64,10 +64,11 @@ public class Potion extends Item
 				}
 			case 2:
 				{
-				JOptionPane.showMessageDialog(frame, "Your health has been healed for 5 hit points!",
+				JOptionPane.showMessageDialog(frame, "You feel adrenaline surge throughout your body!",
 						"POTION",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
+				Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() + 30);
 				break;
 				}
 			case 3:
@@ -81,18 +82,20 @@ public class Potion extends Item
 				}
 			case 4:
 				{
-				JOptionPane.showMessageDialog(frame, "Your health has been healed for 5 hit points!",
+				JOptionPane.showMessageDialog(frame, "Your senses are heightened and you feel more agile!",
 						"POTION",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
+				Hero.heroes.get(0).setAgilityLevel(Hero.heroes.get(0).getAgilityLevel() + 1);
 				break;
 				}
 			case 5:
 				{
-				JOptionPane.showMessageDialog(frame, "Your health has been healed for 5 hit points!",
+				JOptionPane.showMessageDialog(frame, "Nothing happens",
 						"POTION",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
+				//Hero.heroes.get(0).setSpeechLevel(Hero.heroes.get(0).getSpeechLevel() + 1);
 				break;
 				}
 			case 6:
