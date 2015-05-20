@@ -22,17 +22,17 @@ public class SetUp
 			{
 			case 0:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 20, 20, 1, 0, 1, 2, "Fighter", 10));
+				Hero.heroes.add(new Hero(chosenName, 20, 20, 25, 1, 0, 1, 2, "Fighter", 10));
 				break;
 				}
 			case 1:
 				{
-				Hero.heroes.add(new Hero(chosenName, 22, 22, 0, 1, 5, 1, 0, "Mage", 10));
+				Hero.heroes.add(new Hero(chosenName, 22, 22, 25, 1, 5, 1, 0, "Mage", 10));
 				break;
 				}
 			case 2:
 				{
-				Hero.heroes.add(new Hero(chosenName, 21, 21, 10, 1, 0, 5, 1, "Rogue", 10));
+				Hero.heroes.add(new Hero(chosenName, 21, 21, 25, 1, 0, 5, 1, "Rogue", 10));
 				break;
 				}
 			}
@@ -52,7 +52,7 @@ public class SetUp
 	
 	public static void generateSituation()
 		{
-		int situationNum = (int) (Math.random() * 11) + 1;
+		int situationNum = (int) (Math.random() * 10) + 1;
 		
 		switch(situationNum)
 			{
@@ -80,18 +80,18 @@ public class SetUp
 				break;
 				}
 			case 9:
-			case 10:
 				{
 				//LOCKPICKING 
 				pickLock();
 				break;
 				}
-			case 11:
+			case 10:
 				{
 				//Traps
 				activateTrap();
 				break;
 				}
+			case 11:
 			case 12:
 				{
 				//Stubs
@@ -269,6 +269,7 @@ public class SetUp
 								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 								JOptionPane.QUESTION_MESSAGE,
 								loot);
+						item.setQuantity(item.getQuantity() - 1);
 						Hero.openLoot();
 						stay = false;
 						}
@@ -329,6 +330,7 @@ public class SetUp
 							Hero.openLoot();
 							stay = false;
 							}
+						item.setQuantity(item.getQuantity() - 1);
 						}
 					else
 						{
@@ -337,7 +339,7 @@ public class SetUp
 								JOptionPane.QUESTION_MESSAGE,
 								loot);
 						}
-					item.setQuantity(item.getQuantity() - 1);
+					
 					break;
 					}
 				

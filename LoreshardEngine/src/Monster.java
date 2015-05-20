@@ -54,19 +54,23 @@ public class Monster extends Creature
 			{
 			ImageIcon end = new ImageIcon("end.jpg");
 			JOptionPane.showMessageDialog(frame, "As the last of your foes falls to the ground you sigh in releif.",
-					"",
+					"VICTORY!!!!",
 					JOptionPane.QUESTION_MESSAGE,
 					end);
 			JOptionPane.showMessageDialog(frame, "Behind the corpses of your enemies is a door made of gold.",
-					"",
+					"VICTORY!!!!",
 					JOptionPane.QUESTION_MESSAGE,
 					end);
 			JOptionPane.showMessageDialog(frame, "You open the room to find it full of thousands of gold pieces!",
-					"",
+					"VICTORY!!!!",
 					JOptionPane.QUESTION_MESSAGE,
 					end);
 			JOptionPane.showMessageDialog(frame, "You are rich and will live a long happy life.",
-					"",
+					"VICTORY!!!!",
+					JOptionPane.QUESTION_MESSAGE,
+					end);
+			JOptionPane.showMessageDialog(frame, "VICTORY!!!!",
+					"VICTORY!!!!",
 					JOptionPane.QUESTION_MESSAGE,
 					end);
 			System.exit(0);
