@@ -72,7 +72,7 @@ public class Hero extends Creature
 		
 		
 		Hero.heroes.get(0).setWardPower(Hero.heroes.get(0).getWardPower() + 1);
-		if(Hero.heroes.get(0).getHeroHP() <= 2)
+		if(Hero.heroes.get(0).getHeroHP() <= 1)
 			{
 			Hero.heroes.get(0).setAdrenaline(40 + Hero.heroes.get(0).getAdrenaline());
 			}
@@ -412,6 +412,26 @@ public class Hero extends Creature
 				Ingredient herb = (Ingredient) loot;
 				Hero.alchemyBag.add(herb);
 				Hero.openLoot();
+				}
+			
+			if(loot instanceof SpecialItem)
+				{
+				SpecialItem SI = (SpecialItem) loot;
+				if(SI.getItemName() == "Keystone")
+					{
+					SpecialItem item = (SpecialItem) Hero.heroInventory.get(4);
+					item.setQuantity(item.getQuantity() + 1);
+					}
+				else if(SI.getItemName() == "Bag of Gold")
+					{
+					SpecialItem item = (SpecialItem) Hero.heroInventory.get(5);
+					item.setQuantity(item.getQuantity() + 1);
+					}
+				else
+					{
+					SpecialItem item = (SpecialItem) Hero.heroInventory.get(6);
+					item.setQuantity(item.getQuantity() + 1);
+					}
 				}
 		
 		showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName(), Hero.heroInventory.get(2).getItemName(), Hero.heroInventory.get(3).getItemName());

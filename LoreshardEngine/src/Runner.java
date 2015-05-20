@@ -25,6 +25,10 @@ public class Runner
 			Item.items.add(new HeavyArmor("Iron Armor", 60, "Heavy", 5, false));
 			Item.items.add(new HeavyArmor("Steel Armor", 100, "Heavy", 7, false));
 			Item.items.add(new HeavyArmor("Platinum Armor", 140, "Heavy", 10, false));
+		//SPECIAL ITEMS
+			Item.items.add(new SpecialItem("Keystone", 10, 1));
+			Item.items.add(new SpecialItem("Bag of Gold", 10, 1));
+			Item.items.add(new SpecialItem("Lockpicks", 10, 3));
 		//CREATURES
 			Monster.monsters.add(new Monster("Warg", 17, false, "Arena", 12));
 			Monster.monsters.add(new Monster("Goblin", 15, false, "Arena", 10));
@@ -38,7 +42,14 @@ public class Runner
 			Monster.monsters.add(new Monster("Giant Spider", 25, false, "Arena", 14));
 			Monster.monsters.add(new Monster("Giant Snake", 32, false, "Arena", 10));
 			Monster.monsters.add(new Monster("Orc", 15, false, "Arena", 12));
-			Monster.monsters.add(new Monster("Dragon", 100, true, "Arena", 25));
+			
+			Monster.monsters.add(new Monster("Dragon", 80, true, "Arena", 25));
+			//Monster.monsters.add(new Monster("Kracken", 400, true, "Arena", 8));
+			//Monster.monsters.add(new Monster("Basilisk", 150, true, "Arena", 20));
+			//Monster.monsters.add(new Monster("Hydra", 200, true, "Arena", 26));
+			//Monster.monsters.add(new Monster("Chimera", 100, true, "Arena", 28));
+			//Monster.monsters.add(new Monster("Necromancer", 65, true, "Arena", 22));
+			//Monster.monsters.add(new Monster("Warlord", 50, true, "Arena", 30));
 		//WARDS
 			//Item.items.add(new Ward("Damage Ward", 100, 20, 1)); DON'T USE
 			Item.items.add(new Ward("Instant Kill Ward", 100, 10, 2));
@@ -98,6 +109,7 @@ public class Runner
 			icon);
 		
 		SetUp.createHero();
+		SetUp.chooseStartingWeapons();
 		Hero.showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName(), Hero.heroInventory.get(2).getItemName(), Hero.heroInventory.get(3).getItemName());
 		while(true)
 			{
