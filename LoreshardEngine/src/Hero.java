@@ -432,6 +432,7 @@ public class Hero extends Creature
 					SpecialItem item = (SpecialItem) Hero.heroInventory.get(6);
 					item.setQuantity(item.getQuantity() + 1);
 					}
+				Hero.openLoot();
 				}
 		
 		showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName(), Hero.heroInventory.get(2).getItemName(), Hero.heroInventory.get(3).getItemName());

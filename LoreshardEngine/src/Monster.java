@@ -28,36 +28,67 @@ public class Monster extends Creature
 		JFrame frame = new JFrame();
 		int monsterNumber = 0;
 		
-		
-		
-		if(Monster.monsters.size() <= 0)
+		if(Monster.monsters.size() > 7)
 			{
-				JOptionPane.showMessageDialog(frame, "As the last of your foes falls to the ground the crowd cheers!",
-						"",
-						JOptionPane.QUESTION_MESSAGE);
-				JOptionPane.showMessageDialog(frame, "You have beaten the arena, and are free to leave.",
-						"",
-						JOptionPane.QUESTION_MESSAGE);
-				JOptionPane.showMessageDialog(frame, "You walk through the gates of the arena into a land of danger.",
-						"",
-						JOptionPane.QUESTION_MESSAGE);
-				JOptionPane.showMessageDialog(frame, "Adventure awaits.",
-						"",
-						JOptionPane.QUESTION_MESSAGE);
-				System.exit(0);
+			boolean check = true;
+			while(check)
+				{
+				monsterNumber = (int) (Math.random() * monsters.size());
+				if(!Monster.monsters.get(monsterNumber).isBoss())
+					{
+					JOptionPane.showMessageDialog(frame, "An opponent charges you from the shadows of the dungeon"
+							+ ".",
+							"COMBAT",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					JOptionPane.showMessageDialog(frame, "It is a " + Monster.monsters.get(monsterNumber).getName() + "!",
+							"COMBAT",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					check = false;
+					}
+				}
+			return monsterNumber;
+			}
+		else if(Monster.monsters.size() < 7)
+			{
+			ImageIcon end = new ImageIcon("end.jpg");
+			JOptionPane.showMessageDialog(frame, "As the last of your foes falls to the ground you sigh in releif.",
+					"",
+					JOptionPane.QUESTION_MESSAGE,
+					end);
+			JOptionPane.showMessageDialog(frame, "Behind the corpses of your enemies is a door made of gold.",
+					"",
+					JOptionPane.QUESTION_MESSAGE,
+					end);
+			JOptionPane.showMessageDialog(frame, "You open the room to find it full of thousands of gold pieces!",
+					"",
+					JOptionPane.QUESTION_MESSAGE,
+					end);
+			JOptionPane.showMessageDialog(frame, "You are rich and will live a long happy life.",
+					"",
+					JOptionPane.QUESTION_MESSAGE,
+					end);
+			System.exit(0);
 			}
 		else
 			{
+			ImageIcon boss = new ImageIcon("boss.jpg");
 			monsterNumber = (int) (Math.random() * monsters.size());
 				JOptionPane.showMessageDialog(frame, "An opponent charges you from the shadows of the dungeon"
 						+ ".",
 						"COMBAT",
 						JOptionPane.QUESTION_MESSAGE,
-						icon);
+						boss);
+				JOptionPane.showMessageDialog(frame, "This final enemy is your last obstacle to escaping the dungeon"
+						+ "!",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE,
+						boss);
 				JOptionPane.showMessageDialog(frame, "It is a " + Monster.monsters.get(monsterNumber).getName() + "!",
 						"COMBAT",
 						JOptionPane.QUESTION_MESSAGE,
-						icon);
+						boss);
 			}
 		return monsterNumber;
 		}
