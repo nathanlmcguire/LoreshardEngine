@@ -32,7 +32,7 @@ public class SetUp
 				}
 			case 2:
 				{
-				Hero.heroes.add(new Hero(chosenName, 24, 24, 10, 1, 0, 5, 1, "Rogue", 10));
+				Hero.heroes.add(new Hero(chosenName, 21, 21, 10, 1, 0, 5, 1, "Rogue", 10));
 				break;
 				}
 			}
@@ -172,7 +172,7 @@ public class SetUp
 			case 3:
 				{
 				int magicLevel = Hero.heroes.get(0).getMagicLevel();
-				magicLevel = magicLevel + 2;
+				magicLevel = magicLevel + 1;
 				JOptionPane.showMessageDialog(frame, "You have selected the Magic Ring!  Now you have more powerful magic.",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
@@ -194,7 +194,7 @@ public class SetUp
 				"" + Hero.heroes.get(0).getName() + "'s HP = " +  Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE,
 				icon);	
-		int chance = (int) (Math.random() * Hero.heroes.get(0).getAgilityLevel()) + (Hero.heroes.get(0).getAgilityLevel() / 2) + 1;
+		int chance = (int) (Math.random() * 10);
 		
 		if(chance > Hero.heroes.get(0).getAgilityLevel())
 			{
@@ -286,7 +286,7 @@ public class SetUp
 					SpecialItem item = (SpecialItem) Hero.heroInventory.get(6);
 					if(item.getQuantity() > 0)
 						{
-						int chance = (int) (Math.random() * Hero.heroes.get(0).getAgilityLevel()) + 4;
+						int chance = (int) (Math.random() * 10);
 						if(chance > Hero.heroes.get(0).getAgilityLevel())
 							{
 							JOptionPane.showMessageDialog(frame, "You fail to pick the lock.",

@@ -74,7 +74,7 @@ public class Magic
 	public static void castHeal(int hitPoints, int magicLev)
 		{
 		ImageIcon icon = new ImageIcon(("heal.jpg"));
-		int healValue = (int) (Math.random() * (magicLev * 10)) + magicLev;
+		int healValue = (int) (Math.random() * (magicLev * 5)) + magicLev;
 		JFrame frame = new JFrame();
 		
 		Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() + healValue);

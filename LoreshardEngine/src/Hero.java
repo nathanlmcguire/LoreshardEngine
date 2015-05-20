@@ -284,7 +284,7 @@ public class Hero extends Creature
 			}
 		else
 			{
-			int num = (int) (Math.random() * (Hero.heroes.get(0).getAgilityLevel() * 3));
+			int num = (int) (Math.random() * 10);
 			if(Hero.heroes.get(0).getAgilityLevel() > num)
 				{
 				JOptionPane.showMessageDialog(frame, "You dodged the opponent's blow!",

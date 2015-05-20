@@ -9,22 +9,22 @@ public class Runner
 		{
 		
 		//WEAPONS
-			Item.items.add(new Sword("Iron Sword", 30, 5, false));
-			Item.items.add(new Sword("Steel Sword", 50, 7, false));
-			Item.items.add(new Sword("Platinum Sword", 100, 11, false));
-			Item.items.add(new Dagger("Iron Dagger", 10, 4, false));
-			Item.items.add(new Dagger("Steel Dagger", 20, 5, false));
-			Item.items.add(new Dagger("Platinum Dagger", 40, 7, false));
-			Item.items.add(new Bow("Hunting Bow", 40, 6, false));
-			Item.items.add(new Bow("Recurve Bow", 60, 7, false));
-			Item.items.add(new Bow("Long Bow", 90, 8, false));
+			Item.items.add(new Sword("Iron Sword", 30, 6, false));
+			Item.items.add(new Sword("Steel Sword", 50, 8, false));
+			Item.items.add(new Sword("Platinum Sword", 100, 12, false));
+			Item.items.add(new Dagger("Iron Dagger", 10, 5, false));
+			Item.items.add(new Dagger("Steel Dagger", 20, 6, false));
+			Item.items.add(new Dagger("Platinum Dagger", 40, 8, false));
+			Item.items.add(new Bow("Hunting Bow", 40, 8, false));
+			Item.items.add(new Bow("Recurve Bow", 60, 8, false));
+			Item.items.add(new Bow("Long Bow", 90, 9, false));
 		//ARMOR
-			Item.items.add(new LightArmor("Leather Armor", 20, "Light", 4, false));
-			Item.items.add(new LightArmor("Chain Armor", 40, "Light", 5, false));
-			Item.items.add(new LightArmor("Mithril Armor", 140, "Light", 9, false));
-			Item.items.add(new HeavyArmor("Iron Armor", 60, "Heavy", 6, false));
-			Item.items.add(new HeavyArmor("Steel Armor", 100, "Heavy", 8, false));
-			Item.items.add(new HeavyArmor("Platinum Armor", 140, "Heavy", 11, false));
+			Item.items.add(new LightArmor("Leather Armor", 20, "Light", 5, false));
+			Item.items.add(new LightArmor("Chain Armor", 40, "Light", 6, false));
+			Item.items.add(new LightArmor("Mithril Armor", 140, "Light", 10, false));
+			Item.items.add(new HeavyArmor("Iron Armor", 60, "Heavy", 7, false));
+			Item.items.add(new HeavyArmor("Steel Armor", 100, "Heavy", 9, false));
+			Item.items.add(new HeavyArmor("Platinum Armor", 140, "Heavy", 12, false));
 		//SPECIAL ITEMS
 			Item.items.add(new SpecialItem("Keystone", 10, 1));
 			Item.items.add(new SpecialItem("Bag of Gold", 10, 1));
@@ -44,12 +44,12 @@ public class Runner
 			Monster.monsters.add(new Monster("Orc", 15, false, "Arena", 12));
 			
 			Monster.monsters.add(new Monster("Dragon", 80, true, "Arena", 25));
-			//Monster.monsters.add(new Monster("Kracken", 400, true, "Arena", 8));
-			//Monster.monsters.add(new Monster("Basilisk", 150, true, "Arena", 20));
-			//Monster.monsters.add(new Monster("Hydra", 200, true, "Arena", 26));
-			//Monster.monsters.add(new Monster("Chimera", 100, true, "Arena", 28));
-			//Monster.monsters.add(new Monster("Necromancer", 65, true, "Arena", 22));
-			//Monster.monsters.add(new Monster("Warlord", 50, true, "Arena", 30));
+			Monster.monsters.add(new Monster("Kracken", 400, true, "Arena", 8));
+			Monster.monsters.add(new Monster("Basilisk", 150, true, "Arena", 20));
+			Monster.monsters.add(new Monster("Hydra", 200, true, "Arena", 26));
+			Monster.monsters.add(new Monster("Chimera", 100, true, "Arena", 28));
+			Monster.monsters.add(new Monster("Necromancer", 65, true, "Arena", 22));
+			Monster.monsters.add(new Monster("Warlord", 50, true, "Arena", 30));
 		//WARDS
 			//Item.items.add(new Ward("Damage Ward", 100, 20, 1)); DON'T USE
 			Item.items.add(new Ward("Instant Kill Ward", 100, 10, 2));
