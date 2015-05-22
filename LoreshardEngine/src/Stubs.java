@@ -29,7 +29,7 @@ public class Stubs
 				JOptionPane.QUESTION_MESSAGE,
 				icon);
 		
-		Object[] chooseClassChoice = {"Yes", "No", "F*** You"};
+		Object[] chooseClassChoice = {"Yes", "No"};
 		int choice = JOptionPane.showOptionDialog(frame, "Old Man: Would you like to play?",
 				"STUBS",
 				JOptionPane.YES_NO_CANCEL_OPTION,
@@ -93,24 +93,7 @@ public class Stubs
 						icon);
 				break;
 				}
-			case 2:
-				{
-				ImageIcon iconOne = new ImageIcon(("rip.jpg"));
-				ImageIcon iconTwo = new ImageIcon(("game over.jpg"));
-				JOptionPane.showMessageDialog(frame, "The Old Man turns into a Dragon and kills you!",
-						"WHAT A MEANIE",
-						JOptionPane.QUESTION_MESSAGE,
-						iconTwo);
-				JOptionPane.showMessageDialog(frame, "GAME OVER",
-						"GAME OVER",
-						JOptionPane.QUESTION_MESSAGE,
-						iconOne);
-				System.exit(0);
-				break;
-				}
 			}
-		
-		
 		}
 	
 	public static int rollDice()

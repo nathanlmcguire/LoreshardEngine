@@ -28,13 +28,13 @@ public class Runner
 		//SPECIAL ITEMS
 			Item.items.add(new SpecialItem("Keystone", 10, 1));
 			Item.items.add(new SpecialItem("Bag of Gold", 10, 1));
-			Item.items.add(new SpecialItem("Lockpicks", 10, 3));
+			Item.items.add(new SpecialItem("Lockpicks", 10, 5));
 		//CREATURES
 			Monster.monsters.add(new Monster("Warg", 17, false, "Arena", 12));
 			Monster.monsters.add(new Monster("Goblin", 15, false, "Arena", 10));
 			Monster.monsters.add(new Monster("Goblin", 15, false, "Arena", 10));
 			Monster.monsters.add(new Monster("Wolf", 15, false, "Arena", 9));
-			Monster.monsters.add(new Monster("Minotaur", 70, false, "Arena", 20));
+			Monster.monsters.add(new Monster("Minotaur", 70, false, "Arena", 18));
 			Monster.monsters.add(new Monster("Troll", 28, false, "Arena", 14));
 			Monster.monsters.add(new Monster("Kobold", 3, false, "Arena", 5));
 			Monster.monsters.add(new Monster("Kobold", 3, false, "Arena", 5));
@@ -42,14 +42,15 @@ public class Runner
 			Monster.monsters.add(new Monster("Giant Spider", 25, false, "Arena", 14));
 			Monster.monsters.add(new Monster("Giant Snake", 32, false, "Arena", 10));
 			Monster.monsters.add(new Monster("Orc", 15, false, "Arena", 12));
+			Monster.monsters.add(new Monster("Orc", 15, false, "Arena", 12));
 			
-			Monster.monsters.add(new Monster("Dragon", 80, true, "Arena", 25));
+			Monster.monsters.add(new Monster("Dragon", 180, true, "Arena", 25));
 			Monster.monsters.add(new Monster("Kracken", 400, true, "Arena", 8));
-			Monster.monsters.add(new Monster("Basilisk", 150, true, "Arena", 20));
-			Monster.monsters.add(new Monster("Hydra", 200, true, "Arena", 26));
-			Monster.monsters.add(new Monster("Chimera", 100, true, "Arena", 28));
-			Monster.monsters.add(new Monster("Necromancer", 65, true, "Arena", 22));
-			Monster.monsters.add(new Monster("Warlord", 50, true, "Arena", 30));
+			Monster.monsters.add(new Monster("Basilisk", 250, true, "Arena", 20));
+			Monster.monsters.add(new Monster("Hydra", 300, true, "Arena", 26));
+			Monster.monsters.add(new Monster("Chimera", 200, true, "Arena", 28));
+			Monster.monsters.add(new Monster("Necromancer", 165, true, "Arena", 22));
+			Monster.monsters.add(new Monster("Warlord", 100, true, "Arena", 30));
 		//WARDS
 			//Item.items.add(new Ward("Damage Ward", 100, 20, 1)); DON'T USE
 			Item.items.add(new Ward("Instant Kill Ward", 100, 10, 2));

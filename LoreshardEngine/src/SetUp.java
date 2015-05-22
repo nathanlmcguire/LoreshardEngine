@@ -22,27 +22,27 @@ public class SetUp
 			{
 			case 0:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 20, 25, 1, 0, 1, 2, "Fighter", 10));
+				Hero.heroes.add(new Hero(chosenName, 20, 20, 30, 1, 0, 1, 2, "Fighter", 10));
 				break;
 				}
 			case 1:
 				{
-				Hero.heroes.add(new Hero(chosenName, 22, 22, 25, 1, 5, 1, 0, "Mage", 10));
+				Hero.heroes.add(new Hero(chosenName, 22, 22, 30, 1, 5, 1, 0, "Mage", 10));
 				break;
 				}
 			case 2:
 				{
-				Hero.heroes.add(new Hero(chosenName, 21, 21, 25, 1, 0, 5, 1, "Rogue", 10));
+				Hero.heroes.add(new Hero(chosenName, 21, 21, 30, 1, 0, 5, 1, "Rogue", 10));
 				break;
 				}
 			}
 		Hero.heroInventory.add(new Sword("Fists", 0, 1, true));
 		Hero.heroInventory.add(new LightArmor("Rags", 0, "Light", 0, true));
-		Hero.heroInventory.add(new Ward("Broken Ward", 0, 1, 9));
+		Hero.heroInventory.add(new Ward("Broken Ward", 0, 100000, 9));
 		Hero.heroInventory.add(new Potion("Weak Healing Potion", 5, 0, true));
 		Hero.heroInventory.add(new SpecialItem("Keystone", 10, 0));
 		Hero.heroInventory.add(new SpecialItem("Bag of Gold", 10, 0));
-		Hero.heroInventory.add(new SpecialItem("Lockpicks", 10, 1));
+		Hero.heroInventory.add(new SpecialItem("Lockpicks", 10, 2));
 		Hero.heroInventory.add(new Potion("Weak Healing Potion", 5, 0, true));
 		Hero.alchemyBag.add(new Ingredient("Mudstock", 10, 0));
 		Hero.alchemyBag.add(new Ingredient("Grigs", 10, -1));
@@ -52,7 +52,7 @@ public class SetUp
 	
 	public static void generateSituation()
 		{
-		int situationNum = (int) (Math.random() * 10) + 1;
+		int situationNum = (int) (Math.random() * 13) + 1;
 		
 		switch(situationNum)
 			{
@@ -80,40 +80,47 @@ public class SetUp
 				break;
 				}
 			case 9:
-				{
-				//LOCKPICKING 
-				pickLock();
-				break;
-				}
 			case 10:
+				{
+				//NPC
+				Character.generateCharacter();
+				break;
+				
+				}
+			case 11:
 				{
 				//Traps
 				activateTrap();
 				break;
 				}
-			case 11:
 			case 12:
+				{
+				//LOCKPICKING 
+				pickLock();
+				break;
+				}
+			case 13:
 				{
 				//Stubs
 				Stubs.play();
 				break;
 				}
-			case 13:
+			case 14:
 				{
 				//HERBS
 				//gatherHerbs();
-				break;
-				}
-			case 14:
-				{
-				//DYNAMIC EVENT
-				//generateEvent();
 				break;
 				}
 			case 15:
 				{
 				//SIDE QUEST
 				//generateSideQuest();
+				break;
+				}
+			case 16:
+				{
+				//DYNAMIC EVENT
+				//generateEvent();
 				break;
 				}
 			}
@@ -123,7 +130,7 @@ public class SetUp
 		{
 		ImageIcon icon = new ImageIcon(("starting.jpg"));
 		JFrame frame = new JFrame();
-		Object[] starterOptions = {"Keystone", "Bag of Gold", "Iron Sword", "Ring of Magic"};
+		Object[] starterOptions = {"2 Keystones", "3 Bags of Gold", "Steel Sword", "Ring of Magic"};
 		int starterChoice = JOptionPane.showOptionDialog(frame, "What special item do you want to start ?",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.YES_NO_CANCEL_OPTION,
@@ -134,34 +141,34 @@ public class SetUp
 			{
 			case 0:
 				{
-				JOptionPane.showMessageDialog(frame, "You have selected the Keystone!  This item will open locks with forgotten magic, but the stone will be used up.",
+				JOptionPane.showMessageDialog(frame, "You have selected the 2 Keystones!  This item will open locks with forgotten magic, but the stone will be used up.",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
 				SpecialItem item = (SpecialItem) Hero.heroInventory.get(4);
-				item.setQuantity(item.getQuantity() + 1);
+				item.setQuantity(item.getQuantity() + 2);
 				break;
 				}
 			case 1:
 				{
-				JOptionPane.showMessageDialog(frame, "You have selected the Bag of Gold!  You can use this to buy items or hire mercenaries.",
+				JOptionPane.showMessageDialog(frame, "You have selected the 3 Bags of Gold!  You can use this to buy items or hire mercenaries.",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
 				SpecialItem item = (SpecialItem) Hero.heroInventory.get(5);
-				item.setQuantity(item.getQuantity() + 1);	
+				item.setQuantity(item.getQuantity() + 3);	
 				break;
 				}
 			case 2:
 				{
-				JOptionPane.showMessageDialog(frame, "You have selected the Iron Sword!  This means that you have a strong starting weapon for this dungeon.",
+				JOptionPane.showMessageDialog(frame, "You have selected the Steel Sword!  This means that you have a strong starting weapon for this dungeon.",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
 				Weapon oldWeapon = (Weapon) Hero.heroInventory.get(0);
 				int oldDamage = oldWeapon.getDamage();
 				
-				Weapon newWeapon = (Weapon) Item.items.get(0);
+				Weapon newWeapon = (Weapon) Item.items.get(1);
 				int newDamage = newWeapon.getDamage();
 				if(newDamage > oldDamage)
 					{

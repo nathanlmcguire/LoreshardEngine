@@ -100,11 +100,11 @@ public class Ward extends Item
 				}
 			case 8:
 				{
-				JOptionPane.showMessageDialog(frame, "Nothing Happens",
+				JOptionPane.showMessageDialog(frame, "The experience of your ancestors surges through you!",
 						"WARD",
 						JOptionPane.QUESTION_MESSAGE,
 						iconFour);
-				//Hero.levelUp(Hero.heroes.get(0).getMaxHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel(), Hero.heroes.get(0).getSpeechLevel());
+				Hero.levelUp(Hero.heroes.get(0).getMaxHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel());
 				break;
 				}
 			case 9:

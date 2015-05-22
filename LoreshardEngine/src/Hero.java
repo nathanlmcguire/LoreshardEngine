@@ -173,7 +173,7 @@ public class Hero extends Creature
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 							JOptionPane.QUESTION_MESSAGE,
 							icon);		
-					Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() - 1);
+					Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() + 1);
 					break;
 					}
 				case 1:
