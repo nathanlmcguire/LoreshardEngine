@@ -1,15 +1,63 @@
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-public class Character extends Creature
+
+public class Character
 	{
-	//@Override
-	public void attack(int hitPoints, int damage, int monsterDamage, int heroHP, int strengthLevel)
+	public void generateCharacter()
 		{
-		//characters do not attack
+		ImageIcon icon = new ImageIcon(("steps.png"));
+		int ran = (int) (Math.random() * 4);
+		JFrame frame = new JFrame();
+		JOptionPane.showMessageDialog(frame, "While walking down the dark corridors of the dungeon you spot a hunched figure.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon);
+		switch(ran)
+			{
+			case 0:
+				{
+				trainer();
+				break;
+				}
+			case 1:
+				{
+				peddler();	
+				break;
+				}
+			case 2:
+				{
+				merchant();	
+				break;
+				}
+			case 3:
+				{
+				riddler();	
+				break;
+				}
+			}
 		}
 	
-	@Override
-	public void defend()
+	public void trainer()
 		{
-		//characters do not attack
+		
 		}
+	
+	public void peddler()
+		{
+		
+		}
+	
+	public void merchant()
+		{
+		
+		}
+	
+	public void riddler()
+		{
+		
+		}
+	
+
 	}

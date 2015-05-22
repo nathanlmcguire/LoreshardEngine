@@ -110,19 +110,10 @@ public class Magic
 				icon);
 		}
 	
-	public static void castTeleport(int magicLev)
-		{
-		JFrame frame = new JFrame();
-		
-		JOptionPane.showMessageDialog(frame, "You teleport past the monster!",
-				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-				JOptionPane.QUESTION_MESSAGE);
-		}
-	
 	public static void castUber(int hitPoints, int magicLev, int monsterNum)
 		{
 		ImageIcon icon = new ImageIcon(("fireball.jpg"));
-		int damage = (int) (Math.random() * (magicLev * 4)) + magicLev;
+		int damage = (int) (Math.random() * (magicLev * 10)) + magicLev;
 		JFrame frame = new JFrame();
 		damage = damage * 2;
 		JOptionPane.showMessageDialog(frame, "You blast lightning at the creature and do " + damage + " damage!",
