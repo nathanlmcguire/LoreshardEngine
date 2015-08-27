@@ -19,7 +19,7 @@ public class Potion extends Item
 		full = f;
 		}
 	
-	public static void drink()
+	public static void drink(int monsterNum)
 		{
 		ImageIcon icon = new ImageIcon(("potion.jpg"));
 		int potionID = 0;
@@ -91,15 +91,34 @@ public class Potion extends Item
 				}
 			case 5:
 				{
-				JOptionPane.showMessageDialog(frame, "Nothing happens",
+				JOptionPane.showMessageDialog(frame, "You throw a potion of weak poison at your opponent! It does 7 damage!",
 						"POTION",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
-				//Hero.heroes.get(0).setSpeechLevel(Hero.heroes.get(0).getSpeechLevel() + 1);
+				Monster.monsters.get(monsterNum).setHitPoints(Monster.monsters.get(monsterNum).getHitPoints() - 6);
 				break;
 				}
 			case 6:
 				{
+				JOptionPane.showMessageDialog(frame, "You throw a potion of strong poison at your opponent! It does 15 damage!",
+						"POTION",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
+				Monster.monsters.get(monsterNum).setHitPoints(Monster.monsters.get(monsterNum).getHitPoints() - 15);
+				break;
+				}
+			case 7:
+				{		
+				JOptionPane.showMessageDialog(frame, "The passage of time slows and you feel cetain that your next attack will strike its target.",
+						"POTION",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
+				Hero.heroes.get(0).setAccuracyEffect(true);
+				break;
+				}
+			case 8:
+				{
+				int healValue = (int) (Math.random() * 50) + 25;
 				JOptionPane.showMessageDialog(frame, "Magic explodes through your veins!",
 						"POTION",
 						JOptionPane.QUESTION_MESSAGE,
@@ -107,17 +126,16 @@ public class Potion extends Item
 				Hero.heroes.get(0).setMagicLevel(Hero.heroes.get(0).getMagicLevel() + 1);
 				break;
 				}
-			case 7:
-				{		
-				int healValue = (int) (Math.random() * 10) + 2;
-				JOptionPane.showMessageDialog(frame, "You feel the Ward on your arm glow with power.",
+			case 9:
+				{
+				JOptionPane.showMessageDialog(frame, "You suddenly feel a strange sensation!  There is an unexplainable feeling that you will now hit more critical strikes!",
 						"POTION",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
-				Hero.heroes.get(0).setWardPower(Hero.heroes.get(0).getWardPower() + healValue);
+				Hero.heroes.get(0).setLuck(Hero.heroes.get(0).getLuck() + 2);
 				break;
 				}
-			case 8:
+			case 10:
 				{
 				int healValue = (int) (Math.random() * 50) + 25;
 				JOptionPane.showMessageDialog(frame, "Your health has been healed for " + healValue + " hit points!",
@@ -129,7 +147,31 @@ public class Potion extends Item
 				if(Hero.heroes.get(0).getHeroHP() > Hero.heroes.get(0).getMaxHeroHP())
 					{
 					Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getMaxHeroHP());
+					}	
+				break;
+				}
+			case 11:
+				{	
+				JOptionPane.showMessageDialog(frame, "The potion makes your skin hard as stone!",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);	
+				Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getNaturalArmor() + 2);
+				if(Hero.heroes.get(0).getNaturalArmor() >= 5)
+					{
+					Hero.heroes.get(0).setNaturalArmor(5);	
 					}
+				break;
+				}
+			case 12:
+				{
+				int healValue = (int) (Math.random() * 10) + 5;
+				JOptionPane.showMessageDialog(frame, "Your max health has been increased by " + healValue + " hit points!",
+						"POTION",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
+				Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() + healValue);
+				Hero.heroes.get(0).setMaxHeroHP(Hero.heroes.get(0).getMaxHeroHP() + healValue);
 				break;
 				}
 			default:

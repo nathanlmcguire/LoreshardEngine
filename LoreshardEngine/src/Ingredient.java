@@ -100,7 +100,7 @@ public class Ingredient extends Item
 				}
 			case 1:
 				{
-				JOptionPane.showMessageDialog(frame, "You leave the cauldron and continue through the dungeon.",
+				JOptionPane.showMessageDialog(frame, "You leave the cauldron and continue along the path.",
 						"BREW",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);

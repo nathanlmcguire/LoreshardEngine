@@ -93,27 +93,24 @@ public class Magic
 	public static void castStoneSkin(int magicLev)
 		{
 		ImageIcon icon = new ImageIcon(("stone.jpg"));
-		int stoneValue = (int) (Math.random() * (magicLev / 2)) + 1;
-		int oldAC;
-		Armor armor;
 		JFrame frame = new JFrame();
-		if(Hero.heroInventory.get(1) instanceof Armor)
-			{
-			armor = (Armor) Hero.heroInventory.get(1);
-			oldAC = armor.getArmorLevel();
-			armor.setArmorLevel(oldAC + stoneValue);
-			}
 		
-		JOptionPane.showMessageDialog(frame, "You turn your skin to stone! You get + " + stoneValue + " armor!",
+		JOptionPane.showMessageDialog(frame, "You turn your skin to stone! You get + 1 armor!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE,
 				icon);
+		
+		Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getNaturalArmor() + 2);
+		if(Hero.heroes.get(0).getNaturalArmor() >= 5)
+			{
+			Hero.heroes.get(0).setNaturalArmor(5);	
+			}
 		}
 	
 	public static void castUber(int hitPoints, int magicLev, int monsterNum)
 		{
-		ImageIcon icon = new ImageIcon(("fireball.jpg"));
-		int damage = (int) (Math.random() * (magicLev * 10)) + magicLev;
+		ImageIcon icon = new ImageIcon(("lightning.jpg"));
+		int damage = (int) (Math.random() * (magicLev * 15)) + magicLev;
 		JFrame frame = new JFrame();
 		damage = damage * 2;
 		JOptionPane.showMessageDialog(frame, "You blast lightning at the creature and do " + damage + " damage!",

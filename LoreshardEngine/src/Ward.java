@@ -64,11 +64,10 @@ public class Ward extends Item
 				JOptionPane.showMessageDialog(frame, "Your skin turns to steel!",
 						"WARD",
 						JOptionPane.QUESTION_MESSAGE);
-				if(Hero.heroInventory.get(1) instanceof Armor)
+				Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getNaturalArmor() + 5);
+				if(Hero.heroes.get(0).getNaturalArmor() >= 5)
 					{
-					Armor armor = (Armor) Hero.heroInventory.get(1);
-					int AC = armor.getArmorLevel();
-					armor.setArmorLevel(AC + 5);
+					Hero.heroes.get(0).setNaturalArmor(5);	
 					}
 				break;
 				}

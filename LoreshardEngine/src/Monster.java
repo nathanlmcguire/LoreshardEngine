@@ -10,6 +10,7 @@ public class Monster extends Creature
 	private boolean boss;
 	private String location;
 	private int monsterDamage;
+	static boolean eliteMob;
 	
 	static ArrayList <Monster> monsters = new ArrayList<Monster>();
 	
@@ -31,12 +32,15 @@ public class Monster extends Creature
 		if(Monster.monsters.size() > 7)
 			{
 			boolean check = true;
+			
+			int eliteCheck = (int) (Math.random() * 11);
+			
 			while(check)
 				{
 				monsterNumber = (int) (Math.random() * monsters.size());
 				if(!Monster.monsters.get(monsterNumber).isBoss())
 					{
-					JOptionPane.showMessageDialog(frame, "An opponent charges you from the shadows of the dungeon"
+					JOptionPane.showMessageDialog(frame, "From the underbrush beside the path something arises."
 							+ ".",
 							"COMBAT",
 							JOptionPane.QUESTION_MESSAGE,
@@ -45,6 +49,32 @@ public class Monster extends Creature
 							"COMBAT",
 							JOptionPane.QUESTION_MESSAGE,
 							icon);
+					switch(eliteCheck)
+						{
+						case 0:
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 5:
+						case 6:
+						case 7:
+						case 8:
+						case 9:
+							{
+							eliteMob = false;
+							break;
+							}
+						case 10:
+							{
+							JOptionPane.showMessageDialog(frame, "It is also ELITE which means it does more damage!",
+									"COMBAT",
+									JOptionPane.QUESTION_MESSAGE,
+									icon);
+							eliteMob = true;
+							break;
+							}
+						}
 					check = false;
 					}
 				}
@@ -69,7 +99,7 @@ public class Monster extends Creature
 					"VICTORY!!!!",
 					JOptionPane.QUESTION_MESSAGE,
 					end);
-			JOptionPane.showMessageDialog(frame, "VICTORY!!!!",
+			JOptionPane.showMessageDialog(frame, "YOU GOT THE ENDING: RICHES!",
 					"VICTORY!!!!",
 					JOptionPane.QUESTION_MESSAGE,
 					end);
@@ -79,12 +109,17 @@ public class Monster extends Creature
 			{
 			ImageIcon boss = new ImageIcon("boss.jpg");
 			monsterNumber = (int) (Math.random() * monsters.size());
-				JOptionPane.showMessageDialog(frame, "An opponent charges you from the shadows of the dungeon"
+				JOptionPane.showMessageDialog(frame, "An opponent charges you from the shadows of the underbrush."
 						+ ".",
 						"COMBAT",
 						JOptionPane.QUESTION_MESSAGE,
 						boss);
-				JOptionPane.showMessageDialog(frame, "This final enemy is your last obstacle to escaping the dungeon"
+				JOptionPane.showMessageDialog(frame, "You have heard that it is the source of evil in the land."
+						+ ".",
+						"COMBAT",
+						JOptionPane.QUESTION_MESSAGE,
+						boss);
+				JOptionPane.showMessageDialog(frame, "This final enemy is your greatest obstacle."
 						+ "!",
 						"COMBAT",
 						JOptionPane.QUESTION_MESSAGE,
@@ -104,14 +139,21 @@ public class Monster extends Creature
 		ImageIcon iconTwo = new ImageIcon(("game over.jpg"));
 		ImageIcon iconThree = new ImageIcon(("claws.jpg"));
 		JFrame frame = new JFrame();
-		monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage + (Hero.heroes.get(0).getOverAllLevel() * 2));
+		if(eliteMob)
+			{
+			monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage + (Hero.heroes.get(0).getOverAllLevel() * 4));	
+			}
+		else
+			{
+			monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage + (Hero.heroes.get(0).getOverAllLevel() * 2));	
+			}
 		int enemyAttackLovation = (int) (Math.random() * 2);
 		if(Hero.defend(enemyAttackLovation) == false)
 			{
 			if(Hero.heroInventory.get(1) instanceof Armor)
 				{
 				Armor armor = (Armor) Hero.heroInventory.get(1);
-				monsterDamage = monsterDamage - armor.getArmorLevel();
+				monsterDamage = monsterDamage - (armor.getArmorLevel() + Hero.heroes.get(0).getNaturalArmor());
 				if(monsterDamage <= 0)
 					{
 					monsterDamage = 1;
@@ -129,7 +171,7 @@ public class Monster extends Creature
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						iconTwo);
-				JOptionPane.showMessageDialog(frame, "GAME OVER",
+				JOptionPane.showMessageDialog(frame, "YOU GOT THE ENDING: DEATH",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
@@ -156,13 +198,14 @@ public class Monster extends Creature
 			enemyBlockLocation = (int) (Math.random() * 15) + 1 + (Hero.heroes.get(0).getAgilityLevel() / 2);
 			}
 		
-		if(enemyBlockLocation == 1)
+		if(enemyBlockLocation != 1 || Hero.heroes.get(0).getAccuracyEffect() == true)
 			{
-			return false;
+			Hero.heroes.get(0).setAccuracyEffect(false);
+			return true;
 			}
 		else
 			{
-			return true;
+			return false;
 			}
 		}
 	

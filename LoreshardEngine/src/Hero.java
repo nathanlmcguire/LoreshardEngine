@@ -16,12 +16,16 @@ public class Hero extends Creature
 	private int strengthLevel;
 	private String characterClass;
 	private int wardPower;
+	private int luck;
+	private boolean accuracyEffect;
+	private int naturalArmor;
 	static ArrayList <Hero> heroes = new ArrayList<Hero>();
 	static ArrayList <Item> heroInventory = new ArrayList<Item>();
 	static ArrayList <Ingredient> alchemyBag = new ArrayList<Ingredient>();
+	static ArrayList <Card> heroDeck = new ArrayList<Card>();
 	
 	
-	public Hero(String n, int ch, int mh, int ad, int o, int m, int ag, int st, String c, int wp)
+	public Hero(String n, int ch, int mh, int ad, int o, int m, int ag, int st, String c, int wp, int l, boolean ae, int na)
 		{
 		setName(n);
 		heroHP = ch;
@@ -33,6 +37,9 @@ public class Hero extends Creature
 		strengthLevel = st;
 		characterClass = c;
 		wardPower = wp;
+		luck = l;
+		accuracyEffect = ae;
+		naturalArmor = na;
 		}
 
 
@@ -104,7 +111,7 @@ public class Hero extends Creature
 					Potion potion = (Potion) Hero.heroInventory.get(3);
 					if(potion.isFull() == true)
 						{
-						Potion.drink();
+						Potion.drink(monsterNum);
 						}
 					else
 						{
@@ -238,7 +245,7 @@ public class Hero extends Creature
 		ImageIcon icon = new ImageIcon(("crit.jpg"));
 		JFrame frame = new JFrame();
 				
-		if(chance <= 5)
+		if(chance <= Hero.heroes.get(0).getLuck())
 			{
 			JOptionPane.showMessageDialog(frame, "CRITICAL HIT, 5x DAMAGE!",
 					"CRITICAL HIT",
@@ -411,7 +418,7 @@ public class Hero extends Creature
 				{
 				Ingredient herb = (Ingredient) loot;
 				Hero.alchemyBag.add(herb);
-				Hero.openLoot();
+				Hero.openLoot2();
 				}
 			
 			if(loot instanceof SpecialItem)
@@ -432,10 +439,121 @@ public class Hero extends Creature
 					SpecialItem item = (SpecialItem) Hero.heroInventory.get(6);
 					item.setQuantity(item.getQuantity() + 1);
 					}
-				Hero.openLoot();
+				Hero.openLoot2();
 				}
 		
 		showInventory(Hero.heroInventory.get(0).getItemName(), Hero.heroInventory.get(1).getItemName(), Hero.heroInventory.get(2).getItemName(), Hero.heroInventory.get(3).getItemName());
+		}
+	
+	public static void openLoot2()
+		{
+		int lootNumber = (int) (Math.random() * Item.items.size());
+		ImageIcon icon = new ImageIcon(("search.jpg"));
+		JFrame frame = new JFrame();
+		
+		JOptionPane.showMessageDialog(frame, "You found: " + Item.items.get(lootNumber).getItemName() + "!",
+				"LOOTING",
+				JOptionPane.QUESTION_MESSAGE,
+				icon );
+		Item.items.get(lootNumber).setIsEquipped(true);
+		Item loot = Item.items.get(lootNumber);
+		
+			if(loot instanceof Weapon && Hero.heroInventory.get(0) instanceof Weapon)
+				{
+				Weapon oldWeapon = (Weapon) Hero.heroInventory.get(0);
+				int oldDamage = oldWeapon.getDamage();
+				
+				Weapon newWeapon = (Weapon) loot;
+				int newDamage = newWeapon.getDamage();
+				if(newDamage > oldDamage)
+					{
+					Hero.heroInventory.set(0, loot);
+					}
+				}
+			if(loot instanceof Armor && Hero.heroInventory.get(1) instanceof Armor)
+				{
+				Armor oldArmor = (Armor) Hero.heroInventory.get(1);
+				int oldAC = oldArmor.getArmorLevel();
+				
+				Armor newArmor = (Armor) loot;
+				int newAC = newArmor.getArmorLevel();
+				if(newAC > oldAC)
+					{
+					Hero.heroInventory.set(1, loot);
+					}
+				}
+			
+			if(loot instanceof Ward && Hero.heroInventory.get(2) instanceof Ward)
+				{
+				Object[] wardType = {Hero.heroInventory.get(2).getItemName(), loot.getItemName()};
+				int WardChoice = JOptionPane.showOptionDialog(frame, "Which Ward would you like to keep?",
+						"LOOT",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						null, wardType, wardType[1]);
+				switch(WardChoice)
+					{
+					case 0:
+						{
+						break;
+						}
+					case 1:
+						{
+						Hero.heroInventory.set(2, loot);
+						break;
+						}
+					}
+				}
+			
+			if(loot instanceof Potion && Hero.heroInventory.get(3) instanceof Potion)
+				{
+				Object[] potionType = {Hero.heroInventory.get(3).getItemName(), loot.getItemName()};
+				int PotionChoice = JOptionPane.showOptionDialog(frame, "Which potion would you like to keep?",
+						"LOOT",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						null, potionType, potionType[1]);
+				switch(PotionChoice)
+					{
+					case 0:
+						{
+						break;
+						}
+					case 1:
+						{
+						Hero.heroInventory.set(3, loot);
+						break;
+						}
+					}
+				}
+			
+			if(loot instanceof Ingredient)
+				{
+				Ingredient herb = (Ingredient) loot;
+				Hero.alchemyBag.add(herb);
+				Hero.openLoot2();
+				}
+			
+			if(loot instanceof SpecialItem)
+				{
+				SpecialItem SI = (SpecialItem) loot;
+				if(SI.getItemName() == "Keystone")
+					{
+					SpecialItem item = (SpecialItem) Hero.heroInventory.get(4);
+					item.setQuantity(item.getQuantity() + 1);
+					}
+				else if(SI.getItemName() == "Bag of Gold")
+					{
+					SpecialItem item = (SpecialItem) Hero.heroInventory.get(5);
+					item.setQuantity(item.getQuantity() + 1);
+					}
+				else
+					{
+					SpecialItem item = (SpecialItem) Hero.heroInventory.get(6);
+					item.setQuantity(item.getQuantity() + 1);
+					}
+				Hero.openLoot2();
+				}
 		}
 	
 	public static void showInventory(String weapon, String armor, String ward, String potion)
@@ -614,6 +732,39 @@ public class Hero extends Creature
 	public void setCharacterClass(String characterClass)
 		{
 		this.characterClass = characterClass;
+		}
+	
+	public int getLuck()
+		{
+		return luck;
+		}
+
+
+	public void setLuck(int luck)
+		{
+		this.luck = luck;
+		}
+	
+	public boolean getAccuracyEffect()
+		{
+		return accuracyEffect;
+		}
+
+
+	public void setAccuracyEffect(boolean accuracyEffect)
+		{
+		this.accuracyEffect = accuracyEffect;
+		}
+	
+	public int getNaturalArmor()
+		{
+		return naturalArmor;
+		}
+
+
+	public void setNaturalArmor(int naturalArmor)
+		{
+		this.naturalArmor = naturalArmor;
 		}
 
 

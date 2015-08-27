@@ -22,27 +22,27 @@ public class SetUp
 			{
 			case 0:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 20, 30, 1, 0, 1, 2, "Fighter", 10));
+				Hero.heroes.add(new Hero(chosenName, 20, 20, 30, 1, 0, 1, 2, "Fighter", 10, 5, false, 0));
 				break;
 				}
 			case 1:
 				{
-				Hero.heroes.add(new Hero(chosenName, 22, 22, 30, 1, 5, 1, 0, "Mage", 10));
+				Hero.heroes.add(new Hero(chosenName, 22, 22, 30, 1, 5, 1, 0, "Mage", 10, 5, false, 0));
 				break;
 				}
 			case 2:
 				{
-				Hero.heroes.add(new Hero(chosenName, 21, 21, 30, 1, 0, 5, 1, "Rogue", 10));
+				Hero.heroes.add(new Hero(chosenName, 21, 21, 30, 1, 0, 5, 1, "Rogue", 10, 5, false, 0));
 				break;
 				}
 			}
-		Hero.heroInventory.add(new Sword("Fists", 0, 1, true));
+		Hero.heroInventory.add(new Sword("Fists", 0, 2, true));
 		Hero.heroInventory.add(new LightArmor("Rags", 0, "Light", 0, true));
 		Hero.heroInventory.add(new Ward("Broken Ward", 0, 100000, 9));
 		Hero.heroInventory.add(new Potion("Weak Healing Potion", 5, 0, true));
 		Hero.heroInventory.add(new SpecialItem("Keystone", 10, 0));
-		Hero.heroInventory.add(new SpecialItem("Bag of Gold", 10, 0));
-		Hero.heroInventory.add(new SpecialItem("Lockpicks", 10, 2));
+		Hero.heroInventory.add(new SpecialItem("Bag of Gold", 10, 1));
+		Hero.heroInventory.add(new SpecialItem("Lockpicks", 10, 3));
 		Hero.heroInventory.add(new Potion("Weak Healing Potion", 5, 0, true));
 		Hero.alchemyBag.add(new Ingredient("Mudstock", 10, 0));
 		Hero.alchemyBag.add(new Ingredient("Grigs", 10, -1));
@@ -52,7 +52,7 @@ public class SetUp
 	
 	public static void generateSituation()
 		{
-		int situationNum = (int) (Math.random() * 13) + 1;
+		int situationNum = (int) (Math.random() * 17) + 1;
 		
 		switch(situationNum)
 			{
@@ -81,46 +81,37 @@ public class SetUp
 				}
 			case 9:
 			case 10:
+			case 11:
 				{
 				//NPC
 				Character.generateCharacter();
 				break;
 				
 				}
-			case 11:
+			case 12:
+			case 13:
+			case 14:
 				{
-				//Traps
-				activateTrap();
+				//DYNAMIC EVENT
+				Event.generateEvent();
 				break;
 				}
-			case 12:
+			case 15:
 				{
 				//LOCKPICKING 
 				pickLock();
 				break;
 				}
-			case 13:
-				{
-				//Stubs
-				Stubs.play();
-				break;
-				}
-			case 14:
-				{
-				//HERBS
-				//gatherHerbs();
-				break;
-				}
-			case 15:
-				{
-				//SIDE QUEST
-				//generateSideQuest();
-				break;
-				}
 			case 16:
 				{
-				//DYNAMIC EVENT
-				//generateEvent();
+				//Traps
+				activateTrap();
+				break;
+				}
+			case 17:
+				{
+				//PLAY GAME
+				Game.play();
 				break;
 				}
 			}
@@ -197,7 +188,7 @@ public class SetUp
 		ImageIcon loot = new ImageIcon(("loot.jpg"));
 		JFrame frame = new JFrame();
 		
-		JOptionPane.showMessageDialog(frame, "As you creep through the dungeon you unknowingly activate a tripwire!",
+		JOptionPane.showMessageDialog(frame, "As you walk along the path you unknowingly activate a tripwire rigged between two trees!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " +  Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE,
 				icon);	
@@ -209,7 +200,7 @@ public class SetUp
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.QUESTION_MESSAGE,
 					icon);	
-			int dmg = (int) (Math.random() * 3) + 3;
+			int dmg = (int) (Math.random() * 10) + 3;
 			Hero.heroes.get(0).setMaxHeroHP(Hero.heroes.get(0).getMaxHeroHP() - dmg);
 			Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getMaxHeroHP());
 			
@@ -353,5 +344,30 @@ public class SetUp
 				}
 			}
 		
+		}
+	
+	public static void offerTutorial()
+		{
+		ImageIcon icon = new ImageIcon(("tutorial.jpg"));
+		JFrame frame = new JFrame();
+		int tutorialOptionChosen = 0;
+		Object[] tutorialOption = {"Yes", "No"};
+		tutorialOptionChosen = JOptionPane.showOptionDialog(frame, "Do you need the Intro/Tutorial?",
+				"Intro/Tutorial",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				icon, tutorialOption, tutorialOption[0]);
+		switch(tutorialOptionChosen)
+			{
+			case 0:
+				{
+				TutorialAndIntro.allTutorials();
+				break;	
+				}
+			case 1:
+				{
+				break;
+				}	
+			}
 		}
 	}
