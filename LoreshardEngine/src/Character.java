@@ -35,7 +35,7 @@ public class Character
 				}
 			case 3:
 				{
-				//riddler();	
+				blacksmith();	
 				break;
 				}
 			case 4:
@@ -520,4 +520,96 @@ public class Character
 				}
 			}
 		}
+	
+	public static void blacksmith()
+		{
+			JFrame frame = new JFrame();
+			ImageIcon icon = new ImageIcon(("blacksmith.jpg"));
+			JOptionPane.showMessageDialog(frame, "It is a blacksmith!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
+			JOptionPane.showMessageDialog(frame, "He offers to take any Lore Shards you have and forge them into Sacred Items.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
+			if(Hero.heroes.get(0).getLoreShard() <= 0)
+				{
+				JOptionPane.showMessageDialog(frame, "Unfortunately you do not have any Lore Shards, so you continue on your way.",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
+				}
+			else
+				{
+				Object[] choose = {"Craft", "Leave"};
+				int choice = JOptionPane.showOptionDialog(frame, "You have " + Hero.heroes.get(0).getLoreShard() + " Lore Shard(s).  What would you like to do?",
+						"CHARACTER CREATION",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						icon, choose, choose[0]);
+				
+				switch(choice)
+					{
+					case 0:
+						{
+						Object[] chooseOne = {"LoreBlade", "Ring of Stupendous Magic", "Dwarven Battle Armor", "Intant Kill Ward"};
+						int choiceOne = JOptionPane.showOptionDialog(frame, "What would you like him to craft?",
+								"CHARACTER CREATION",
+								JOptionPane.YES_NO_CANCEL_OPTION,
+								JOptionPane.QUESTION_MESSAGE,
+								icon, chooseOne, chooseOne[0]);
+						switch(choice)
+							{
+							case 0:
+								{
+								JOptionPane.showMessageDialog(frame, "The blacksmith crafts you a LoreBlade!",
+										"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+										JOptionPane.QUESTION_MESSAGE,
+										icon);	
+								Hero.heroInventory.set(0, new Sword("LoreBlade", 100, 25, false));
+								break;
+								}
+							case 1:
+								{
+								JOptionPane.showMessageDialog(frame, "The blacksmith crafts you a Ring of Stupendous Magic!",
+										"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+										JOptionPane.QUESTION_MESSAGE,
+										icon);	
+								Hero.heroes.get(0).setMagicLevel(Hero.heroes.get(0).getMagicLevel() + 10);
+								break;
+								}
+							case 2:
+								{
+								JOptionPane.showMessageDialog(frame, "The blacksmith crafts you a Dwarven Battle Armor.",
+										"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+										JOptionPane.QUESTION_MESSAGE,
+										icon);		
+								Hero.heroInventory.set(1, new HeavyArmor("Dwarven Armor", 140, "Heavy", 25, false));
+								break;
+								}
+							case 3:
+								{
+								JOptionPane.showMessageDialog(frame, "The blacksmith crafts you a Instant Kill Ward.",
+										"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+										JOptionPane.QUESTION_MESSAGE,
+										icon);		
+								Hero.heroInventory.set(2, new Ward("Instant Kill Ward", 100, 30, 2));
+								break;
+								}
+							}
+						Hero.heroes.get(0).setLoreShard(Hero.heroes.get(0).getLoreShard() - 1);
+						break;
+						}
+					case 1:
+						{
+						JOptionPane.showMessageDialog(frame, "You bid the blacksmith farewell and continue on your way.",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon);
+						break;
+						}
+					}
+				}
+			}
 	} 

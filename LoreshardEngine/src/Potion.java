@@ -137,6 +137,27 @@ public class Potion extends Item
 				}
 			case 10:
 				{
+				JOptionPane.showMessageDialog(frame, "You feel adrenaline surge throughout your body!",
+						"POTION",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
+				Hero.heroes.get(0).setWardPower(Hero.heroes.get(0).getWardPower() + 40);
+				}
+			case 11:
+				{	
+				JOptionPane.showMessageDialog(frame, "The potion makes your skin hard as stone!",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);	
+				Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getNaturalArmor() + 2);
+				if(Hero.heroes.get(0).getNaturalArmor() >= 10)
+					{
+					Hero.heroes.get(0).setNaturalArmor(5);	
+					}
+				break;
+				}
+			case 12:
+				{
 				int healValue = (int) (Math.random() * 50) + 25;
 				JOptionPane.showMessageDialog(frame, "Your health has been healed for " + healValue + " hit points!",
 						"POTION",
@@ -150,20 +171,7 @@ public class Potion extends Item
 					}	
 				break;
 				}
-			case 11:
-				{	
-				JOptionPane.showMessageDialog(frame, "The potion makes your skin hard as stone!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-						JOptionPane.QUESTION_MESSAGE,
-						icon);	
-				Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getNaturalArmor() + 2);
-				if(Hero.heroes.get(0).getNaturalArmor() >= 5)
-					{
-					Hero.heroes.get(0).setNaturalArmor(5);	
-					}
-				break;
-				}
-			case 12:
+			case 13:
 				{
 				int healValue = (int) (Math.random() * 10) + 5;
 				JOptionPane.showMessageDialog(frame, "Your max health has been increased by " + healValue + " hit points!",
@@ -172,7 +180,7 @@ public class Potion extends Item
 						icon);
 				Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() + healValue);
 				Hero.heroes.get(0).setMaxHeroHP(Hero.heroes.get(0).getMaxHeroHP() + healValue);
-				break;
+				break;	
 				}
 			default:
 				{

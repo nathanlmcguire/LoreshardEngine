@@ -19,13 +19,14 @@ public class Hero extends Creature
 	private int luck;
 	private boolean accuracyEffect;
 	private int naturalArmor;
+	private int loreShard;
+	
 	static ArrayList <Hero> heroes = new ArrayList<Hero>();
 	static ArrayList <Item> heroInventory = new ArrayList<Item>();
 	static ArrayList <Ingredient> alchemyBag = new ArrayList<Ingredient>();
-	static ArrayList <Card> heroDeck = new ArrayList<Card>();
 	
 	
-	public Hero(String n, int ch, int mh, int ad, int o, int m, int ag, int st, String c, int wp, int l, boolean ae, int na)
+	public Hero(String n, int ch, int mh, int ad, int o, int m, int ag, int st, String c, int wp, int l, boolean ae, int na, int ls)
 		{
 		setName(n);
 		heroHP = ch;
@@ -40,6 +41,7 @@ public class Hero extends Creature
 		luck = l;
 		accuracyEffect = ae;
 		naturalArmor = na;
+		loreShard = ls;
 		}
 
 
@@ -434,10 +436,14 @@ public class Hero extends Creature
 					SpecialItem item = (SpecialItem) Hero.heroInventory.get(5);
 					item.setQuantity(item.getQuantity() + 1);
 					}
-				else
+				else if(SI.getItemName() == "Lockpicks")
 					{
 					SpecialItem item = (SpecialItem) Hero.heroInventory.get(6);
-					item.setQuantity(item.getQuantity() + 1);
+					item.setQuantity(item.getQuantity() + 3);
+					}
+				else
+					{
+					Hero.heroes.get(0).setLoreShard(Hero.heroes.get(0).getLoreShard() + 1);
 					}
 				Hero.openLoot2();
 				}
@@ -766,7 +772,16 @@ public class Hero extends Creature
 		{
 		this.naturalArmor = naturalArmor;
 		}
-
+	
+	public int getLoreShard()
+		{
+		return loreShard;
+		}
+	
+	public void setLoreShard(int loreShard)
+		{
+		this.loreShard = loreShard;
+		}
 
 	public static ArrayList<Item> getInventory()
 		{

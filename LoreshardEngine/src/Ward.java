@@ -65,7 +65,7 @@ public class Ward extends Item
 						"WARD",
 						JOptionPane.QUESTION_MESSAGE);
 				Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getNaturalArmor() + 5);
-				if(Hero.heroes.get(0).getNaturalArmor() >= 5)
+				if(Hero.heroes.get(0).getNaturalArmor() >= 10)
 					{
 					Hero.heroes.get(0).setNaturalArmor(5);	
 					}

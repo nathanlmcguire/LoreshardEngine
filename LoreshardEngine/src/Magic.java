@@ -101,7 +101,7 @@ public class Magic
 				icon);
 		
 		Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getNaturalArmor() + 2);
-		if(Hero.heroes.get(0).getNaturalArmor() >= 5)
+		if(Hero.heroes.get(0).getNaturalArmor() >= 10)
 			{
 			Hero.heroes.get(0).setNaturalArmor(5);	
 			}

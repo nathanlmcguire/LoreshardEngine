@@ -147,6 +147,11 @@ public class Monster extends Creature
 			{
 			monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage + (Hero.heroes.get(0).getOverAllLevel() * 2));	
 			}
+		
+		if(Hero.heroes.get(0).getOverAllLevel() >= 10)
+			{
+			monsterDamage = monsterDamage * 2;
+			}
 		int enemyAttackLovation = (int) (Math.random() * 2);
 		if(Hero.defend(enemyAttackLovation) == false)
 			{
