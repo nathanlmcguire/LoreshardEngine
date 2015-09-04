@@ -64,6 +64,7 @@ public class Magic
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE,
 				icon);
+		damage = checkForRandomExplosion(damage);
 		hitPoints = hitPoints - damage;
 				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
@@ -101,9 +102,9 @@ public class Magic
 				icon);
 		
 		Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getNaturalArmor() + 2);
-		if(Hero.heroes.get(0).getNaturalArmor() >= 10)
+		if(Hero.heroes.get(0).getNaturalArmor() >= Hero.heroes.get(0).getMaxNaturalArmor())
 			{
-			Hero.heroes.get(0).setNaturalArmor(5);	
+			Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getMaxNaturalArmor());	
 			}
 		}
 	
@@ -123,5 +124,22 @@ public class Magic
 				JOptionPane.QUESTION_MESSAGE);
 		Monster.monsters.get(monsterNum).setHitPoints(hitPoints);
 		Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() - 40);
+		}
+	
+	public static int checkForRandomExplosion(int damage)
+		{
+		int chance = (int) (Math.random() * 100) + 1;
+		ImageIcon icon = new ImageIcon(("crit.jpg"));
+		JFrame frame = new JFrame();
+				
+		if(chance <= Hero.heroes.get(0).getMagicLuck())
+			{
+			JOptionPane.showMessageDialog(frame, "YOUR FIREBALL RANDOMLY EXLODES ON IMPACT, 5x DAMAGE!",
+					"CRITICAL HIT",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
+			damage = damage * 5;
+			}
+		return damage;
 		}
 	}

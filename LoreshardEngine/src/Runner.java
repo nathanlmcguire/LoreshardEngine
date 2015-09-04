@@ -123,10 +123,13 @@ public class Runner
 			Item.items.add(new Ingredient("Traltsvar Flower Stem", 10, 2));
 			Item.items.add(new Ingredient("Skillshroom", 10, 10));
 		
+		//HighScores.addScore("Name", 0, "SUPER COOL ENDING");
+		//HighScores.printScore();
+			
 		ImageIcon icon = new ImageIcon(("wayfarer.jpg"));
 		JFrame frame = new JFrame();
 		JOptionPane.showMessageDialog(frame, "Start",
-			"WAYFARER_ALPHA 1.2",
+			"WAYFARER_ALPHA 1.4",
 			JOptionPane.QUESTION_MESSAGE,
 			icon);
 		

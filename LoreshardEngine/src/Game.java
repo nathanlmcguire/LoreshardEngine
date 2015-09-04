@@ -88,7 +88,7 @@ public class Game
 							JOptionPane.QUESTION_MESSAGE,
 							icon);
 					
-					if(dieOne < 3 || dieTwo < 3)
+					if(dieOne < 2 || dieTwo < 2)
 						{
 						roundPoints = 0;	
 						JOptionPane.showMessageDialog(frame, "Round over, you got 0 points!",
@@ -157,7 +157,7 @@ public class Game
 							JOptionPane.QUESTION_MESSAGE,
 							icon);
 					
-					if(dieOne < 3 || dieTwo < 3)
+					if(dieOne < 2 || dieTwo < 2)
 						{
 						roundPoints = 0;	
 						JOptionPane.showMessageDialog(frame, "Round over, he got 0 points!",

@@ -133,6 +133,7 @@ public class Potion extends Item
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
 				Hero.heroes.get(0).setLuck(Hero.heroes.get(0).getLuck() + 2);
+				Hero.heroes.get(0).setMagicLuck(Hero.heroes.get(0).getMagicLuck() + 2);
 				break;
 				}
 			case 10:
@@ -150,9 +151,9 @@ public class Potion extends Item
 						JOptionPane.QUESTION_MESSAGE,
 						icon);	
 				Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getNaturalArmor() + 2);
-				if(Hero.heroes.get(0).getNaturalArmor() >= 10)
+				if(Hero.heroes.get(0).getNaturalArmor() >= Hero.heroes.get(0).getMaxNaturalArmor())
 					{
-					Hero.heroes.get(0).setNaturalArmor(5);	
+					Hero.heroes.get(0).setNaturalArmor(Hero.heroes.get(0).getMaxNaturalArmor());	
 					}
 				break;
 				}

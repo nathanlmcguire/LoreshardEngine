@@ -22,17 +22,17 @@ public class SetUp
 			{
 			case 0:
 				{
-				Hero.heroes.add(new Hero(chosenName, 20, 20, 30, 1, 0, 1, 2, "Fighter", 10, 5, false, 0, 0));
+				Hero.heroes.add(new Hero(chosenName, 20, 20, 30, 1, 0, 1, 2, "Fighter", 10, 5, false, 0, 0, 10, 1, 1, 0, 5));
 				break;
 				}
 			case 1:
 				{
-				Hero.heroes.add(new Hero(chosenName, 22, 22, 30, 1, 5, 1, 0, "Mage", 10, 5, false, 0, 0));
+				Hero.heroes.add(new Hero(chosenName, 22, 22, 30, 1, 5, 1, 0, "Mage", 10, 5, false, 0, 0, 10, 1, 1, 0, 5));
 				break;
 				}
 			case 2:
 				{
-				Hero.heroes.add(new Hero(chosenName, 21, 21, 30, 1, 0, 5, 1, "Rogue", 10, 5, false, 0, 0));
+				Hero.heroes.add(new Hero(chosenName, 21, 21, 30, 1, 0, 5, 1, "Rogue", 10, 5, false, 0, 0, 10, 1, 1, 0, 5));
 				break;
 				}
 			}

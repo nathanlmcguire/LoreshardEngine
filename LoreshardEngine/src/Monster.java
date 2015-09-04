@@ -11,6 +11,7 @@ public class Monster extends Creature
 	private String location;
 	private int monsterDamage;
 	static boolean eliteMob;
+	static boolean apMob;
 	
 	static ArrayList <Monster> monsters = new ArrayList<Monster>();
 	
@@ -34,6 +35,8 @@ public class Monster extends Creature
 			boolean check = true;
 			
 			int eliteCheck = (int) (Math.random() * 11);
+			int bhCheck = (int) (Math.random() * 11);
+			int apCheck = (int) (Math.random() * 11);
 			
 			while(check)
 				{
@@ -72,6 +75,44 @@ public class Monster extends Creature
 									JOptionPane.QUESTION_MESSAGE,
 									icon);
 							eliteMob = true;
+							break;
+							}
+						}
+					switch(bhCheck)
+						{
+						case 10:
+							{
+							JOptionPane.showMessageDialog(frame, "It is also BATTLE HARDEND which means it 2x health!",
+									"COMBAT",
+									JOptionPane.QUESTION_MESSAGE,
+									icon);
+							Monster.monsters.get(monsterNumber).setHitPoints(2 * Monster.monsters.get(monsterNumber).getHitPoints());
+							break;
+							}
+						}
+					switch(apCheck)
+						{
+						case 0:
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 5:
+						case 6:
+						case 7:
+						case 8:
+						case 9:
+							{
+							apMob = false;
+							break;
+							}
+						case 10:
+							{
+							JOptionPane.showMessageDialog(frame, "It is also ARMOR PIERCING which means it ignores armor!",
+									"COMBAT",
+									JOptionPane.QUESTION_MESSAGE,
+									icon);
+							apMob = true;
 							break;
 							}
 						}
@@ -148,23 +189,31 @@ public class Monster extends Creature
 			monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage + (Hero.heroes.get(0).getOverAllLevel() * 2));	
 			}
 		
-		if(Hero.heroes.get(0).getOverAllLevel() >= 10)
+		if(Hero.heroes.get(0).getOverAllLevel() >= 12)
 			{
 			monsterDamage = monsterDamage * 2;
 			}
 		int enemyAttackLovation = (int) (Math.random() * 2);
 		if(Hero.defend(enemyAttackLovation) == false)
 			{
-			if(Hero.heroInventory.get(1) instanceof Armor)
+			if(apMob == false)
 				{
-				Armor armor = (Armor) Hero.heroInventory.get(1);
-				monsterDamage = monsterDamage - (armor.getArmorLevel() + Hero.heroes.get(0).getNaturalArmor());
-				if(monsterDamage <= 0)
+				if(Hero.heroInventory.get(1) instanceof Armor)
 					{
-					monsterDamage = 1;
-					}
-				heroHP = heroHP - monsterDamage;
+					Armor armor = (Armor) Hero.heroInventory.get(1);
+					monsterDamage = monsterDamage - (armor.getArmorLevel() + Hero.heroes.get(0).getNaturalArmor());
+					if(monsterDamage <= 0)
+						{
+						monsterDamage = 1;
+						}
+					heroHP = heroHP - monsterDamage;
+					}	
 				}
+			else
+				{
+				heroHP = heroHP - monsterDamage;	
+				}
+			
 			Hero.heroes.get(0).setHeroHP(heroHP);
 			JOptionPane.showMessageDialog(frame, "The monster attacks and does " + monsterDamage + " damage!",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",

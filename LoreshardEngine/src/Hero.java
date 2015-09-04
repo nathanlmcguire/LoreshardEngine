@@ -20,13 +20,18 @@ public class Hero extends Creature
 	private boolean accuracyEffect;
 	private int naturalArmor;
 	private int loreShard;
+	private int maxNaturalArmor;
+	private int adrenalineGen;
+	private int wardGen;
+	private int healthGen;
+	private int magicLuck;
 	
 	static ArrayList <Hero> heroes = new ArrayList<Hero>();
 	static ArrayList <Item> heroInventory = new ArrayList<Item>();
 	static ArrayList <Ingredient> alchemyBag = new ArrayList<Ingredient>();
 	
 	
-	public Hero(String n, int ch, int mh, int ad, int o, int m, int ag, int st, String c, int wp, int l, boolean ae, int na, int ls)
+	public Hero(String n, int ch, int mh, int ad, int o, int m, int ag, int st, String c, int wp, int l, boolean ae, int na, int ls, int mna, int adg, int wg, int hg, int ml)
 		{
 		setName(n);
 		heroHP = ch;
@@ -42,6 +47,11 @@ public class Hero extends Creature
 		accuracyEffect = ae;
 		naturalArmor = na;
 		loreShard = ls;
+		maxNaturalArmor = mna;
+		adrenalineGen = adg;
+		wardGen = wg;
+		healthGen = hg;
+		magicLuck = ml;
 		}
 
 
@@ -53,6 +63,13 @@ public class Hero extends Creature
 		int wardCost = 0;
 		JFrame frame = new JFrame();
 		ImageIcon mark = new ImageIcon(("mark.png"));
+		
+		Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() + Hero.heroes.get(0).getHealthGen());
+		
+		if(Hero.heroes.get(0).getHeroHP() > Hero.heroes.get(0).getMaxHeroHP())
+			{
+			Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getMaxHeroHP());
+			}
 		
 		if(Hero.heroInventory.get(2) instanceof Ward)
 			{
@@ -80,14 +97,14 @@ public class Hero extends Creature
 			}
 		
 		
-		Hero.heroes.get(0).setWardPower(Hero.heroes.get(0).getWardPower() + 1);
+		Hero.heroes.get(0).setWardPower(Hero.heroes.get(0).getWardPower() + Hero.heroes.get(0).getWardGen());
 		if(Hero.heroes.get(0).getHeroHP() <= 1)
 			{
 			Hero.heroes.get(0).setAdrenaline(40 + Hero.heroes.get(0).getAdrenaline());
 			}
 		else
 			{
-			Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() + 1);
+			Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() + Hero.heroes.get(0).getAdrenalineGen());
 			}
 		switch(CombatChoice)
 			{
@@ -624,12 +641,130 @@ public class Hero extends Creature
 				break;
 				}
 			}
+		choosePerk(levelUpChoice);
 		}
 	
-	//also add:
-	//buy/sell method
-	//potion craft method
-	//enhance attack method
+	public static void choosePerk(int chosenSkill)
+		{
+		int perkChoice;
+		ImageIcon icon = new ImageIcon(("perk symbol.png"));
+		JFrame frame = new JFrame();
+		
+		
+		if(Hero.heroes.get(0).getOverAllLevel() % 3 == 0)
+			{
+			JOptionPane.showMessageDialog(frame, "That night before you sleep you see the symbol of the Wayfarer blaze in the sky.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
+			
+			JOptionPane.showMessageDialog(frame, "You know that the Wayfarer's sign is a mark of new knowlege and skill.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
+			
+			switch(chosenSkill)
+				{
+				case 0:
+					{
+					Object[] perk = {"More Random Explosions", "Faster Ward Buildup"};
+					perkChoice = JOptionPane.showOptionDialog(frame, "What perk would you like to invest in?",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.YES_NO_CANCEL_OPTION,
+							JOptionPane.QUESTION_MESSAGE,
+							icon, perk, perk[1]);
+					
+					switch(perkChoice)
+						{
+						case 0:
+							{
+							JOptionPane.showMessageDialog(frame, "You have invested in the 'More Random Explosions' perk!",
+									"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+									JOptionPane.QUESTION_MESSAGE,
+									icon);
+							Hero.heroes.get(0).setMagicLuck(Hero.heroes.get(0).getMagicLuck() + 1);
+							break;
+							}
+						case 1:
+							{
+							JOptionPane.showMessageDialog(frame, "You have invested in the 'Faster Ward Buildup' perk!",
+									"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+									JOptionPane.QUESTION_MESSAGE,
+									icon);
+							Hero.heroes.get(0).setWardGen(Hero.heroes.get(0).getWardGen() + 1);
+							break;
+							}
+						}
+					break;
+					}
+				case 1:
+					{
+					Object[] perk = {"Faster Health Regen", "Greater Natural Armor"};
+					perkChoice = JOptionPane.showOptionDialog(frame, "What perk would you like to invest in?",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.YES_NO_CANCEL_OPTION,
+							JOptionPane.QUESTION_MESSAGE,
+							icon, perk, perk[1]);
+					
+					switch(perkChoice)
+						{
+						case 0:
+							{
+							JOptionPane.showMessageDialog(frame, "You have invested in the 'Faster Health Regen' perk!",
+									"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+									JOptionPane.QUESTION_MESSAGE,
+									icon);
+							Hero.heroes.get(0).setHealthGen(Hero.heroes.get(0).getHealthGen() + 1);
+							break;
+							}
+						case 1:
+							{
+							JOptionPane.showMessageDialog(frame, "You have invested in the 'Greater Natural Armor' perk!",
+									"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+									JOptionPane.QUESTION_MESSAGE,
+									icon);
+							Hero.heroes.get(0).setMaxNaturalArmor(Hero.heroes.get(0).getMaxNaturalArmor() + 10);
+							break;
+							}	
+						}
+					break;
+					}
+				case 2:
+					{
+					Object[] perk = {"More Crits", "Faster Adrenaline Buildup"};
+					perkChoice = JOptionPane.showOptionDialog(frame, "What perk would you like to invest in?",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.YES_NO_CANCEL_OPTION,
+							JOptionPane.QUESTION_MESSAGE,
+							icon, perk, perk[1]);
+					
+					switch(perkChoice)
+						{
+						case 0:
+							{
+							JOptionPane.showMessageDialog(frame, "You have invested in the 'More Crits' perk!",
+									"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+									JOptionPane.QUESTION_MESSAGE,
+									icon);
+							Hero.heroes.get(0).setLuck(Hero.heroes.get(0).getLuck() + 1);
+							break;
+							}
+						case 1:
+							{
+							JOptionPane.showMessageDialog(frame, "You have invested in the 'Faster Adrenaline Buildup' perk!",
+									"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+									JOptionPane.QUESTION_MESSAGE,
+									icon);
+							Hero.heroes.get(0).setAdrenalineGen(Hero.heroes.get(0).getAdrenalineGen() + 1);
+							break;
+							}	
+						}
+					break;
+					}
+				}
+			}
+		}
+
 
 	
 	
@@ -782,6 +917,66 @@ public class Hero extends Creature
 		{
 		this.loreShard = loreShard;
 		}
+
+	public int getMaxNaturalArmor()
+		{
+			return maxNaturalArmor;
+		}
+
+
+	public void setMaxNaturalArmor(int maxNaturalArmor)
+		{
+			this.maxNaturalArmor = maxNaturalArmor;
+		}
+
+
+	public int getAdrenalineGen()
+		{
+			return adrenalineGen;
+		}
+
+
+	public void setAdrenalineGen(int adrenalineGen)
+		{
+			this.adrenalineGen = adrenalineGen;
+		}
+
+
+	public int getWardGen()
+		{
+			return wardGen;
+		}
+
+
+	public void setWardGen(int wardGen)
+		{
+			this.wardGen = wardGen;
+		}
+
+
+	public int getHealthGen()
+		{
+			return healthGen;
+		}
+
+
+	public void setHealthGen(int healthGen)
+		{
+			this.healthGen = healthGen;
+		}
+
+
+	public int getMagicLuck()
+		{
+			return magicLuck;
+		}
+
+
+	public void setMagicLuck(int magicLuck)
+		{
+			this.magicLuck = magicLuck;
+		}
+
 
 	public static ArrayList<Item> getInventory()
 		{
