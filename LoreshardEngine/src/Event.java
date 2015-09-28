@@ -28,12 +28,12 @@ public class Event
 				}
 			case 4:
 				{
-				
+				treeFall();
 				break;
 				}
 			case 5:
 				{
-				
+				illusionWall();
 				break;
 				}	
 			case 6:
@@ -419,4 +419,211 @@ public class Event
 				}
 			}
 		}
-	}
+	
+	public static void treeFall()
+		{
+		JFrame frame = new JFrame();
+		ImageIcon icon = new ImageIcon(("steps.png"));
+		ImageIcon icon2 = new ImageIcon(("treefall.jpg"));
+		
+		JOptionPane.showMessageDialog(frame, "You are walking down the path when suddenly a tree falls on top of you.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon2);	
+		JOptionPane.showMessageDialog(frame, "It all happens so fast, and the only thing you can do it try to stop the tree trunk with your strength.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon2);	
+		
+		int chance = (int) (Math.random() * 10);
+		if(chance < Hero.heroes.get(0).getStrengthLevel())
+			{
+			JOptionPane.showMessageDialog(frame, "Your muscled arms stop the thick trunk in its tracks!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "The experience makes you stronger!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			Hero.heroes.get(0).setAgilityLevel(Hero.heroes.get(0).getStrengthLevel() + 2);
+			}
+		else
+			{
+			JOptionPane.showMessageDialog(frame, "You fail to stop the falling tree.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "The heavy trunk falls on top of you and crushes some of your ribs!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "You lose 10 max health!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);
+			Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() - 10);
+			Hero.heroes.get(0).setMaxHeroHP(Hero.heroes.get(0).getMaxHeroHP() - 10);
+			}
+		}
+	
+	public static void illusionWall()
+		{
+		JFrame frame = new JFrame();
+		ImageIcon icon = new ImageIcon(("steps.png"));
+		ImageIcon icon2 = new ImageIcon(("illusionwall.jpg"));
+		SpecialItem item1 = (SpecialItem) Hero.heroInventory.get(4);
+		
+		int chance = (int) (Math.random() * 10);
+		if(chance < Hero.heroes.get(0).getMagicLevel())
+			{
+			JOptionPane.showMessageDialog(frame, "You are walking down the path when suddenly your magical senses tingle!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);	
+			JOptionPane.showMessageDialog(frame, "You look around and see the side of a cliff glow with runes.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "It's an illusion wall!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "The wall shimmers into nothingness and you see a small alcove.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			Hero.openLoot();
+			}
+		else if(item1.getQuantity() > 0)
+			{
+				JOptionPane.showMessageDialog(frame, "You are walking down the path when suddenly the Keystone in your pocket starts to temble!",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);	
+				JOptionPane.showMessageDialog(frame, "You look around and see the side of a cliff glow with runes.",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon2);	
+				JOptionPane.showMessageDialog(frame, "It's an illusion wall!",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon2);	
+				JOptionPane.showMessageDialog(frame, "The wall shimmers into nothingness and you see a small alcove.",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon2);	
+				Hero.openLoot();
+			}
+		JOptionPane.showMessageDialog(frame, "You learn from the experience and get better at magic.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon2);	
+		Hero.heroes.get(0).setMagicLevel(Hero.heroes.get(0).getStrengthLevel() + 1);
+		}
+	
+	public static void ancientTomb()
+		{
+		JFrame frame = new JFrame();
+		ImageIcon icon = new ImageIcon(("steps.png"));
+		ImageIcon icon2 = new ImageIcon(("tomb.jpg"));
+		ImageIcon icon3 = new ImageIcon(("ancienttreasure.jpg"));
+		SpecialItem item = (SpecialItem) Hero.heroInventory.get(7);
+		
+		JOptionPane.showMessageDialog(frame, "As you walk along the path you notice a boulder blocking a hole in a cliffside.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " +  Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon2);	
+		JOptionPane.showMessageDialog(frame, "You can use a Bomb to destroy the boulder, or try push it aside.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " +  Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon2);	
+
+			Object[] actions = {"Leave", "Use Bomb(" + item.getQuantity() + ")", "Push Aside"};
+			int chosenAction = JOptionPane.showOptionDialog(frame, "What do you want to do?",
+					"CHARACTER CREATION",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					icon2, actions, actions[0]);
+			
+			
+			switch(chosenAction)
+				{
+				case 0:
+					{
+					JOptionPane.showMessageDialog(frame, "You leave the boulder be and continue along the path.",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon2);	
+					break;
+					}
+				case 1:
+					{
+					if(item.getQuantity() > 0)
+						{
+						JOptionPane.showMessageDialog(frame, "You light the fuse of the bomb and run behind a tree.",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon2);
+						JOptionPane.showMessageDialog(frame, "It blows up the boulder revealing the treasure room of a long dead king!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon3);
+						item.setQuantity(item.getQuantity() - 1);
+						int chance1 = (int) (Math.random() * 2) + 1;
+						if(chance1 == 1)
+							{
+							JOptionPane.showMessageDialog(frame, "Unfortunately you rigged the Bomb too close to the tomb, blowing up some of the treasure!",
+									"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+									JOptionPane.QUESTION_MESSAGE,
+									icon3);	
+							JOptionPane.showMessageDialog(frame, "There is still plenty treasure left, however.",
+									"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+									JOptionPane.QUESTION_MESSAGE,
+									icon3);
+							Hero.openLoot();
+							}
+						else
+							{
+							JOptionPane.showMessageDialog(frame, "You rigged the Bomb perfectly leaving all of the treasure in tact.",
+									"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+									JOptionPane.QUESTION_MESSAGE,
+									icon3);	
+							Hero.openLoot();
+							Hero.openLoot();
+							}
+						}
+					else
+						{
+						JOptionPane.showMessageDialog(frame, "You have no Bombs to use.",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon2);
+						}
+					break;
+					}
+				case 2:
+					{
+					int chance = (int) (Math.random() * 10) + 5;
+					if(chance > Hero.heroes.get(0).getStrengthLevel())
+						{
+						JOptionPane.showMessageDialog(frame, "You fail to push the boulder aside.",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon2);
+						}
+					else
+						{
+						JOptionPane.showMessageDialog(frame, "You heave the boulder aside revealing the treasure room of a long dead king!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon3);	
+						Hero.openLoot();
+						Hero.openLoot();
+						}
+					}
+					break;
+					}
+				}
+			}
+	

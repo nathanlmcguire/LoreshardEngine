@@ -458,6 +458,11 @@ public class Hero extends Creature
 					SpecialItem item = (SpecialItem) Hero.heroInventory.get(6);
 					item.setQuantity(item.getQuantity() + 3);
 					}
+				else if(SI.getItemName() == "Bomb")
+					{
+					SpecialItem item = (SpecialItem) Hero.heroInventory.get(7);
+					item.setQuantity(item.getQuantity() + 1);
+					}
 				else
 					{
 					Hero.heroes.get(0).setLoreShard(Hero.heroes.get(0).getLoreShard() + 1);

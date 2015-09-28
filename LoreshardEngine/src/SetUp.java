@@ -43,7 +43,7 @@ public class SetUp
 		Hero.heroInventory.add(new SpecialItem("Keystone", 10, 0));
 		Hero.heroInventory.add(new SpecialItem("Bag of Gold", 10, 1));
 		Hero.heroInventory.add(new SpecialItem("Lockpicks", 10, 3));
-		Hero.heroInventory.add(new Potion("Weak Healing Potion", 5, 0, true));
+		Hero.heroInventory.add(new SpecialItem("Bomb", 10, 0));
 		Hero.alchemyBag.add(new Ingredient("Mudstock", 10, 0));
 		Hero.alchemyBag.add(new Ingredient("Grigs", 10, -1));
 		Hero.alchemyBag.add(new Ingredient("Pettleroot", 10, 1));

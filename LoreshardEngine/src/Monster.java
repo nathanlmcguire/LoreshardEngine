@@ -34,10 +34,6 @@ public class Monster extends Creature
 			{
 			boolean check = true;
 			
-			int eliteCheck = (int) (Math.random() * 11);
-			int bhCheck = (int) (Math.random() * 11);
-			int apCheck = (int) (Math.random() * 11);
-			
 			while(check)
 				{
 				monsterNumber = (int) (Math.random() * monsters.size());
@@ -48,74 +44,13 @@ public class Monster extends Creature
 							"COMBAT",
 							JOptionPane.QUESTION_MESSAGE,
 							icon);
+					
+					prepMonster(monsterNumber);
+					
 					JOptionPane.showMessageDialog(frame, "It is a " + Monster.monsters.get(monsterNumber).getName() + "!",
 							"COMBAT",
 							JOptionPane.QUESTION_MESSAGE,
 							icon);
-					switch(eliteCheck)
-						{
-						case 0:
-						case 1:
-						case 2:
-						case 3:
-						case 4:
-						case 5:
-						case 6:
-						case 7:
-						case 8:
-						case 9:
-							{
-							eliteMob = false;
-							break;
-							}
-						case 10:
-							{
-							JOptionPane.showMessageDialog(frame, "It is also ELITE which means it does more damage!",
-									"COMBAT",
-									JOptionPane.QUESTION_MESSAGE,
-									icon);
-							eliteMob = true;
-							break;
-							}
-						}
-					switch(bhCheck)
-						{
-						case 10:
-							{
-							JOptionPane.showMessageDialog(frame, "It is also BATTLE HARDEND which means it 2x health!",
-									"COMBAT",
-									JOptionPane.QUESTION_MESSAGE,
-									icon);
-							Monster.monsters.get(monsterNumber).setHitPoints(2 * Monster.monsters.get(monsterNumber).getHitPoints());
-							break;
-							}
-						}
-					switch(apCheck)
-						{
-						case 0:
-						case 1:
-						case 2:
-						case 3:
-						case 4:
-						case 5:
-						case 6:
-						case 7:
-						case 8:
-						case 9:
-							{
-							apMob = false;
-							break;
-							}
-						case 10:
-							{
-							JOptionPane.showMessageDialog(frame, "It is also ARMOR PIERCING which means it ignores armor!",
-									"COMBAT",
-									JOptionPane.QUESTION_MESSAGE,
-									icon);
-							apMob = true;
-							break;
-							}
-						}
 					check = false;
 					}
 				}
@@ -263,6 +198,72 @@ public class Monster extends Creature
 			}
 		}
 	
+	public static void prepMonster(int monsterNum)
+		{
+		ImageIcon icon = new ImageIcon(("monster comin.png"));
+		JFrame frame = new JFrame();
+			
+		int eliteCheck = (int) (Math.random() * 11);
+		int bhCheck = (int) (Math.random() * 11);
+		int apCheck = (int) (Math.random() * 11);
+			
+		switch(eliteCheck)
+			{
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+				{
+				eliteMob = false;
+				break;
+				}
+			case 10:
+				{
+				Monster.monsters.get(monsterNum).setName("Elite " + Monster.monsters.get(monsterNum).getName());
+				eliteMob = true;
+				break;
+				}
+			}
+		switch(bhCheck)
+			{
+			case 10:
+				{
+				Monster.monsters.get(monsterNum).setName("Battle Hardened " + Monster.monsters.get(monsterNum).getName());
+				Monster.monsters.get(monsterNum).setHitPoints(2 * Monster.monsters.get(monsterNum).getHitPoints());
+				break;
+				}
+			}
+		switch(apCheck)
+			{
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+				{
+				apMob = false;
+				break;
+				}
+			case 10:
+				{
+				Monster.monsters.get(monsterNum).setName(Monster.monsters.get(monsterNum).getName() + " with Armor Piercing Weapons");
+				apMob = true;
+				break;
+				}
+			}
+		}
+
 	public boolean isBoss()
 		{
 		return boss;
