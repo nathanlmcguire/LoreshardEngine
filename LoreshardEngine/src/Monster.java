@@ -154,6 +154,8 @@ public class Monster extends Creature
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.QUESTION_MESSAGE,
 					iconThree);
+			
+			Companion.defend(monsterDamage);
 			if(Hero.heroes.get(0).getHeroHP() <= 0)
 				{
 				JOptionPane.showMessageDialog(frame, "You have been slain!",

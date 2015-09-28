@@ -23,7 +23,7 @@ public class Event
 				}
 			case 3:
 				{
-				pickpocketed();
+				//pickpocketed();
 				break;
 				}
 			case 4:
@@ -38,12 +38,12 @@ public class Event
 				}	
 			case 6:
 				{
-				
+				ancientTomb();
 				break;
 				}
 			case 7:
 				{
-				
+				drinkingChallenge();
 				break;
 				}
 			case 8:
@@ -372,50 +372,70 @@ public class Event
 			}
 		}
 	
-	public static void pickpocketed()
+	public static void drinkingChallenge()
 		{
 		JFrame frame = new JFrame();
 		ImageIcon icon = new ImageIcon(("steps.png"));
-		ImageIcon icon2 = new ImageIcon(("pickpocket.jpg"));
+		ImageIcon icon2 = new ImageIcon(("beer.jpg"));
 		
-		JOptionPane.showMessageDialog(frame, "While you are walking down the path you pass a young man in a cloak.",
+		JOptionPane.showMessageDialog(frame, "While you are walking down the path you pass a figure sitting at his campfire.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon);	
+		JOptionPane.showMessageDialog(frame, "He asks you if you would like to have a drinking contest with him.",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE,
 				icon2);	
-		JOptionPane.showMessageDialog(frame, "He accidentally bumps into you and apoligizes.",
+		Object[] chooseOne = {"Yes", "No"};
+		int choiceOne = JOptionPane.showOptionDialog(frame, "How do you reply?",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.QUESTION_MESSAGE,
-				icon2);	
+				icon2, chooseOne, chooseOne[0]);
 		
-		int chance = (int) (Math.random() * 10);
-		if(chance < Hero.heroes.get(0).getAgilityLevel())
+		switch(choiceOne)
 			{
-			JOptionPane.showMessageDialog(frame, "Luckily you realize that he has stolen your equipment and you force him to return the goods!",
-					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-					JOptionPane.QUESTION_MESSAGE,
-					icon2);	
-			JOptionPane.showMessageDialog(frame, "You learn from this experience becoming even more agile!",
-					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-					JOptionPane.QUESTION_MESSAGE,
-					icon2);	
-			Hero.heroes.get(0).setAgilityLevel(Hero.heroes.get(0).getAgilityLevel() + 2);
-			}
-		else
-			{
-			JOptionPane.showMessageDialog(frame, "You assure him that it's fine and continue on your way.",
-					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-					JOptionPane.QUESTION_MESSAGE,
-					icon2);	
-			JOptionPane.showMessageDialog(frame, "You only later realize that he stole your weapon and your potion!",
-					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-					JOptionPane.QUESTION_MESSAGE,
-					icon2);	
-			Hero.heroInventory.set(0, new Sword("Fists", 0, 2, true));
-			if(Hero.heroInventory.get(3) instanceof Potion)
+			case 0:
 				{
-				Potion potion = (Potion) Hero.heroInventory.get(3);
-				potion.setFull(false);
-				potion.setItemName("Empty Potion");
+				JOptionPane.showMessageDialog(frame, "You agree to the challenge and join the man at the campfire.",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon2);	
+				int chance = (int) (Math.random() * 8);
+				if(chance < Hero.heroes.get(0).getStrengthLevel())
+					{
+					JOptionPane.showMessageDialog(frame, "The other man quickly passes out leaving you the winner!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon2);	
+					JOptionPane.showMessageDialog(frame, "The following morning the hungover man catches up to you.",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);	
+					Companion.generateCompanion();
+					}
+				else
+					{
+					JOptionPane.showMessageDialog(frame, "You are a light weight compared to your opponent and pass out quickly.",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon2);	
+					JOptionPane.showMessageDialog(frame, "You awaken the next morning with a pounding headache. -2 max health!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon2);	
+					Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() - 2);
+					Hero.heroes.get(0).setMaxHeroHP(Hero.heroes.get(0).getMaxHeroHP() - 2);
+					}
+				break;
+				}
+			case 1:
+				{
+				JOptionPane.showMessageDialog(frame, "You decline the man and continue on your way.",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);	
+				break;
 				}
 			}
 		}
@@ -625,5 +645,10 @@ public class Event
 					break;
 					}
 				}
-			}
+	
+	public static void pickpocketed()
+		{
+			
+		}
+	}
 	

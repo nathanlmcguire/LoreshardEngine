@@ -256,7 +256,7 @@ public class Character
 				{
 				case 0:
 					{
-					Companion.generateMercCharacter();
+					Companion.generateCompanion();
 					break;
 					}
 				case 1:
@@ -612,4 +612,25 @@ public class Character
 					}
 				}
 			}
+	
+	public static void drunkard()
+		{
+		JFrame frame = new JFrame();
+		ImageIcon icon = new ImageIcon(("npc.jpg"));
+		JOptionPane.showMessageDialog(frame, "It is an old man.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon);
+		}
+	
+	public static void duelist()
+		{
+		JFrame frame = new JFrame();
+		ImageIcon icon = new ImageIcon(("npc.jpg"));
+		JOptionPane.showMessageDialog(frame, "It is an old man.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon);
+		}
+	
 	} 

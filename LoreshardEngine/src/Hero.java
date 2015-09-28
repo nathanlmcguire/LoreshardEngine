@@ -29,6 +29,7 @@ public class Hero extends Creature
 	static ArrayList <Hero> heroes = new ArrayList<Hero>();
 	static ArrayList <Item> heroInventory = new ArrayList<Item>();
 	static ArrayList <Ingredient> alchemyBag = new ArrayList<Ingredient>();
+	static ArrayList <Companion> companions = new ArrayList<Companion>();
 	
 	
 	public Hero(String n, int ch, int mh, int ad, int o, int m, int ag, int st, String c, int wp, int l, boolean ae, int na, int ls, int mna, int adg, int wg, int hg, int ml)
@@ -256,6 +257,7 @@ public class Hero extends Creature
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.QUESTION_MESSAGE, missed);		
 			}
+		Companion.attack(monsterNum, hitPoints);
 		}
 	
 	public static int checkForCrit(int damage)
@@ -613,6 +615,7 @@ public class Hero extends Creature
 		maxHeroHP = maxHeroHP + (strengthLevel + 1);
 		Hero.heroes.get(0).setMaxHeroHP(maxHeroHP);
 		Hero.heroes.get(0).setHeroHP(maxHeroHP);
+		Hero.companions.get(0).setComHP(Hero.companions.get(0).getComMaxHP());
 		switch(levelUpChoice)
 			{
 			case 0:
