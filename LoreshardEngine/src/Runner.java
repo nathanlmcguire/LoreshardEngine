@@ -132,7 +132,7 @@ public class Runner
 		ImageIcon icon = new ImageIcon(("wayfarer.jpg"));
 		JFrame frame = new JFrame();
 		JOptionPane.showMessageDialog(frame, "Start",
-			"WAYFARER_ALPHA 1.6",
+			"WAYFARER_ALPHA 1.7",
 			JOptionPane.QUESTION_MESSAGE,
 			icon);
 		

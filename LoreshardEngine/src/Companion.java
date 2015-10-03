@@ -37,10 +37,7 @@ public class Companion
 		int damage = (int) (Math.random() * 15) + 5;
 		int health = (int) (Math.random() * Hero.heroes.get(0).getHeroHP()) + 20;
 		
-		JOptionPane.showMessageDialog(frame, "My name is " + name + " and I would be glad to accompany you.",
-				"" + Hero.heroes.get(0).getName() + "'s HP = " +  Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-				JOptionPane.QUESTION_MESSAGE,
-				null);	
+			
 		
 		switch(nameNum)
 			{
@@ -95,6 +92,11 @@ public class Companion
 				break;
 				}
 			}
+		
+		JOptionPane.showMessageDialog(frame, "My name is " + name + " and I would be glad to accompany you.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " +  Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				null);
 		
 		switch(attackNum)
 			{

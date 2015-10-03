@@ -256,6 +256,7 @@ public class Character
 				{
 				case 0:
 					{
+					item.setQuantity(item.getQuantity() - 1);
 					Companion.generateCompanion();
 					break;
 					}

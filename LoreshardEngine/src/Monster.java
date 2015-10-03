@@ -10,7 +10,7 @@ public class Monster extends Creature
 	private boolean boss;
 	private String location;
 	private int monsterDamage;
-	static boolean eliteMob;
+	static boolean frenziedMob;
 	static boolean apMob;
 	
 	static ArrayList <Monster> monsters = new ArrayList<Monster>();
@@ -115,7 +115,7 @@ public class Monster extends Creature
 		ImageIcon iconTwo = new ImageIcon(("game over.jpg"));
 		ImageIcon iconThree = new ImageIcon(("claws.jpg"));
 		JFrame frame = new JFrame();
-		if(eliteMob)
+		if(frenziedMob)
 			{
 			monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage + (Hero.heroes.get(0).getOverAllLevel() * 4));	
 			}
@@ -222,13 +222,13 @@ public class Monster extends Creature
 			case 8:
 			case 9:
 				{
-				eliteMob = false;
+				frenziedMob = false;
 				break;
 				}
 			case 10:
 				{
-				Monster.monsters.get(monsterNum).setName("Elite " + Monster.monsters.get(monsterNum).getName());
-				eliteMob = true;
+				Monster.monsters.get(monsterNum).setName("Frenzied " + Monster.monsters.get(monsterNum).getName());
+				frenziedMob = true;
 				break;
 				}
 			}
@@ -236,7 +236,7 @@ public class Monster extends Creature
 			{
 			case 10:
 				{
-				Monster.monsters.get(monsterNum).setName("Battle Hardened " + Monster.monsters.get(monsterNum).getName());
+				Monster.monsters.get(monsterNum).setName("Tough " + Monster.monsters.get(monsterNum).getName());
 				Monster.monsters.get(monsterNum).setHitPoints(2 * Monster.monsters.get(monsterNum).getHitPoints());
 				break;
 				}

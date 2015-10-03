@@ -23,7 +23,7 @@ public class Event
 				}
 			case 3:
 				{
-				//pickpocketed();
+				pickpocketed();
 				break;
 				}
 			case 4:
@@ -48,7 +48,7 @@ public class Event
 				}
 			case 8:
 				{
-				
+				mugger();
 				break;
 				}
 			case 9:
@@ -408,11 +408,21 @@ public class Event
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 							JOptionPane.QUESTION_MESSAGE,
 							icon2);	
-					JOptionPane.showMessageDialog(frame, "The following morning the hungover man catches up to you.",
+					JOptionPane.showMessageDialog(frame, "You claim the prize and continue on your way.",
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 							JOptionPane.QUESTION_MESSAGE,
-							icon);	
-					Companion.generateCompanion();
+							icon2);	
+					Hero.openLoot();
+					int chance2 = (int) (Math.random() * 2);
+					
+					if(chance2 == 0)
+						{
+						JOptionPane.showMessageDialog(frame, "The following morning the hungover man catches up to you.",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon);	
+						Companion.generateCompanion();	
+						}
 					}
 				else
 					{
@@ -513,33 +523,38 @@ public class Event
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.QUESTION_MESSAGE,
 					icon2);	
+			JOptionPane.showMessageDialog(frame, "You learn from the experience and get better at magic.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			Hero.heroes.get(0).setMagicLevel(Hero.heroes.get(0).getMagicLevel() + 1);
 			Hero.openLoot();
 			}
 		else if(item1.getQuantity() > 0)
 			{
-				JOptionPane.showMessageDialog(frame, "You are walking down the path when suddenly the Keystone in your pocket starts to temble!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-						JOptionPane.QUESTION_MESSAGE,
-						icon);	
-				JOptionPane.showMessageDialog(frame, "You look around and see the side of a cliff glow with runes.",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-						JOptionPane.QUESTION_MESSAGE,
-						icon2);	
-				JOptionPane.showMessageDialog(frame, "It's an illusion wall!",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-						JOptionPane.QUESTION_MESSAGE,
-						icon2);	
-				JOptionPane.showMessageDialog(frame, "The wall shimmers into nothingness and you see a small alcove.",
-						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-						JOptionPane.QUESTION_MESSAGE,
-						icon2);	
-				Hero.openLoot();
+			JOptionPane.showMessageDialog(frame, "You are walking down the path when suddenly the Keystone in your pocket starts to temble!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);	
+			JOptionPane.showMessageDialog(frame, "You look around and see the side of a cliff glow with runes.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "It's an illusion wall!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "The wall shimmers into nothingness and you see a small alcove.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "You learn from the experience and get better at magic.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			Hero.heroes.get(0).setMagicLevel(Hero.heroes.get(0).getMagicLevel() + 1);
+			Hero.openLoot();
 			}
-		JOptionPane.showMessageDialog(frame, "You learn from the experience and get better at magic.",
-				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
-				JOptionPane.QUESTION_MESSAGE,
-				icon2);	
-		Hero.heroes.get(0).setMagicLevel(Hero.heroes.get(0).getStrengthLevel() + 1);
 		}
 	
 	public static void ancientTomb()
@@ -648,7 +663,216 @@ public class Event
 	
 	public static void pickpocketed()
 		{
-			
+		JFrame frame = new JFrame();
+		ImageIcon icon = new ImageIcon(("pickpocket.png"));
+		
+		JOptionPane.showMessageDialog(frame, "While you are walking down the path a man accidentally bumps into you.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon);	
+		int chance = (int) (Math.random() * 10);
+		if(chance > Hero.heroes.get(0).getAgilityLevel())
+			{
+			JOptionPane.showMessageDialog(frame, "You accept the man's appology and continue walking.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);	
+			JOptionPane.showMessageDialog(frame, "You later realize that he stole your potion and your weapon!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
+			Hero.heroInventory.set(0, new Sword("Fists", 0, 2, true));
+			if(Hero.heroInventory.get(3) instanceof Potion)
+				{
+				Potion potion = (Potion) Hero.heroInventory.get(3);
+				potion.setFull(false);
+				potion.setItemName("Empty Potion");
+				}
+			}
+		else
+			{
+			JOptionPane.showMessageDialog(frame, "You realize that the man has stolen from you and you force him to give the items back.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);	
+			JOptionPane.showMessageDialog(frame, "You learn from the experience and gain skill in agility.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);	
+			Hero.heroes.get(0).setMagicLevel(Hero.heroes.get(0).getAgilityLevel() + 1);
+			}	
 		}
+	
+	public static void mugger()
+		{
+		JFrame frame = new JFrame();
+		ImageIcon icon = new ImageIcon(("bandit.jpg"));
+		ImageIcon icon2 = new ImageIcon(("steps.png"));
+		
+		JOptionPane.showMessageDialog(frame, "You are walking down the path when someone jumps out of the bushes at you!",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon2);
+		JOptionPane.showMessageDialog(frame, "It is a bandit!",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon);
+		JOptionPane.showMessageDialog(frame, "He asks for your armor, your weapons, and your potions!",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon);
+		Object[] choose = {"Beat Up the Bandit", "Hypnotise the Bandit with Magic", "Run Away", "Give Up"};
+		int choice = JOptionPane.showOptionDialog(frame, "What would you like to do?",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				icon, choose, choose[0]);
+		
+		switch(choice)
+			{
+			case 0:
+				{
+				JOptionPane.showMessageDialog(frame, "You brace yourself and tackle the Bandit.",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
+				int chance = (int) (Math.random() * 10);
+				if(chance > Hero.heroes.get(0).getAgilityLevel())
+					{
+					JOptionPane.showMessageDialog(frame, "The Bandit is much stronger than you and holds you back with one arm!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					JOptionPane.showMessageDialog(frame, "He punches you in the face and takes all your stuff!  You lose 5 max health.",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() - 5);
+					Hero.heroes.get(0).setMaxHeroHP(Hero.heroes.get(0).getMaxHeroHP() - 5);
+					Hero.heroInventory.set(0, new Sword("Fists", 0, 2, true));
+					Hero.heroInventory.set(1, new LightArmor("Rags", 0, "Light", 0, true));
+					if(Hero.heroInventory.get(3) instanceof Potion)
+						{
+						Potion potion = (Potion) Hero.heroInventory.get(3);
+						potion.setFull(false);
+						potion.setItemName("Empty Potion");
+						}
+					}
+				else
+					{
+					JOptionPane.showMessageDialog(frame, "You beat the Bandit to a pulp!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					JOptionPane.showMessageDialog(frame, "Your strength increases and you find some loot on the unconcious criminal!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					Hero.heroes.get(0).setAgilityLevel(Hero.heroes.get(0).getStrengthLevel() + 2);
+					Hero.openLoot();
+					}
+				break;
+				}
+			case 1:
+				{
+				JOptionPane.showMessageDialog(frame, "Your hands glow with magic as you try to hypnotise the Bandit.",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);	
+				int chance = (int) (Math.random() * 10);
+				if(chance > Hero.heroes.get(0).getMagicLevel())
+					{
+					JOptionPane.showMessageDialog(frame, "The Bandit looks at you in a strange way, obviously wondering what you are doing.",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);	
+					JOptionPane.showMessageDialog(frame, "The he punches you in the face and takes all your stuff!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					JOptionPane.showMessageDialog(frame, "-5 Max Health!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() - 5);
+					Hero.heroes.get(0).setMaxHeroHP(Hero.heroes.get(0).getMaxHeroHP() - 5);
+					Hero.heroInventory.set(0, new Sword("Fists", 0, 2, true));
+					Hero.heroInventory.set(1, new LightArmor("Rags", 0, "Light", 0, true));
+					if(Hero.heroInventory.get(3) instanceof Potion)
+						{
+						Potion potion = (Potion) Hero.heroInventory.get(3);
+						potion.setFull(false);
+						potion.setItemName("Empty Potion");
+						}
+					}
+				else
+					{
+					JOptionPane.showMessageDialog(frame, "The spell works!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);	
+					JOptionPane.showMessageDialog(frame, "You gain skill in magic and use your powers to convince the Bandit to follow you.",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					Hero.heroes.get(0).setAgilityLevel(Hero.heroes.get(0).getStrengthLevel() + 2);
+					Companion.generateCompanion();
+					}
+				break;	
+				}
+			case 2:
+				{
+				JOptionPane.showMessageDialog(frame, "You sprint pass the Bandit in an attempt to get away.",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);
+				int chance = (int) (Math.random() * 10);
+				if(chance > Hero.heroes.get(0).getAgilityLevel())
+					{
+					JOptionPane.showMessageDialog(frame, "You are convinced that you have escaped until you feel the arrow in the back of your leg.",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);	
+					JOptionPane.showMessageDialog(frame, "You lose 5 max health!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					JOptionPane.showMessageDialog(frame, "The Bandit then takes all your stuff and leaves.",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() - 5);
+					Hero.heroes.get(0).setMaxHeroHP(Hero.heroes.get(0).getMaxHeroHP() - 5);
+					Hero.heroInventory.set(0, new Sword("Fists", 0, 2, true));
+					Hero.heroInventory.set(1, new LightArmor("Rags", 0, "Light", 0, true));
+					if(Hero.heroInventory.get(3) instanceof Potion)
+						{
+						Potion potion = (Potion) Hero.heroInventory.get(3);
+						potion.setFull(false);
+						potion.setItemName("Empty Potion");
+						}
+					}
+				else
+					{
+					JOptionPane.showMessageDialog(frame, "You succeed in your escape!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					JOptionPane.showMessageDialog(frame, "Your agility increases!",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					Hero.heroes.get(0).setMagicLevel(Hero.heroes.get(0).getAgilityLevel() + 2);	
+					}
+				break;	
+				}
+			}
+		}
+	
+	public static void warDog()
+		{
+		
+		}
+	
 	}
 	
