@@ -10,8 +10,8 @@ public class Monster extends Creature
 	private boolean boss;
 	private String location;
 	private int monsterDamage;
-	static boolean frenziedMob;
-	static boolean apMob;
+	static boolean apMob, unluckyMob, drainingMob, acidicMob, poisonousMob;
+	static int magicRes = 1, meleeRes = 1; 
 	
 	static ArrayList <Monster> monsters = new ArrayList<Monster>();
 	
@@ -115,14 +115,8 @@ public class Monster extends Creature
 		ImageIcon iconTwo = new ImageIcon(("game over.jpg"));
 		ImageIcon iconThree = new ImageIcon(("claws.jpg"));
 		JFrame frame = new JFrame();
-		if(frenziedMob)
-			{
-			monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage + (Hero.heroes.get(0).getOverAllLevel() * 4));	
-			}
-		else
-			{
-			monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage + (Hero.heroes.get(0).getOverAllLevel() * 2));	
-			}
+		
+		monsterDamage = (int) (Math.random() * monsterDamage) + (monsterDamage + (Hero.heroes.get(0).getOverAllLevel() * 2));	
 		
 		if(Hero.heroes.get(0).getOverAllLevel() >= 12)
 			{
@@ -150,6 +144,46 @@ public class Monster extends Creature
 				}
 			
 			Hero.heroes.get(0).setHeroHP(heroHP);
+				
+			if(unluckyMob)
+				{
+				Hero.heroes.get(0).setLuck(Hero.heroes.get(0).getLuck() - 1);
+				Hero.heroes.get(0).setMagicLuck(Hero.heroes.get(0).getMagicLuck() - 1);
+				if(Hero.heroes.get(0).getMagicLuck() < 0)
+					{
+					Hero.heroes.get(0).setMagicLuck(0);	
+					}
+				if(Hero.heroes.get(0).getLuck() < 0)
+					{
+					Hero.heroes.get(0).setLuck(0);		
+					}
+				}
+			
+			if(drainingMob)
+				{
+				Hero.heroes.get(0).setAdrenaline(Hero.heroes.get(0).getAdrenaline() - 1);
+				Hero.heroes.get(0).setWardPower(Hero.heroes.get(0).getWardPower() - 1);
+				if(Hero.heroes.get(0).getWardPower() < 0)
+					{
+					Hero.heroes.get(0).setWardPower(0);	
+					}
+				if(Hero.heroes.get(0).getAdrenaline() < 0)
+					{
+					Hero.heroes.get(0).setAdrenaline(0);		
+					}	
+				}
+			
+			if(acidicMob)
+				{
+					
+				}
+			
+			if(poisonousMob)
+				{
+				Hero.heroes.get(0).setMaxHeroHP(heroHP);	
+				}
+			
+			
 			JOptionPane.showMessageDialog(frame, "The monster attacks and does " + monsterDamage + " damage!",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.QUESTION_MESSAGE,
@@ -204,12 +238,21 @@ public class Monster extends Creature
 		{
 		ImageIcon icon = new ImageIcon(("monster comin.png"));
 		JFrame frame = new JFrame();
+		//unluckyMob, drainingMob, acidicMob, poisonousMob
 			
 		int eliteCheck = (int) (Math.random() * 11);
 		int bhCheck = (int) (Math.random() * 11);
 		int apCheck = (int) (Math.random() * 11);
-			
-		switch(eliteCheck)
+		int luckyCheck = (int) (Math.random() * 11);
+		int drainCheck = (int) (Math.random() * 11);
+		int acidCheck = (int) (Math.random() * 11);
+		int poisonCheck = (int) (Math.random() * 11);
+		int magicCheck = (int) (Math.random() * 11);
+		int meleeCheck = (int) (Math.random() * 11);
+		int meleeRes = (int) (Math.random() * 3);
+		int magicRes = (int) (Math.random() * 3);
+		
+		switch(acidCheck)
 			{
 			case 0:
 			case 1:
@@ -222,18 +265,112 @@ public class Monster extends Creature
 			case 8:
 			case 9:
 				{
-				frenziedMob = false;
+				acidicMob = false;
 				break;
 				}
 			case 10:
 				{
-				Monster.monsters.get(monsterNum).setName("Frenzied " + Monster.monsters.get(monsterNum).getName());
-				frenziedMob = true;
+				Monster.monsters.get(monsterNum).setName("Acidic " + Monster.monsters.get(monsterNum).getName());
+				acidicMob = true;
+				break;
+				}
+			}
+		
+		switch(poisonCheck)
+			{
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+				{
+				poisonousMob = false;
+				break;
+				}
+			case 10:
+				{
+				Monster.monsters.get(monsterNum).setName("Poisonous " + Monster.monsters.get(monsterNum).getName());
+				poisonousMob = true;
+				break;
+				}
+			}
+		
+		switch(luckyCheck)
+			{
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+				{
+				unluckyMob = false;
+				break;
+				}
+			case 10:
+				{
+				Monster.monsters.get(monsterNum).setName("Unlucky " + Monster.monsters.get(monsterNum).getName());
+				unluckyMob = true;
+				break;
+				}
+			}
+		
+		switch(drainCheck)
+			{
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+				{
+				drainingMob = false;
+				break;
+				}
+			case 10:
+				{
+				Monster.monsters.get(monsterNum).setName("Draining " + Monster.monsters.get(monsterNum).getName());
+				drainingMob = true;
+				break;
+				}
+			}
+		
+		switch(eliteCheck)
+			{
+			case 9:
+				{
+				Monster.monsters.get(monsterNum).setName("Exhausted " + Monster.monsters.get(monsterNum).getName());
+				Monster.monsters.get(monsterNum).setMonsterDamage(Monster.monsters.get(monsterNum).getMonsterDamage() / 2);	
+				break;	
+				}
+			case 10:
+				{
+					Monster.monsters.get(monsterNum).setName("Frenzied " + Monster.monsters.get(monsterNum).getName());
+					Monster.monsters.get(monsterNum).setMonsterDamage(2 * Monster.monsters.get(monsterNum).getMonsterDamage());
 				break;
 				}
 			}
 		switch(bhCheck)
 			{
+			case 9:
+				{
+				Monster.monsters.get(monsterNum).setName("Weak " + Monster.monsters.get(monsterNum).getName());
+				Monster.monsters.get(monsterNum).setHitPoints(Monster.monsters.get(monsterNum).getHitPoints() / 2);	
+				break;	
+				}
 			case 10:
 				{
 				Monster.monsters.get(monsterNum).setName("Tough " + Monster.monsters.get(monsterNum).getName());

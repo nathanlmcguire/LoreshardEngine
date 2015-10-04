@@ -149,6 +149,7 @@ public class Hero extends Creature
 				break;
 				}
 			}
+		Companion.attack(monsterNum, Monster.monsters.get(monsterNum).getHitPoints());
 		continueBattle(monsterNum);
 		}
 
@@ -257,7 +258,6 @@ public class Hero extends Creature
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.QUESTION_MESSAGE, missed);		
 			}
-		Companion.attack(monsterNum, hitPoints);
 		}
 	
 	public static int checkForCrit(int damage)

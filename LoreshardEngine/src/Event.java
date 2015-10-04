@@ -664,7 +664,7 @@ public class Event
 	public static void pickpocketed()
 		{
 		JFrame frame = new JFrame();
-		ImageIcon icon = new ImageIcon(("pickpocket.png"));
+		ImageIcon icon = new ImageIcon(("pickpocket.jpg"));
 		
 		JOptionPane.showMessageDialog(frame, "While you are walking down the path a man accidentally bumps into you.",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
