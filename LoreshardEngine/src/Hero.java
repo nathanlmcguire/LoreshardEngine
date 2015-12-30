@@ -186,16 +186,36 @@ public class Hero extends Creature
 		
 		if(Monster.defend(meleeChoice))
 			{
+			int daMod = (int) (Math.random() * 5);
 			switch(meleeChoice)
 				{
 				case 0:
 					{
-					damage = checkForCrit(damage) + (strengthLevel * 2);
+					damage = checkForCrit(damage) + (strengthLevel * 2) + daMod;
 					JOptionPane.showMessageDialog(frame, "You attack high and do " + damage + " damage to the monster!",
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 							JOptionPane.QUESTION_MESSAGE,
 							icon);	
-					hitPoints = hitPoints - damage;
+					if(Monster.magicRes == 0)
+						{
+						hitPoints = hitPoints - (damage / 2);
+						JOptionPane.showMessageDialog(frame, "The monster is resistant to melee damage!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon);
+						}
+					else if(Monster.magicRes == 1)
+						{
+						hitPoints = hitPoints - (damage * 2);	
+						JOptionPane.showMessageDialog(frame, "The monster is weak to melee damage!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon);
+						}
+					else
+						{
+						hitPoints = hitPoints - damage;	
+						}
 					
 					JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
@@ -213,7 +233,26 @@ public class Hero extends Creature
 							JOptionPane.QUESTION_MESSAGE,
 							icon);
 					
-					hitPoints = hitPoints - damage;
+					if(Monster.magicRes == 0)
+						{
+						hitPoints = hitPoints - (damage / 2);
+						JOptionPane.showMessageDialog(frame, "The monster is resistant to melee damage!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon);
+						}
+					else if(Monster.magicRes == 1)
+						{
+						hitPoints = hitPoints - (damage * 2);	
+						JOptionPane.showMessageDialog(frame, "The monster is weak to melee damage!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon);
+						}
+					else
+						{
+						hitPoints = hitPoints - damage;	
+						}
 					JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 							JOptionPane.QUESTION_MESSAGE,
@@ -227,7 +266,26 @@ public class Hero extends Creature
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 							JOptionPane.QUESTION_MESSAGE,
 							icon);			
-					hitPoints = hitPoints - damage;
+					if(Monster.magicRes == 0)
+						{
+						hitPoints = hitPoints - (damage * 2);
+						JOptionPane.showMessageDialog(frame, "The monster is resistant to melee damage!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon);
+						}
+					else if(Monster.magicRes == 1)
+						{
+						hitPoints = hitPoints - (damage / 2);	
+						JOptionPane.showMessageDialog(frame, "The monster is weak to melee damage!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon);
+						}
+					else
+						{
+						hitPoints = hitPoints - damage;	
+						}
 					JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 							JOptionPane.QUESTION_MESSAGE,
@@ -241,7 +299,26 @@ public class Hero extends Creature
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 							JOptionPane.QUESTION_MESSAGE,
 							icon);	
-					hitPoints = hitPoints - damage;
+					if(Monster.magicRes == 0)
+						{
+						hitPoints = hitPoints - (damage * 2);
+						JOptionPane.showMessageDialog(frame, "The monster is resistant to melee damage!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon);
+						}
+					else if(Monster.magicRes == 1)
+						{
+						hitPoints = hitPoints - (damage / 2);	
+						JOptionPane.showMessageDialog(frame, "The monster is weak to melee damage!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon);
+						}
+					else
+						{
+						hitPoints = hitPoints - damage;	
+						}
 					
 					JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + heroHP + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
@@ -336,6 +413,7 @@ public class Hero extends Creature
 	public static void continueBattle(int monsterNum)
 		{
 		ImageIcon icon = new ImageIcon(("victory.png"));
+		ImageIcon sorb = new ImageIcon(("absorb.jpg"));
 		JFrame frame = new JFrame();
 		
 		if(Monster.monsters.get(monsterNum).getHitPoints() <= 0)
@@ -344,6 +422,10 @@ public class Hero extends Creature
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.QUESTION_MESSAGE,
 					icon);
+			JOptionPane.showMessageDialog(frame, "You absorb the soul of the monster and return yourself to full health!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					sorb);
 			Hero.levelUp(Hero.heroes.get(0).getMaxHeroHP(), Hero.heroes.get(0).getAdrenaline(), Hero.heroes.get(0).getOverAllLevel(), Hero.heroes.get(0).getMagicLevel(), Hero.heroes.get(0).getAgilityLevel(), Hero.heroes.get(0).getStrengthLevel());
 			Hero.openLoot();
 			}

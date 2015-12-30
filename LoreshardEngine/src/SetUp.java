@@ -122,7 +122,7 @@ public class SetUp
 		{
 		ImageIcon icon = new ImageIcon(("starting.jpg"));
 		JFrame frame = new JFrame();
-		Object[] starterOptions = {"2 Keystones", "3 Bags of Gold", "Steel Sword", "Ring of Magic"};
+		Object[] starterOptions = {"Keystones", "Small Fortune", "Ancient Sword", "Ring of Magic", "Simple Pendant"};
 		int starterChoice = JOptionPane.showOptionDialog(frame, "What special item do you want to start ?",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.YES_NO_CANCEL_OPTION,
@@ -133,7 +133,7 @@ public class SetUp
 			{
 			case 0:
 				{
-				JOptionPane.showMessageDialog(frame, "You have selected the 2 Keystones!  This item will open locks with forgotten magic, but the stone will be used up.",
+				JOptionPane.showMessageDialog(frame, "You have selected the Keystones!  These items will open locks with forgotten magic, but the stone will be used up.",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
@@ -143,7 +143,7 @@ public class SetUp
 				}
 			case 1:
 				{
-				JOptionPane.showMessageDialog(frame, "You have selected the 3 Bags of Gold!  You can use this to buy items or hire mercenaries.",
+				JOptionPane.showMessageDialog(frame, "You have selected the Small Fortune!  You can use this to buy items or hire mercenaries.",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
@@ -153,7 +153,7 @@ public class SetUp
 				}
 			case 2:
 				{
-				JOptionPane.showMessageDialog(frame, "You have selected the Steel Sword!  This means that you have a strong starting weapon for this dungeon.",
+				JOptionPane.showMessageDialog(frame, "You have selected the Ancient Sword!  This means that you have a strong starting weapon for this dungeon.",
 						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
@@ -178,6 +178,14 @@ public class SetUp
 						icon);
 				Hero.heroes.get(0).setMagicLevel(magicLevel);	
 				break;	
+				}
+			case 4:
+				{
+				JOptionPane.showMessageDialog(frame, "You have selected the Simple Pendant!  This simple amulet reminds you of home, but has no real use.",
+						"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+						JOptionPane.QUESTION_MESSAGE,
+						icon);	
+				break;
 				}
 			}
 		}

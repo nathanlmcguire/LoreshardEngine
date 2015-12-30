@@ -65,7 +65,27 @@ public class Magic
 				JOptionPane.QUESTION_MESSAGE,
 				icon);
 		damage = checkForRandomExplosion(damage);
-		hitPoints = hitPoints - damage;
+		if(Monster.magicRes == 0)
+			{
+			hitPoints = hitPoints - (damage / 2);
+			JOptionPane.showMessageDialog(frame, "The monster is resistant to magic damage!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
+			}
+		else if(Monster.magicRes == 1)
+			{
+			hitPoints = hitPoints - (damage * 2);	
+			JOptionPane.showMessageDialog(frame, "The monster is weak to magic damage!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon);
+			}
+		else
+			{
+			hitPoints = hitPoints - damage;	
+			}
+		
 				JOptionPane.showMessageDialog(frame, "The monster has " + hitPoints + " HP left!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE);

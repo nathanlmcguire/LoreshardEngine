@@ -277,6 +277,7 @@ public class Character
 		JFrame frame = new JFrame();
 		ImageIcon icon = new ImageIcon(("vampire.jpg"));
 		ImageIcon icon2 = new ImageIcon(("vampireFangs.jpg"));
+		ImageIcon icon3 = new ImageIcon(("rip.jpg"));
 		JOptionPane.showMessageDialog(frame, "You cannot make out the identity of the person for he wears a hood!",
 				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 				JOptionPane.QUESTION_MESSAGE,
@@ -313,6 +314,11 @@ public class Character
 							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 							JOptionPane.QUESTION_MESSAGE,
 							icon2);	
+					JOptionPane.showMessageDialog(frame, "YOU GOT THE ENDING: DRAINED",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon3);
+					System.exit(0);
 					}
 				else
 					{
@@ -568,7 +574,7 @@ public class Character
 										"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 										JOptionPane.QUESTION_MESSAGE,
 										icon);	
-								Hero.heroInventory.set(0, new Sword("LoreBlade", 100, 25, false));
+								Hero.heroInventory.set(0, new Sword("LoreBlade", 100, 30, false));
 								break;
 								}
 							case 1:
@@ -586,7 +592,7 @@ public class Character
 										"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 										JOptionPane.QUESTION_MESSAGE,
 										icon);		
-								Hero.heroInventory.set(1, new HeavyArmor("Dwarven Armor", 140, "Heavy", 25, false));
+								Hero.heroInventory.set(1, new HeavyArmor("Dwarven Armor", 140, "Heavy", 40, false));
 								break;
 								}
 							case 3:

@@ -249,8 +249,8 @@ public class Monster extends Creature
 		int poisonCheck = (int) (Math.random() * 11);
 		int magicCheck = (int) (Math.random() * 11);
 		int meleeCheck = (int) (Math.random() * 11);
-		int meleeRes = (int) (Math.random() * 3);
-		int magicRes = (int) (Math.random() * 3);
+		meleeRes = (int) (Math.random() * 11);
+		magicRes = (int) (Math.random() * 11);
 		
 		switch(acidCheck)
 			{
