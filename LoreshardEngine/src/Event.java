@@ -53,7 +53,7 @@ public class Event
 				}
 			case 9:
 				{
-				
+				blizzard();
 				break;
 				}
 			case 10:
@@ -574,7 +574,7 @@ public class Event
 				JOptionPane.QUESTION_MESSAGE,
 				icon2);	
 
-			Object[] actions = {"Leave", "Use Bomb(" + item.getQuantity() + ")", "Push Aside"};
+			Object[] actions = {"Leave", "Use Bomb()", "Push Aside"};
 			int chosenAction = JOptionPane.showOptionDialog(frame, "What do you want to do?",
 					"CHARACTER CREATION",
 					JOptionPane.YES_NO_CANCEL_OPTION,
@@ -872,6 +872,52 @@ public class Event
 	public static void warDog()
 		{
 		
+		}
+	
+	public static void blizzard()
+		{
+		JFrame frame = new JFrame();
+		ImageIcon icon2 = new ImageIcon(("blizzard.jpg"));
+		
+		JOptionPane.showMessageDialog(frame, "You to the top of a hill and see a massive blizzard coming.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon2);	
+		JOptionPane.showMessageDialog(frame, "If you get stuck in it, you will barely survive.  You know you need to use your magic to disperse the blizzard.",
+				"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+				JOptionPane.QUESTION_MESSAGE,
+				icon2);	
+		
+		int chance = (int) (Math.random() * 10);
+		if(chance < Hero.heroes.get(0).getMagicLevel())
+			{
+			JOptionPane.showMessageDialog(frame, "Your powerful magic disperses the blizzard!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "The experience makes your magic stronger!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			Hero.heroes.get(0).setAgilityLevel(Hero.heroes.get(0).getMagicLevel() + 2);
+			}
+		else
+			{
+			JOptionPane.showMessageDialog(frame, "You fail to stop the blizzard.",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "The biting cold give you frostbite and you lose 4 fingers and a few toes!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);	
+			JOptionPane.showMessageDialog(frame, "You lose 7 max health!",
+					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+					JOptionPane.QUESTION_MESSAGE,
+					icon2);
+			Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() - 7);
+			Hero.heroes.get(0).setMaxHeroHP(Hero.heroes.get(0).getMaxHeroHP() - 7);
+			}
 		}
 	
 	}

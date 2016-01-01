@@ -188,6 +188,10 @@ public class Companion
 			
 			Monster.monsters.get(monsterNum).setHitPoints(hitpoints);	
 			}
+		else
+			{
+			System.out.println("IT ISN'T WORKING");	
+			}
 		}
 	
 	public static void defend(int monsterDamage)

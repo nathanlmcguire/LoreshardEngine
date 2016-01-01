@@ -64,6 +64,10 @@ public class Hero extends Creature
 		int wardCost = 0;
 		JFrame frame = new JFrame();
 		ImageIcon mark = new ImageIcon(("mark.png"));
+		ImageIcon icon = new ImageIcon(("bomb.jpg"));
+		ImageIcon icon2 = new ImageIcon(("missed.jpg"));
+		ImageIcon icon3 = new ImageIcon(("boom.png"));
+		SpecialItem item = (SpecialItem) Hero.heroInventory.get(7);
 		
 		Hero.heroes.get(0).setHeroHP(Hero.heroes.get(0).getHeroHP() + Hero.heroes.get(0).getHealthGen());
 		
@@ -80,7 +84,7 @@ public class Hero extends Creature
 		
 		if(Hero.heroes.get(0).getWardPower() < wardCost)
 			{
-			Object[] combatType = {"Melee", "Magic", "Potion"};
+			Object[] combatType = {"Melee", "Magic", "Potion", "Bomb(" + item.getQuantity() + ")"};
 			CombatChoice = JOptionPane.showOptionDialog(frame, "What would you like to do?",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.YES_NO_CANCEL_OPTION,
@@ -89,7 +93,7 @@ public class Hero extends Creature
 			}
 		else
 			{
-			Object[] combatType = {"Melee", "Magic", "Potion", "Ward"};
+			Object[] combatType = {"Melee", "Magic", "Potion", "Bomb(" + item.getQuantity() + ")", "Ward"};
 			CombatChoice = JOptionPane.showOptionDialog(frame, "What would you like to do?",
 					"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
 					JOptionPane.YES_NO_CANCEL_OPTION,
@@ -144,6 +148,45 @@ public class Hero extends Creature
 				break;
 				}
 			case 3:
+				{
+				if(item.getQuantity() > 0)
+					{
+					JOptionPane.showMessageDialog(frame, "You light the fuse of the bomb and throw it at your opponent.",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon);
+					item.setQuantity(item.getQuantity() - 1);
+					int chance = (int) (Math.random() * 6);
+					if(chance > Hero.heroes.get(0).getAgilityLevel())
+						{
+						JOptionPane.showMessageDialog(frame, "The bomb completely misses the enemy!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon2);	
+						}
+					else
+						{
+						JOptionPane.showMessageDialog(frame, "The bomb hits the enemy directly exploding with a loud BOOM!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon3);	
+						JOptionPane.showMessageDialog(frame, "It does 30 damage!",
+								"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+								JOptionPane.QUESTION_MESSAGE,
+								icon3);
+						Monster.monsters.get(monsterNum).setHitPoints(Monster.monsters.get(monsterNum).getHitPoints() - 30);
+						}
+					}
+				else
+					{
+					JOptionPane.showMessageDialog(frame, "You have no bombs to use.",
+							"" + Hero.heroes.get(0).getName() + "'s HP = " + Hero.heroes.get(0).getHeroHP() + "/" + Hero.heroes.get(0).getMaxHeroHP() + "",
+							JOptionPane.QUESTION_MESSAGE,
+							icon2);
+					}	
+				break;
+				}
+			case 4:
 				{
 				Ward.useWard(monsterNum);
 				break;

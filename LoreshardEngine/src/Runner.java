@@ -41,7 +41,6 @@ public class Runner
 			Item.items.add(new SpecialItem("Bag of Gold", 10, 1));
 			Item.items.add(new SpecialItem("Lockpicks", 10, 5));
 			Item.items.add(new SpecialItem("Bomb", 10, 1));
-			Item.items.add(new SpecialItem("Ward Shard", 10, 1));
 			Item.items.add(new SpecialItem("Lore Shard", 10, 1));
 		//CREATURES
 			Monster.monsters.add(new Monster("Warg", 20, false, "Arena", 14));
